@@ -131,9 +131,9 @@ plot + theme(plot.title = element_text(size = 5))
 
 ### Building the training dataset
 
-As previously mentioned, to be sure to compare gene expressions with the same value range we have to obtain the raw counts for the 700 cells in the reduced PBMC-68K dataset from the complete original pbmc68k dataset. We are using the `.rds` file that can be downloaded from the [10X Genomics GitHub repository](https://github.com/10XGenomics/single-cell-3prime-paper/tree/master/pbmc68k_analysis) to build a dataframe of raw counts of all cells in the dataset. 
+As previously mentioned, to be sure to compare gene expressions with the same value range we have to obtain the raw counts for the ~ 700 cells in the reduced PBMC-68K dataset from the complete original pbmc68k dataset. We are using the `.rds` file that can be downloaded from the [10X Genomics GitHub repository](https://github.com/10XGenomics/single-cell-3prime-paper/tree/master/pbmc68k_analysis) to build a dataframe of raw counts of all cells in the dataset. For reproducibility purpose the next three code chunks are gven but not run. To run them you need to download the `PBMC68k_data.rds` linked above.  
 
-*(note: the next 3 code chunks are computationally intensive)*
+*(Code not run. The next 3 code chunks are computationally intensive. See below for precomputed object)*
 ```{r eval=FALSE}
 # read the file with counts for the 700 cells in the reduced PBMC68K dataset
 pbmc_68k <- readRDS('./data/pbmc68k/pbmc68k_data.rds')
@@ -151,6 +151,7 @@ The obtained dataframe has 68579 rows (cells) and 32738 columns (features, genes
 
 From this count matrix we can now generate a Seurat object and then scale the data. Please note that we need to make this operation on the translated matrix. We are scaling with default parameters, thus values are scaled from 0 to 10.
 
+*(Code not run)*
 ```{r eval=FALSE}
 pbmc68k <- CreateSeuratObject(t(df))
 pbmc68k <- ScaleData(pbmc68k, do.center = F)
@@ -161,12 +162,13 @@ The cell barcodes have been used as "sample IDs" and to all cells were assigned 
 
 Thus here we're selecting Sample IDs (barcodes) of the 700 cells in the reduced dataset, then subsetting the whole dataset for the same 700 cells and 30 marker genes::
 
+*(Code not run)*
 ```{r eval=FALSE}
 cells_68k <- colnames(pbmc68k_reduced[['RNA']]@counts)
 data <- data.frame(t(as.matrix(pbmc68k[['RNA']]@scale.data[NK_signature,cells_68k])))
 ```
 
-The code above produces a `data` dataframe that can be directly read from a pre-computed RDS file. Running the code above the user can obtain the very same dataframe but extended computational power is needed to handle the original PBMC68K dataset and corresponding Seurat object.
+The code above produces a `data` dataframe that can be directly read from a pre-computed RDS file. Running the code above the user can obtain the very same dataframe but extended computational power is needed  to handle the original PBMC68K dataset and corresponding Seurat object.
 ```{r}
 data <- readRDS("./data/precomp/precomp_data_reduced.rds")
 head(data)
