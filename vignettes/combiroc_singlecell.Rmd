@@ -299,7 +299,7 @@ tab_default <- combi(data, signalthr = 2, combithr = 1, max_length = 5)
 ```
 ```{r}
 # read the pre-computed tab_default dataset:
-tab_default <- read.csv2('./data/precomp/precomp_tab_da', row.names = 'X')
+tab_default <- readRDS(file = "./data/precomp/precomp_tab_default.rds")
 ```
 
 After renaming column names for clarity, we can have a glimpse at the obtained table. This dataframe contains all 174436 unique combinations of up to 5 markers among 30 markers (i.e. 30 single markers + 174406 combinations of 2, 3, 4 and 5 genes).
@@ -382,7 +382,7 @@ tab_hiperf <- combi(data, signalthr = 1.22, combithr = 1, max_length = 5)
 ```
 or read the pre-computed tab_hiperf dataset:
 ```{r}
-tab_hiperf <- read.csv2('./data/precomp/precomp_tab_hpa', row.names = 'X') 
+tab_hiperf <- readRDS(file = "./data/precomp/precomp_tab_hiperf.rds")
 ```
 
 ```{r}
@@ -419,7 +419,7 @@ tab_sniper <- combi(data, signalthr = 1.22, combithr = 2, max_length = 5)
 
 ```{r}
 # read the pre-computed tab_hpa dataset:
-tab_sniper <- read.csv2('./data/precomp/precomp_tab_sa', row.names = 'X') 
+tab_sniper <- readRDS(file = "./data/precomp/precomp_tab_sniper.rds")
 ```
 
 ```{r}
@@ -524,7 +524,7 @@ data_3k <- data_3k[,c(dim(data_3k)[2], 2:dim(data_3k)[2]-1)]
 
 Load a pre-computed `data_3k` object: 
 ```{r}
-data_3k <- read.csv2('./data/precomp/precomp_unc_data_3k', row.names = 'X')
+data_3k <- readRDS(file = "./data/precomp/precomp_unc_data_3k.rds")
 head(data_3k)
 ```
 
@@ -611,7 +611,7 @@ unc_data_hd <- test[,c(dim(test)[2], 2:dim(test)[2]-1)]
 
 As before, for higher accessibility and possibility of reviewing without having computational power at hand, we pre-computed the `data_covid` object that can be read directly: 
 ```{r}
-data_covid <- read.csv2('./data/precomp/precomp_unc_data_hd', row.names = 'X')
+data_covid <- readRDS(file = "./data/precomp/precomp_unc_data_hd.rds")
 head(data_covid)
 ```
 
