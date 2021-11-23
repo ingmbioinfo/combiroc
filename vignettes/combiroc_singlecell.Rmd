@@ -84,18 +84,18 @@ The [10X Genomics datasets](https://www.10xgenomics.com/resources/datasets) are 
 I order to gain such info as faithfully as possible to the original work [(Zheng et al. 2019)](https://www.nature.com/articles/ncomms14049) without repeating the analysis, we extracted the UMAP coordinates, individual cell labels (identities) and DEGs from the `AnnData` object in Scanpy: these data were then saved as `.h5ad` file, then converted either into `.h5seurat` or `.csv` files that we use now to build an R Seurat object. 
 
 ```{r warning=FALSE, message=FALSE}
-pbmc68k_reduced <- LoadH5Seurat("./data/pbmc68k/train_dataset.h5seurat", misc=F)
+pbmc68k_reduced <- LoadH5Seurat("./inst/external_data/pbmc68k/train_dataset.h5seurat", misc=F)
 ```
 
 Now add the annotations:
 ```{r}
-pbmc68k_reduced_labels <- read.csv2("./data/pbmc68k/bulk_labels.csv", sep = ',')
+pbmc68k_reduced_labels <- read.csv2("./inst/external_data/pbmc68k/bulk_labels.csv", sep = ',')
 Idents(pbmc68k_reduced) <- pbmc68k_reduced_labels[,2]
 ```
 
 And the list of gene markers (i.e. differentially expressed genes) for each identified cluster:
 ```{r}
-pbmc68k_reduced_degs <- read.csv2("./data/pbmc68k/pbmc68k_degs.csv", sep = ',')
+pbmc68k_reduced_degs <- read.csv2("./inst/external_data/pbmc68k/pbmc68k_degs.csv", sep = ',')
 head(pbmc68k_reduced_degs)
 ```
 
@@ -136,7 +136,7 @@ As previously mentioned, to be sure to compare gene expressions with the same va
 *(Code not run. The next 3 code chunks are computationally intensive. See below for precomputed object)*
 ```{r eval=FALSE}
 # read the file with counts for the 700 cells in the reduced PBMC68K dataset
-pbmc_68k <- readRDS('./data/pbmc68k/pbmc68k_data.rds')
+pbmc_68k <- readRDS('./inst/external_data/pbmc68k/pbmc68k_data.rds')
 # extract counts, and annotations
 m <-as.matrix(pbmc_68k$all_data[[1]]$hg19$mat)
 genes <- pbmc_68k$all_data[[1]]$hg19$gene_symbols
@@ -170,7 +170,7 @@ data <- data.frame(t(as.matrix(pbmc68k[['RNA']]@scale.data[NK_signature,cells_68
 
 The code above produces a `data` dataframe that can be directly read from a pre-computed RDS file. Running the code above the user can obtain the very same dataframe but extended computational power is needed  to handle the original PBMC68K dataset and corresponding Seurat object.
 ```{r}
-data <- readRDS("./data/precomp/precomp_data_reduced.rds")
+data <- readRDS("./inst/precomp/precomp_data_reduced.rds")
 head(data)
 ```
 
@@ -301,7 +301,7 @@ tab_default <- combi(data, signalthr = 2, combithr = 1, max_length = 5)
 ```
 ```{r}
 # read the pre-computed tab_default dataset:
-tab_default <- readRDS(file = "./data/precomp/precomp_tab_default.rds")
+tab_default <- readRDS(file = "./inst/precomp/precomp_tab_default.rds")
 ```
 
 After renaming column names for clarity, we can have a glimpse at the obtained table. This dataframe contains all 174436 unique combinations of up to 5 markers among 30 markers (i.e. 30 single markers + 174406 combinations of 2, 3, 4 and 5 genes).
@@ -384,7 +384,7 @@ tab_hiperf <- combi(data, signalthr = 1.22, combithr = 1, max_length = 5)
 ```
 or read the pre-computed tab_hiperf dataset:
 ```{r}
-tab_hiperf <- readRDS(file = "./data/precomp/precomp_tab_hiperf.rds")
+tab_hiperf <- readRDS(file = "./inst/precomp/precomp_tab_hiperf.rds")
 ```
 
 ```{r}
@@ -421,7 +421,7 @@ tab_sniper <- combi(data, signalthr = 1.22, combithr = 2, max_length = 5)
 
 ```{r}
 # read the pre-computed tab_hpa dataset:
-tab_sniper <- readRDS(file = "./data/precomp/precomp_tab_sniper.rds")
+tab_sniper <- readRDS(file = "./inst/precomp/precomp_tab_sniper.rds")
 ```
 
 ```{r}
@@ -526,7 +526,7 @@ data_3k <- data_3k[,c(dim(data_3k)[2], 2:dim(data_3k)[2]-1)]
 
 Load a pre-computed `data_3k` object: 
 ```{r}
-data_3k <- readRDS(file = "./data/precomp/precomp_unc_data_3k.rds")
+data_3k <- readRDS(file = "./inst/precomp/precomp_unc_data_3k.rds")
 head(data_3k)
 ```
 
@@ -567,7 +567,7 @@ df_covid$NK_tot[which(df_covid$NK_tot!='Other')] <- 'NK_tot'
 
 The dataframe resulting from the above code can be read here from the precompute `rds` file:
 ```{r}
-df_covid <- readRDS("./data/precomp/precomp_df_covid.rds")
+df_covid <- readRDS("./inst/precomp/precomp_df_covid.rds")
 head(df_covid)
 ```
 
@@ -613,7 +613,7 @@ unc_data_hd <- test[,c(dim(test)[2], 2:dim(test)[2]-1)]
 
 As before, for higher accessibility and possibility of reviewing without having computational power at hand, we pre-computed the `data_covid` object that can be read directly: 
 ```{r}
-data_covid <- readRDS(file = "./data/precomp/precomp_unc_data_hd.rds")
+data_covid <- readRDS(file = "./inst/precomp/precomp_unc_data_hd.rds")
 head(data_covid)
 ```
 
@@ -1107,7 +1107,7 @@ To do so, we are going to use the __gene signature score__ described in [Della C
 
 Given a geneset, the gene-signature-score's increase is directly proportional to the number of expressed genes in the signature and to the sum of their level of expression. We reproduced this score in the R function `signature_score.R`:
 ```{r}
-source("./data/signature_score.R")
+source("./inst/external_code/signature_score.R")
 ```
 which takes as input a Seurat object and a character vector of a gene signature and computes the score.
 
@@ -1129,7 +1129,7 @@ df2 <- signature_score(hd, NK_signature)
 
 Load a pre-computed `df2` dataframe of precomputed scores for PBMC-Covid19 dataset: 
 ```{r}
-df2 <- readRDS("./data/precomp/precomp_df2_scores.rds")
+df2 <- readRDS("./inst/precomp/precomp_df2_scores.rds")
 dfs[['pbmcCovid']][['NK_sscore']] <- df2$scaled_combined_score
 ```
 
@@ -1241,7 +1241,7 @@ dfs[['pbmcCovid']][['c5018_score']] <- df$scaled_combined_score
 ```
 Read a pre-computed dfs object with all precomputed scores
 ```{r}
-dfs <- readRDS("./data/precomp/precomp_dfs_all_scores.rds")
+dfs <- readRDS("./inst/precomp/precomp_dfs_all_scores.rds")
 ```
 
 Let's have a look at the plots

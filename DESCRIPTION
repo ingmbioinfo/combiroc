@@ -40,7 +40,16 @@ Imports:
     stats,
     utils,
     moments,
-    devtools
+    devtools,
+    RColorBrewer,
+    Seurat, 
+    SeuratData, 
+    SeuratDisk, 
+    colorspace,
+    cowplot, 
+    ggpubr, 
+    patchwork, 
+    pheatmap
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
