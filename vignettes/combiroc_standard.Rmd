@@ -18,6 +18,7 @@ vignette: >
 #library(httr)
 #knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "..")
 ```
 
 ```{r setup, include=FALSE}
@@ -52,6 +53,12 @@ The dataset to be analysed should be in text format, which can be separated by c
 
 The `load_data()` function uses a customized **read.table()** function that checks the conformity of the dataset format. If all the checks are passed, marker-related columns are reordered alphabetically, depending on marker names (this is necessary for a proper computation of combinations), and it imposes "Class" as the name of the second column. The loaded dataset is here assigned to the "*data*" object.
 Please note that `load_data()` takes the semicolumn (";") as default separator: if the dataset to be loaded has a different separator, i.e. a comma (","), is necessary to specify it in the argument `sep`. The code below shows how to load a data set contained in the "data" folder (remember to adjust the path according to your current working directory):
+
+```{r}
+getwd()
+```
+
+
 
 ```{r, eval=FALSE}
 data <- load_data("./data/demo_data.csv")
