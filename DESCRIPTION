@@ -29,7 +29,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports:
     tidyr,
     dplyr,
@@ -58,7 +58,7 @@ Suggests:
     covr
 VignetteBuilder: knitr
 Depends: 
-    R (>= 2.10)
+    R (>= 3.5.0)
 URL: https://github.com/ingmbioinfo/combiroc
 BugReports: https://github.com/ingmbioinfo/combiroc/issues
 Config/testthat/edition: 3
