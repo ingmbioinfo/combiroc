@@ -81,7 +81,7 @@ We start working on the training dataset, preprocessing it, extracting the NK-ce
 
 The [10X Genomics datasets](https://www.10xgenomics.com/resources/datasets) are availale from diverse sources. We are using here the subsampled (reduced) version obtained from the Scanpy Python library's  API ([scanpy.datasets.pbmc68k_reduced](https://scanpy.readthedocs.io/en/stable/generated/scanpy.datasets.pbmc68k_reduced.html)). This dataset is reduced to contain expression values from around 700 cells and we're going to use it as our training datasets. To do so we need to retrieve information on the identity of each cell, their clustering and gene markers of each cluster. 
 
-I order to gain such info as faithfully as possible to the original work [(Zheng et al. 2019)](https://www.nature.com/articles/ncomms14049) without repeating the analysis, we extracted the UMAP coordinates, individual cell labels (identities) and DEGs from the `AnnData` object in Scanpy: these data were then saved as `.h5ad` file, then converted either into `.h5seurat` or `.csv` files that we use now to build an R Seurat object. 
+I order to gain such info as faithfully as possible to the original work ([Zheng et al. 2019](https://www.nature.com/articles/ncomms14049)) without repeating the analysis, we extracted the UMAP coordinates, individual cell labels (identities) and DEGs from the `AnnData` object in Scanpy: these data were then saved as `.h5ad` file, then converted either into `.h5seurat` or `.csv` files that we use now to build an R Seurat object. 
 
 ```{r warning=FALSE, message=FALSE}
 pbmc68k_reduced <- LoadH5Seurat("./inst/external_data/pbmc68k/train_dataset.h5seurat", misc=F)
@@ -106,13 +106,12 @@ options(width = 200)
 DimPlot(pbmc68k_reduced, reduction = "umap", label = F, repel = TRUE)
 ```
 
-We are interested in the marker genes of the NK cells (CD56+ NK cluster), and we are going to consider the top 30 genes. We load a dataframe the cell markers as in [[Zeng et al. 2017]](https://www.nature.com/articles/ncomms14049), and we extract the first 30 from the CD56+ NK column of the previously loaded dataframe: this will be our NK markers list, the `NK_signature`. 
+We are interested in the marker genes of the NK cells (CD56+ NK cluster), and we are going to consider the top 30 genes. We load a dataframe the cell markers as in ([Zeng et al. 2017](https://www.nature.com/articles/ncomms14049)), and we extract the first 30 from the CD56+ NK column of the previously loaded dataframe: this will be our NK markers list, the `NK_signature`. 
 
 
 ```{r}
 NK_signature <- pbmc68k_reduced_degs$CD56..NK[1:30]
-Not_ordered_NK <- NK_signature # backup purpose to preserve original order
-NK_signature
+NK_signature_orig <- NK_signature # backup purpose to preserve original order
 ```
 By visualising the expression values of the top 9 markers of NK cells cluster it is evident that the majority of them is also higly expressed in other non-NK clusters, making them too unspecific to allow a well defined cluster annotation if considered individually.
 
@@ -120,7 +119,7 @@ By visualising the expression values of the top 9 markers of NK cells cluster it
 FeaturePlot(pbmc68k_reduced, features = NK_signature[1:6])
 ```
 
-This is much evident with the Natural Killer Cell Granule Protein 7 gene (NKG7) which is found to be enriched in NK cells, but also in memory CD8 T-cell, naive CD8 T-cell, and MAIT T-cell. 
+This is much evident with the Natural Killer Cell Granule Protein 7 gene (NKG7) which is found to be enriched in NK cells, but also in CD8+ T clusters, specially in CD8+ cytotoxic T cells. 
 
 ```{r fig.height = 5, fig.width = 6, fig.align = "center"}
 plot <- FeaturePlot(pbmc68k_reduced, features = "NKG7", pt.size = 1,
@@ -160,7 +159,11 @@ pbmc68k <- ScaleData(pbmc68k, do.center = F)
 To create the combiroc training dataset object (`data`) on which we will run the `combiroc::roc_reports()` function to obtain the combiroc models (see the ["Classification of new samples"](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html#classification-of-new-samples-1) section in the main combiroc vignette), we subsetted the scaled data matrix for the 700 cells of the reduced dataset, and for the 30 top DEGs of NK cells cluster.  
 The cell barcodes have been used as "sample IDs" and to all cells were assigned either the "NK" or the "Other" class depending on the cluster label (columns 'ID' and 'Class').
 
-Thus here we're selecting Sample IDs (barcodes) of the 700 cells in the reduced dataset, then subsetting the whole dataset for the same 700 cells and 30 marker genes::
+Thus here we're selecting Sample IDs (barcodes) of the 700 cells in the reduced dataset, then subsetting the whole dataset for the same 700 cells and 30 marker genes. Since in this workflow we don't use the `combiroc::load_data()` function, it is necessary to reorder alphabetically the gene names of the obtained signature. This is needed to properly compute and keeping tracks of combinations (the reordering operation is normally carried out by the `load_data()` function).  
+
+```{r}
+NK_signature <- NK_signature[order(NK_signature)]
+```
 
 *(Code not run)*
 ```{r eval=FALSE}
@@ -203,14 +206,7 @@ head(data_long)
 We have previously extracted the top 30 marker genes from the NK-cells cluster of the reduced-PBMC68K dataset. These are the genes that compose the `NK_signature`: 
 
 ```{r}
-NK_signature_orig <- NK_signature # backup purpose to preserve original order
-NK_signature
-```
-Since in this workflow we did not use the `combiroc::load_data()` function, it is necessary to reorder alphabetically the gene names of the obtained signature. This is needed to properly compute and keeping tracks of combinations (the reordering operation is normally carried out by the `load_data()` function).  
-
-```{r}
-NK_signature <- NK_signature[order(NK_signature)]
-NK_signature
+NK_signature_orig 
 ```
 Given a list of markers, combiroc assesses the performance of all combinations of such markers. The computational load of this process can be high for more than 10 markers. A list of $n$ markers generates ${2^{n} - 1 }$, thus for $n=30$ we have __*more than a billion*__ possible combinations.  
 Mathematically, for combinations here we mean *combinations without repetition*, i.e. a subset of $k$ distinct elements of  a set with $n$ elements, that can be calculated as the [binomial coefficient](https://en.wikipedia.org/wiki/Binomial_coefficient#Binomial_coefficients_as_polynomials) $\binom{n}{k}$.
@@ -251,8 +247,7 @@ ggplot(n_df, aes(n_markers)) +
 
 The `combi()` function works on the `data` dataset and it computes the marker combinations and counts their corresponding positive samples for each class (once thresholds are selected). A sample, to be considered positive for a given combination, must have a value higher than a given signal threshold (__signalthr__) for at least a given number of markers composing that combination (__combithr__). 
 
-As described in the [combiroc's vignette for the standard workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.htm), the argument __signalthr__ in the `combi()` function should be set depending on the  
-> guidelines and characteristics of the methodology used for the analysis or by an accurate inspection of signal intensity distribution. In case of lack of specific guidelines, one should set the value signalthr as suggested by the `distr$Density_plot` feature.  
+As described in the [combiroc's vignette for the standard workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.htm), the argument __signalthr__ in the `combi()` function should be set depending on the guidelines and characteristics of the methodology used for the analysis or by an accurate inspection of signal intensity distribution. In case of lack of specific guidelines, one should set the value signalthr as suggested by the `distr$Density_plot` feature.  
 
 Single cell RNAseq datasets are exactly one of such cases in which it's not possible or easy to extrapolate the best signal threshold, due to the highly scattered distribution of the expression values: here we thus take advantage of the package-specific `distr$Density_plot` feature and will let the package find this value without intervention.
 
@@ -263,11 +258,12 @@ In the first step (`marker_distribution()`), `min_SE` and `min_SP` can be adjust
 In the second step (`combi()`), the `combithr` argument can be set to __1__ (the default) or raised to __2__: this is the minimum number of positively expressed genes (i.e. the minimum number of genes that need to reach the signal threshold) to consider the whole combination as a valid one.  
 
 Playing with these parameters we define three modalities of increasing stringency:  
+
 - __Default__ mode: min_SE = 40, min_SP = 80, combithr = 1  
-- __Hi performance__ mode: min_SE = 62, min_SP = 80, combithr = 1  
+- __Hi performance__ mode: min_SE = 62 (the max at SP = 80), min_SP = 80, combithr = 1  
 - __Sniper__ mode: min_SE = 62, min_SP = 80, combithr = 2  (the __stringest__ mode with highest SP at the cost of SE)  
 
-For all these three modes we now perform the combiroc workflow on the training dataset `data`, containing the expression values of the 30 NK signature genes in 700 cells from the PBMC68K dataset. We are going to see the procedure in details for the Default mode and to run it quickly for the other two modes.
+For all these three modes we now perform the combiroc workflow on the training dataset `data`, containing the expression values of the 30 NK signature genes in 700 cells from the PBMC68K dataset. We are going to see the procedure in details for the Default mode and how to run it quickly for the other two modes.
 
 #### Default mode
 
@@ -275,6 +271,7 @@ Firstly we performed the combiroc analysis steps with default parameteres to ass
 
 The plots below show expression values (signal) distribution obtained with the `markers_distributions()` functions on the training dataset in long format (`data_long`). Differently from two well-defined classes (as seen in the standard combiroc workflow), it's not intuitive where to put the signal threshold, but the function suggests a signal intensity value of __2__. The plot on the right zooms in to the zone of interest (please note that running this function triggers a few automatic warnings that are meant to remind how SE and SP thresholds should be judged).  
 Genes expression values, as expected, are distributed in diffent ways in the two classes:
+
 - in 'NK' cells (n=41), the frequency of cells with a given marker expression does not have a peak, it has a moderate intercept due to data sparsity, and slowly decreases when the expression values increase.
 - in 'Other' cells (n=639), there is a peak of frequency at 0 meaning that there is a considerable amount of not 'NK' cells does not express the markers; at higher expression levels there are only sparse peaks.  
 
@@ -311,6 +308,7 @@ tail(tab_default)
 ```
 
 Sensitivity (SE) and specificity (SP) can now be computed from the numbers in the `tab_default` dataframe.  
+
 - SE as the percentage of positive cells for a class
 - SP as the percentage of negative cells for a class (SP class = 100 - SE class)
 
@@ -363,6 +361,7 @@ markers_default <- show_markers(markers_table = tab_default, selected_combinatio
 #### Hi performance mode
 
 We now repeat the procedure in *hi performance* mode, i.e. using a slightly different set of parameters as previously mentioned. Briefly:
+
 - in `markers_distributions()`: min_SE = __62__, min_SP = 80;
 - in `combi()`: combithr = 1.  
 
@@ -382,7 +381,6 @@ Computing the combination performances.
 ```{r eval=FALSE}
 tab_hiperf <- combi(data, signalthr = 1.22, combithr = 1, max_length = 5)
 ```
-or read the pre-computed tab_hiperf dataset:
 ```{r}
 tab_hiperf <- readRDS(file = "./inst/precomp/precomp_tab_hiperf.rds")
 ```
@@ -402,6 +400,7 @@ markers_hiperf <- show_markers(markers_table = tab_hiperf, selected_combinations
 #### Sniper mode
 
 We now repeat the procedure in *sniper* mode, i.e. raising the __combithr__ parameter to __2__, thus having a more stringent, sniper-like, effect. Briefly:
+
 - in `markers_distributions()`: min_SE = 62, min_SP = 80;
 - in `combi()`: combithr = __2__.  
 
@@ -530,9 +529,9 @@ data_3k <- readRDS(file = "./inst/precomp/precomp_unc_data_3k.rds")
 head(data_3k)
 ```
 
-Also for this test dataset the NK cells markers are not specific enough individually (with a partial exception of GNLY) to allow a clear cluster annotation. We stored them into the `Not_ordered_NK` object. Let's have a look at the top six.
+Also for this test dataset the NK cells markers are not specific enough individually (with a partial exception of GNLY) to allow a clear cluster annotation. We stored them into the `NK_signature_orig` object. Let's have a look at the top six.
 ```{r, fig.height = 10, fig.width = 8}
-FeaturePlot(pbmc3k.final, features = Not_ordered_NK[1:6])
+FeaturePlot(pbmc3k.final, features = NK_signature_orig[1:6])
 ```
 
 ### The PBMC-Covid19 Haniffa dataset
@@ -620,7 +619,7 @@ head(data_covid)
 *(Code not run. Computationally intensive)* Also in this dataset the NK cells markers are individually inefficient in selecting NK-cells. Let's have a look at them as previously done. To do so you can load the original Seurat object and use the `Seurat::FeaturePlot()` function:
 ```{r, eval=FALSE}
 hd <- LoadH5Seurat("./data/haniffa/haniffa21.processed.h5Seurat", misc=F)
-FeaturePlot(hd, features = Not_ordered_NK[1:6]) #top 6
+FeaturePlot(hd, features = NK_signature_orig[1:6]) #top 6
 ```
 
 Or you can plot individual genes (here GNLY) using a `ggplot` call on the UMAP coordinates in the dataframes:
