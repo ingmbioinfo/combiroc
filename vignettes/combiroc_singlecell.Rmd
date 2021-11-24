@@ -1,17 +1,17 @@
 ---
 title: "Single cell Combiroc tutorial"
-subtitle: |
-  | Identification of NK cells at single cell resolution by combiroc-driven optimization of marker signatures.  
 author: "Ivan Ferrari, Riccardo L. Rossi"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   html_document:
-    toc: true 
+    toc: yes
     df_print: paged
-vignette: >
-  %\VignetteIndexEntry{Single cell Combiroc tutorial}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  pdf_document:
+    toc: yes
+subtitle: "| Identification of NK cells at single cell resolution by combiroc-driven
+  optimization of marker signatures.  \n"
+vignette: |
+  %\VignetteIndexEntry{Single cell Combiroc tutorial} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
 ---
 
 
@@ -62,7 +62,8 @@ These are the two datsets used as test/validation:
 - [PBMC3K](https://scanpy-tutorials.readthedocs.io/en/latest/pbmc3k.html) from Satija, R., Farrell, J., Gennert, D. et al. 2015 [[3]](https://www.nature.com/articles/nbt.3192)
 - [COVID-19 PBMC Ncl-Cambridge-UCL](https://www.covid19cellatlas.org/index.patient.html) from Stephenson, E., Reynolds, G., Botting, R.A. et al. 2021 [[4]](https://www.nature.com/articles/s41591-021-01329-2).  
 
-__Please note__: another reason we choose the above datasets is because __they are well annotated__. While the cell clusters annotation of the first (training) dataset is indeed used in the computations by combiroc (we need to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and it will be used uniquely *ex-post* as a ground truth to check the prediction results.
+__Please note__: the main reason we choose the above datasets is because __they are well annotated__. While the cell clusters annotation of the first (training) dataset was indeed used in the computations by combiroc (we needed to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and __it will be only used *ex-post* as a ground truth to check the prediction results__.
+
 
 ### A note on executing this vignette
 
@@ -273,7 +274,7 @@ The plots below show expression values (signal) distribution obtained with the `
 Genes expression values, as expected, are distributed in diffent ways in the two classes:
 
 - in 'NK' cells (n=41), the frequency of cells with a given marker expression does not have a peak, it has a moderate intercept due to data sparsity, and slowly decreases when the expression values increase.
-- in 'Other' cells (n=639), there is a peak of frequency at 0 meaning that there is a considerable amount of not 'NK' cells does not express the markers; at higher expression levels there are only sparse peaks.  
+- in 'Other' cells (n=639), there is a peak of frequency at 0 meaning that a considerable amount of 'non-NK' cells does not express the markers; at higher expression levels there are only sparse peaks.  
 
 *Please note: the `markers_distribution()` command naturally triggers a few warnings in which the user is reminded how to use the command arguments)*
 ```{r warning=FALSE, message=FALSE, fig.height = 4, fig.width = 8}
@@ -455,10 +456,10 @@ We can observe that the three sets of combinations do have a certain degree of o
 
 As independent validation to test the selected combination and models we are going to use two different single-cell RNA sequencing datasets to see if the obtained models are able to correctly identify NK cells, __without having to rely on the original 30-genes NK-signature__.   
 As already mentioned in the introduction, these datasets are:  
+
 - [PBMC3K](https://scanpy-tutorials.readthedocs.io/en/latest/pbmc3k.html) from [Satija et al. 2015](https://www.nature.com/articles/nbt.3192)
 - [COVID-19 PBMC Ncl-Cambridge-UCL](https://www.covid19cellatlas.org/index.patient.html) from [Stephenson et al. 2021](https://www.nature.com/articles/s41591-021-01329-2).  
 
-__Please note__: the main reason we choose the above datasets is because __they are well annotated__. While the cell clusters annotation of the first (training) dataset was indeed used in the computations by combiroc (we needed to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and __it will be only used *ex-post* as a ground truth to check the prediction results__.
 
 ### The PBMC3K dataset
 
@@ -504,7 +505,8 @@ p1 + p2
 
 The pre-processing procedure consists in the same steps described for the PBMC68K training set. We are going to perform them onto the PBMC3K dataset in order to obtain the *unclassified* `data_3k` test dataset, without the Class column. 
 
-The preprocessing consists in the following steps:  
+The preprocessing consists in the following steps:
+
 - scaling data with `Seurat::ScaleData()`
 - extracting the raw counts and obtaining the sparce matrix
 - finalizing the "unclassified" dataset  
@@ -549,7 +551,7 @@ Convert("haniffa21.processed.h5ad", dest = "h5seurat", overwrite = TRUE)
 hd <- LoadH5Seurat(file = 'haniffa21.processed.h5Seurat')
 ```
 
-*(Code not run. Computationally heavy)* With this code we added a labeling column "NK_..." to distiguish the four NK-clusters (*NKT*, *NK_16hi*, *NK_56hi*, *NK_prolif*) from all other non-NK cells (*Other*), and a labeling column *NK_tot* that groups all NK-cells together. Such information will be uniquely used as a ground truth in post test check.
+*(Code not run. Computationally heavy)* With this code we added a labeling column *NK_sub* to distiguish the four NK-clusters (*NKT*, *NK_16hi*, *NK_56hi*, *NK_prolif*) from all other non-NK cells (*Other*), and a labeling column *NK_tot* that groups all NK-cells together. Such information will be uniquely used as a ground truth in post test check.
 ```{r, eval=FALSE}
 # extract info from the newly created hd Seurat object
 df_covid <- data.frame(Embeddings(hd, reduction = 'umap'))
@@ -889,7 +891,7 @@ res_pbmc3k
 
 On PBMC3K test dataset the overall minimal SE for the top 4 combinations was __81.9%__, while the minimal SP was __95.8%__, showing that combinations of 3-4 genes can be highly precise.  
 
-__We can compare percentages for each combination/analysis mode with a heatmap__ (see below). Combinations generated by the analysis in Sniper mode stand out from the others for their highest specificity (at the cost of a lower sensitivity): here the separation between NC-cells and all others is maximum but, apart combinations 3196 and 6850 from the Default mode, all others combinations are able to sufficiently discriminate NK-cells from CD8-T.
+__We can compare percentages for each combination/analysis mode with a heatmap__ (see below). Combinations generated by the analysis in Sniper mode stand out from the others for their highest specificity (at the cost of a lower sensitivity): here the separation between NK cells and all others is maximum but, apart combinations 3196 and 6850 from the Default mode, all others combinations are able to sufficiently discriminate NK-cells from CD8-T.
 ```{r fig.height=5, fig.width=8}
 mat <- as.matrix(perc_3k[,2:10])
 analysis_mode <- as.data.frame(perc_3k[,1])
@@ -1092,9 +1094,9 @@ plot_grid(p5, p6, align = "h", nrow = 1, rel_widths = c(0.6, 2.4))
 ```
 
 The boxplots above show the probability scores given by the expression of the selected marker combinations (the *combi scores*). All three combinations used here perform very well on the PBMC-3k validation dataset, indicating an higher combi score *only* for the cell subset labelled as "NK".  
-On the PBMC-Covid19 dataset other cell types have a non-zero combi score: as expected, CD8 cells are also picked up (green boxplors), but with combinations #470 and #5018 at a very low level, much lower than NK cells. For all combinations all NK cell types are correctly identified as such (except [NKT cells that are basically T lymphocites](https://www.frontiersin.org/articles/10.3389/fimmu.2018.00367/full), ) and a high signal can also be observed for ILC cells. NKs belong to [ILCs family](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6498986), so given their similarity, and since ILCs were not properly annotated in the coarse-grained training dataset, they can't be distinguished with this specific workflow. 
+On the PBMC-Covid19 dataset other cell types have a non-zero combi score: as expected, CD8 cells are also picked up (green boxplots, that have very low median values in all the 3 combinations), but with combinations #470 and #5018 at a very low level, much lower than NK cells. For all combinations all NK cell types are correctly identified as such (except [NKT cells that are basically T lymphocites](https://www.frontiersin.org/articles/10.3389/fimmu.2018.00367/full), ) and a high signal can also be observed for ILC cells. NKs belong to [ILCs family](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6498986), so given their similarity, and since ILCs were not properly annotated in the coarse-grained training dataset, they can't be distinguished with this specific workflow. 
 
-As shown also by these combi scores, combiroc proved effective in finding highly specific combinations to identify cell types on both test datasets.  
+As shown also by these combi scores, combiroc proved to be effective in finding highly specific combinations to identify cell types on both test datasets.  
 
 Overall, the identification of NK cells with all the 3 analysis modes is quite accurate. Forcing combiroc to work at high SE/SP regime and - in particular - increasing the stringency of the analysis (as in *sniper* mode) the package was able to identify NK cells in an highly specific manner.  
 This kind of classification is highly specific with a cost on the side of sensitivity, i.e. it favours false negatives more than false positives (that's why it was dubbed as *sniper* mode of action). Such modality can help to pinpoint a considerable amount of cells in a very accurate way (even if not *all* of them), and to locate them precisely on UMAPs, facilitating and significantly accelerating the process of manual annotation starting from combinations obtained with a classic unbiased selection.
@@ -1260,7 +1262,7 @@ p2
 p3
 ```
 
-Remarkably, despite the 10-7.5 fold reduction in the number of considered features to build the gene score,  also this score confirmed that the considered sniper combinations were as accurate as the whole signature in indicating the NK cluster and that the values were even less noisy, suggesting that these combination can be used as a refined version of the NK signature.
+Remarkably, despite the 10-7.5 fold reduction in the number of considered features to build the gene score,  also this score confirmed that the considered sniper combinations were as accurate as the whole signature in indicating the NK clusters and that the values were even less noisy, suggesting that these combination can be used as a refined version of the NK signature.
 
 However gene score values in CD8+ were moderately higher and closer to NK cluster ones with respect to combiroc score values. This is due to the fact that all the genes within the combinations are considered equally and their expression is simply summed to compute the gene score, while combiroc models assign a 'weight' to each gene, further indicating the power of combiroc combination models in suggesting the identity of a cluster with a modest amount of genes. 
 
@@ -1302,16 +1304,17 @@ p5
 
 Here random combinations do not have a preferential cluster and show a generalized higher background signal noise (same happens for PBMC-3K dataset, not shown).  
 
-Beyond using scores of random combinations as negative control, they also show the magnitude of background noise associated to each random combination taken into consideration. In fact, random scores show quite homogeneously distributed values across clusters indicating that the cluster-preferential distributions of combinations score are not stochastic.
+Beyond using scores of random combinations as negative control, they also show the magnitude of background noise associated to each random combination taken into consideration. In fact, random scores show quite homogeneously distributed values across clusters indicating that the cluster-preferential distributions of real combinations scores are not stochastic.
 Generally speaking since the higher is the length of random signatures, the higher will be the noise hence the probability to pick genes expressed in all the clusters: this suggests that the higher is the length of a real DEG signature the higher is the probability to include less specific genes and to increase the noise.
 
 ## Conclusions
 
 This guided tutorial shows how to use the combiroc package to optimize single-cell gene signature with combinations of marker and to identify NK cells in two different public scRNAseq datasets:   
+
 - combiroc accurately predicts NK cells already at default values without fine-tuning parameters, but the performances further improved incrementing the analysis' stringency.  
 - combiroc's specificity can also ameliorate results obtained by other published gene-signature score: the gene-signature summarizing method is remarkably less noisy when performed on markers combinations compared to whole gene signatures.
 
-Identifying NK cells using the best markers individually is not efficient since they are too unspecific for classification purposes if taken one by one. The power of a combined signature of three or four markers only is comparable - and in some cases superior - to that of a whole scRNAseq gene signature, tipically in the range of tens of genes: __scaling down a gene signature retaining its discriminatory power is highly relevant in both research and diagnostic context__.  
+Identifying NK cells using the expression level of the best markers individually is not efficient since they are too unspecific for classification purposes if taken one by one. The power of a combined signature of three or four markers only is comparable - and in some cases superior - to that of a whole scRNAseq gene signature, tipically in the range of tens of genes: __scaling down a gene signature while retaining its discriminatory power is highly relevant in both research and diagnostic context__.  
 
 Finally, the usefulness of a highly specific tool, such as combiroc in the *"Sniper"* mode, is of particular relevance in cases in which researchers need to manually annotate cell population clusters obtained in scRNAseq experiments.  
 
