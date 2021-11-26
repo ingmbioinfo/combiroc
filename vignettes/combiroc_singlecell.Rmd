@@ -1031,7 +1031,7 @@ p2 <- ggplot(dfs[[2]], aes(x=umap_1, y=umap_2, color=c470)) +
         geom_point(size = 0.2)
 p3 <- ggplot(dfs[[2]], aes(x=umap_1, y=umap_2, color=c5018)) + 
         geom_point(size = 0.2)
-p1 + p2 + p3
+plot_grid(p1, p2, p3, align = "h", nrow = 2, rel_widths = c(0.5, 0.5))
 ```
 
 ## The "combi-score" of selected combinations discriminates cell types
@@ -1283,19 +1283,19 @@ for (i in combs_length){
 ```
 
 
-```{r fig.height=10, fig.width=9}
+```{r fig.height=7, fig.width=9}
 p1 <- ggplot(dfs[[2]], aes(x = cell_type, y = random_2, fill = cell_type)) + 
         geom_boxplot(outlier.shape= NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 30, vjust = 0.5, hjust=1)) + xlab("") 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + xlab("") 
 p2 <- ggplot(dfs[[2]], aes(x = cell_type, y = random_3, fill = cell_type)) + 
         geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 30, vjust = 0.5, hjust=1)) + xlab("") 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + xlab("") 
 p3 <- ggplot(dfs[[2]], aes(x = cell_type, y = random_4, fill = cell_type)) + 
         geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 30, vjust = 0.5, hjust=1)) + xlab("") 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + xlab("") 
 p4 <- ggplot(dfs[[2]], aes(x = cell_type, y = random_5, fill = cell_type)) + 
         geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 30, vjust = 0.5, hjust=1)) + xlab("") 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + xlab("") 
 plot_grid(p1, p2, p3, p4, align = "h", nrow = 2, rel_widths = c(0.5, 0.5))
 ```
 
