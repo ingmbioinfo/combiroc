@@ -581,6 +581,7 @@ p <- ggplot(df_covid, aes(x=umap_1, y=umap_2, color=cell_type)) +
         theme(legend.text = element_text(size=7))
 p + theme(legend.position="bottom")
 ```
+
 These are the same UMAP plots with a focus on all NK cells only (left) or different types of NK cells (right) 
 ```{r fig.height=4, fig.width=8}
 p1 <- ggplot(df_covid, aes(x=umap_1, y=umap_2, color=NK_tot)) + 
@@ -1282,7 +1283,7 @@ for (i in combs_length){
 ```
 
 
-```{r fig.height=5, fig.width=9}
+```{r fig.height=10, fig.width=9}
 p1 <- ggplot(dfs[[2]], aes(x = cell_type, y = random_2, fill = cell_type)) + 
         geom_boxplot(outlier.shape= NA, show.legend = FALSE) + 
         theme(axis.text.x = element_text(angle = 30, vjust = 0.5, hjust=1)) + xlab("") 
@@ -1295,12 +1296,16 @@ p3 <- ggplot(dfs[[2]], aes(x = cell_type, y = random_4, fill = cell_type)) +
 p4 <- ggplot(dfs[[2]], aes(x = cell_type, y = random_5, fill = cell_type)) + 
         geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
         theme(axis.text.x = element_text(angle = 30, vjust = 0.5, hjust=1)) + xlab("") 
+plot_grid(p1, p2, p3, p4, align = "h", nrow = 2, rel_widths = c(0.5, 0.5))
+```
+
+```{r fig.height=5, fig.width=9}
 p5 <- ggplot(dfs[[2]], aes(x = cell_type, y = random_30, fill = cell_type)) + 
         geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
         theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + xlab("") 
-plot_grid(p1, p2, p3, p4, align = "h", nrow = 2, rel_widths = c(0.5, 0.5))
 p5
 ```
+
 
 Here random combinations do not have a preferential cluster and show a generalized higher background signal noise (same happens for PBMC-3K dataset, not shown).  
 
