@@ -52,15 +52,16 @@ Here we show an exemplificative workflow of combiroc-mediated classification at 
 
 __TRAINING DATASET__  
 
-As combiroc training dataset we used [PBMC68K (reduced version)](https://scanpy-tutorials.readthedocs.io/en/multiomics/visualizing-marker-genes.html) from Zheng, G., Terry, J., Belgrader, P. et al. 2016 [[2]](https://www.nature.com/articles/ncomms14049). From the reduced version of this dataset (also available as *scanpy.datasets.pbmc68k_reduced* from the [[Scanpy API]](https://scanpy.readthedocs.io/en/stable/generated/scanpy.datasets.pbmc68k_reduced.html)) we extracted the top 30 differentially expressed genes (DEGs) of NK cells cluster. The notorious difficulty to distinguish NK from CD8+ T cells in many scRNAseq datasets is a perfect challenge to test combiroc's performance in markers signature optimization.   
+As combiroc training dataset we used [PBMC68K (reduced version)](https://scanpy-tutorials.readthedocs.io/en/multiomics/visualizing-marker-genes.html) from Zheng, G., Terry, J., Belgrader, P. et al. 2016 [[2]](https://www.nature.com/articles/ncomms14049). From the reduced version of this dataset (also available as *scanpy.datasets.pbmc68k_reduced* from the [[Scanpy API]](https://scanpy.readthedocs.io/en/stable/generated/scanpy.datasets.pbmc68k_reduced.html)) we extracted the top 30 differentially expressed genes (DEGs) of NK cells cluster. The notorious difficulty to distinguish NK from CD8+ T cells in many scRNAseq datasets is a perfect challenge to test combiroc's performance in markers signature optimization [[4]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6050209/).   
 We are going to use combiroc on the top 30 NK cells markers to select the best markers combination whose classification model will be use on independent test/validation datasets of the same kind. 
 
 __TEST/VALIDATION DATASETS__
 
 As independent test/validation we used 2 different datasets on which we will fit the models from the previously selected marker combination to find the predicted NK cells and compare the so obtained classification with the already annotated labels of the clusters (ground truth).  
 These are the two datsets used as test/validation:
+
 - [PBMC3K](https://scanpy-tutorials.readthedocs.io/en/latest/pbmc3k.html) from Satija, R., Farrell, J., Gennert, D. et al. 2015 [[3]](https://www.nature.com/articles/nbt.3192)
-- [COVID-19 PBMC Ncl-Cambridge-UCL](https://www.covid19cellatlas.org/index.patient.html) from Stephenson, E., Reynolds, G., Botting, R.A. et al. 2021 [[4]](https://www.nature.com/articles/s41591-021-01329-2).  
+- [COVID-19 PBMC Ncl-Cambridge-UCL](https://www.covid19cellatlas.org/index.patient.html) from Stephenson, E., Reynolds, G., Botting, R.A. et al. 2021 [[5]](https://www.nature.com/articles/s41591-021-01329-2).  
 
 __Please note__: the main reason we choose the above datasets is because __they are well annotated__. While the cell clusters annotation of the first (training) dataset was indeed used in the computations by combiroc (we needed to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and __it will be only used *ex-post* as a ground truth to check the prediction results__.
 
