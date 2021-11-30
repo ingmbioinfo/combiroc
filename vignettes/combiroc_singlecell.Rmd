@@ -52,7 +52,7 @@ Here we show an exemplificative workflow of combiroc-mediated classification at 
 
 __TRAINING DATASET__  
 
-As combiroc training dataset we used [PBMC68K (reduced version)](https://scanpy-tutorials.readthedocs.io/en/multiomics/visualizing-marker-genes.html) from Zheng, G., Terry, J., Belgrader, P. et al. 2016 [[2]](https://www.nature.com/articles/ncomms14049). From the reduced version of this dataset (also available as *scanpy.datasets.pbmc68k_reduced* from the [[Scanpy API]](https://scanpy.readthedocs.io/en/stable/generated/scanpy.datasets.pbmc68k_reduced.html)) we extracted the top 30 differentially expressed genes (DEGs) of NK cells cluster. The notorious difficulty to distinguish NK from CD8+ T cells in many scRNAseq datasets is a perfect challenge to test combiroc's performance in markers signature optimization [[4]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6050209/).   
+As combiroc training dataset we used the scaled matrix of [PMBC68K dataset](http://pklab.med.harvard.edu/peterk/review2020/examples/zhang_pbmc/) from Zheng, G., Terry, J., Belgrader, P. et al. 2016 [[2]](https://www.nature.com/articles/ncomms14049), subsetted accordingly to its [reduced version](https://scanpy-tutorials.readthedocs.io/en/multiomics/visualizing-marker-genes.html) (also available as *scanpy.datasets.pbmc68k_reduced* from the [[Scanpy API]](https://scanpy.readthedocs.io/en/stable/generated/scanpy.datasets.pbmc68k_reduced.html)). From this published reduced version we extracted the top 30 differentially expressed genes (DEGs) of NK cells cluster, and we used this list of genes to furher subset the training dataset (final dimension: 700 cells x 30 genes). The notorious difficulty to distinguish NK from CD8+ T cells in many scRNAseq datasets is a perfect challenge to test combiroc's performance in markers signature optimization [[4]](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6050209/).   
 We are going to use combiroc on the top 30 NK cells markers to select the best markers combination whose classification model will be use on independent test/validation datasets of the same kind. 
 
 __TEST/VALIDATION DATASETS__
@@ -83,21 +83,20 @@ We start working on the training dataset, preprocessing it, extracting the NK-ce
 
 The [10X Genomics datasets](https://www.10xgenomics.com/resources/datasets) are availale from diverse sources. We are using here the subsampled (reduced) version obtained from the Scanpy Python library's  API ([scanpy.datasets.pbmc68k_reduced](https://scanpy.readthedocs.io/en/stable/generated/scanpy.datasets.pbmc68k_reduced.html)). This dataset is reduced to contain expression values from around 700 cells and we're going to use it as our training datasets. To do so we need to retrieve information on the identity of each cell, their clustering and gene markers of each cluster. 
 
-In order to gain such info as faithfully as possible to the original work ([Zheng et al. 2019](https://www.nature.com/articles/ncomms14049)) without repeating the analysis, we extracted DEGs from the `AnnData` object in Scanpy saving it as `.csv` file , then we converted the whole `.h5ad` file into a `.h5seurat` and finally we used the so obtained files to build an R Seurat object. 
+In order to gain such info as faithfully as possible to the original work ([Zheng et al. 2019](https://www.nature.com/articles/ncomms14049)) without repeating the analysis, we extracted DEGs from the `AnnData` object in Scanpy saving it as `.csv` file , then we converted the whole `.h5ad` file into a `.h5seurat` to build an R Seurat object. 
 
-```{r warning=FALSE, message=FALSE}
-pbmc68k_reduced <- LoadH5Seurat("./inst/external_data/pbmc68k/train_dataset.h5seurat", misc=F)
-```
 
-Now add the annotations:
-```{r}
-Idents(pbmc68k_reduced)<- pbmc68k_reduced@meta.data$bulk_labels
-```
 
-And the list of differentially expressed for each identified cluster (from AnnData object):
+List of differentially expressed for each identified cluster (from AnnData object):
 ```{r}
 pbmc68k_reduced_degs <- read.csv2("./inst/external_data/pbmc68k/pbmc68k_degs.csv", sep = ',')
 head(pbmc68k_reduced_degs)
+```
+
+Converted dataset:
+```{r warning=FALSE, message=FALSE}
+pbmc68k_reduced <- LoadH5Seurat("./inst/external_data/pbmc68k/train_dataset.h5seurat", misc=F)
+Idents(pbmc68k_reduced)<- pbmc68k_reduced@meta.data$bulk_labels  # to add the annotations
 ```
 
 The Seurat object built in this way can now be plotted with canonical `Seurat::DimPLot()` function.
