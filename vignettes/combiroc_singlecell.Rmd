@@ -83,7 +83,7 @@ We start working on the training dataset, preprocessing it, extracting the NK-ce
 
 The [10X Genomics datasets](https://www.10xgenomics.com/resources/datasets) are availale from diverse sources. We are using here the subsampled (reduced) version obtained from the Scanpy Python library's  API ([scanpy.datasets.pbmc68k_reduced](https://scanpy.readthedocs.io/en/stable/generated/scanpy.datasets.pbmc68k_reduced.html)). This dataset is reduced to contain expression values from around 700 cells and we're going to use it as our training datasets. To do so we need to retrieve information on the identity of each cell, their clustering and gene markers of each cluster. 
 
-I order to gain such info as faithfully as possible to the original work ([Zheng et al. 2019](https://www.nature.com/articles/ncomms14049)) without repeating the analysis, we extracted the UMAP coordinates, individual cell labels (identities) and DEGs from the `AnnData` object in Scanpy: these data were then saved as `.h5ad` file, then converted either into `.h5seurat` or `.csv` files that we use now to build an R Seurat object. 
+In order to gain such info as faithfully as possible to the original work ([Zheng et al. 2019](https://www.nature.com/articles/ncomms14049)) without repeating the analysis, we extracted DEGs from the `AnnData` object in Scanpy saving it as `.csv` file , then we converted the whole `.h5ad` file into a `.h5seurat` and finally we used the so obtained files to build an R Seurat object. 
 
 ```{r warning=FALSE, message=FALSE}
 pbmc68k_reduced <- LoadH5Seurat("./inst/external_data/pbmc68k/train_dataset.h5seurat", misc=F)
@@ -91,11 +91,10 @@ pbmc68k_reduced <- LoadH5Seurat("./inst/external_data/pbmc68k/train_dataset.h5se
 
 Now add the annotations:
 ```{r}
-pbmc68k_reduced_labels <- read.csv2("./inst/external_data/pbmc68k/bulk_labels.csv", sep = ',')
-Idents(pbmc68k_reduced) <- pbmc68k_reduced_labels[,2]
+Idents(pbmc68k_reduced)<- pbmc68k_reduced@meta.data$bulk_labels
 ```
 
-And the list of gene markers (i.e. differentially expressed genes) for each identified cluster:
+And the list of differentially expressed for each identified cluster (from AnnData object):
 ```{r}
 pbmc68k_reduced_degs <- read.csv2("./inst/external_data/pbmc68k/pbmc68k_degs.csv", sep = ',')
 head(pbmc68k_reduced_degs)
@@ -108,7 +107,7 @@ options(width = 200)
 DimPlot(pbmc68k_reduced, reduction = "umap", label = F, repel = TRUE)
 ```
 
-We are interested in the marker genes of the NK cells (CD56+ NK cluster), and we are going to consider the top 30 genes. We load a dataframe the cell markers as in ([Zeng et al. 2017](https://www.nature.com/articles/ncomms14049)), and we extract the first 30 from the CD56+ NK column of the previously loaded dataframe: this will be our NK markers list, the `NK_signature`. 
+We are interested in the marker genes of the NK cells (CD56+ NK cluster), so we extract the first 30 (top 30 DEGs) from the CD56+ NK column of the previously loaded dataframe: this will be our NK markers list, the `NK_signature`. 
 
 
 ```{r}
