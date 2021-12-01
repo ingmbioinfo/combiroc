@@ -635,7 +635,7 @@ ggplot(datafull_covid, aes(umap_1, umap_2)) +
 
 ## Validation tests on unclassified data
 
-Finally we proceed with the classification of test dataset by fitting the computed models. The `combiroc::classify()` function returns the predicted class according to the models in `reports$Models`.  
+Finally we proceed with the classification of test datasets by fitting the computed models. The `combiroc::classify()` function returns the predicted class according to the models in `reports$Models`.  
 To this aim we prepare a list `unc_data` containing the unclassified data from the two test datatsets, `data_3k` and `data_covid`:
 ```{r}
 unc_data <- list(data_3k, data_covid)
@@ -1037,7 +1037,7 @@ plot_grid(p1, p2, p3, align = "h", nrow = 2, rel_widths = c(0.5, 0.5))
 
 With the `roc_reports()` function we previously computed the models (`reports$Models`) for each analysis mode, and assigned them to three separated objects: `models_default`, `models_hiperf` and `models_sniper`. 
 
-Using the standard `predict()` method on these models is now possible to calculate prediction scores for each cell type as *predicted probabilities*. We named such score with the term __combi_score__ and we are going to compute it to see how efficiently cell types can be discriminated by the selected combinations.  
+Using the standard `stats::predict()` method on these models is now possible to calculate prediction scores for each cell type as *predicted probabilities*. We named such score with the term __combi_score__ and we are going to compute it to see how efficiently cell types can be discriminated by the selected combinations.  
 
 Combi_score for the combination #1369 for both test datasets can be calculated and visualized in this way: 
 ```{r fig.height=5, fig.width=9}
