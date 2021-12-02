@@ -1169,35 +1169,7 @@ c5018 <- c("CD160", "CD7", "GNLY", "IGFBP7")
 
 ```
 
-```{r, eval=FALSE, echo=FALSE}
-# 
-# c1687 <- c("CLIC3", "GNLY", "GZMB")
-# c103610 <- c("CLIC3", "GNLY", "MCM7", "SPON2", "XCL1")
-# c227 <- c("GNLY","GZMB")
-# c3664 <- c("GZMB","NKG7","XCL1")
 
-#### On PBMC-3K test dataset
-# We can now use such combinations-containing vectors to calculate scores on the PBMC-3K dataset:
-
-df <- signature_score(pbmc3k.final, c1369)
-dfs[['pbmc3k']][['c1369_score']] <- df$scaled_combined_score
-df <- signature_score(pbmc3k.final, c470)
-dfs[['pbmc3k']][['c470_score']] <- df$scaled_combined_score
-df <- signature_score(pbmc3k.final, c5018)
-dfs[['pbmc3k']][['c5018_score']] <- df$scaled_combined_score
-
-p1 <- ggplot(dfs[[1]], aes(x = cell_type, y = c1369_score, fill = cell_type)) + 
-        geom_boxplot(outlier.shape= NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
-p2 <- ggplot(dfs[[1]], aes(x = cell_type, y = c470_score, fill = cell_type)) + 
-        geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-p3 <- ggplot(dfs[[1]], aes(x = cell_type, y = c5018_score, fill = cell_type)) + 
-        geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-
-plot_grid(p1, p2, p3, align = "h", nrow = 1, rel_widths = c(0.33, 0.33, 0.33))
-```
 ```{r, echo=FALSE, eval=FALSE}
 # We now pick five random gene combinations of lenght 2, 3, 4, 5, and 30 and see how do they perform as a gene-signature. We are using them as negative control compared to the combiroc selected marker combinations as well as to the 30-genes full gene signature. We are going to append six more columns to the `dfs[[pbmc3k]]` dataframe relative to the random combinations, then plotting them as done before.
 
@@ -1230,7 +1202,16 @@ plot_grid(p1, p2, p3, p4, align = "h", nrow = 2, rel_widths = c(0.5, 0.5))
 p5
 ```
 
-Then we compute signature scores with selected combinations on the PBMC-Covid19 dataset  
+Then we compute signature scores with selected combinations on both test datasets  
+```{r}
+df <- signature_score(pbmc3k.final, c1369)
+dfs[['pbmc3k']][['c1369_score']] <- df$scaled_combined_score
+df <- signature_score(pbmc3k.final, c470)
+dfs[['pbmc3k']][['c470_score']] <- df$scaled_combined_score
+df <- signature_score(pbmc3k.final, c5018)
+dfs[['pbmc3k']][['c5018_score']] <- df$scaled_combined_score
+```
+
 *(computationally heavy: you can skip this chunk and read the precomputed in the next chunck)*:
 ```{r eval=FALSE}
 df <- signature_score(hd, c1369)
@@ -1247,19 +1228,40 @@ dfs <- readRDS("./inst/precomp/precomp_dfs_all_scores.rds")
 
 Let's have a look at the plots
 ```{r fig.height=5, fig.width=9}
-p1 <- ggplot(dfs[[2]], aes(x = cell_type, y = c3196_score, fill = cell_type)) + 
+p1 <- ggplot(dfs[[1]], aes(x = cell_type, y = c1369_score, fill = cell_type)) + 
         geom_boxplot(outlier.shape= NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
-p2 <- ggplot(dfs[[2]], aes(x = cell_type, y = c1687_score, fill = cell_type)) + 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+        scale_y_continuous(name='gene_signature_score c1369') + ggtitle("PBMC-3k")
+p2 <- ggplot(dfs[[2]], aes(x = cell_type, y = c1369_score, fill = cell_type)) + 
         geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-p3 <- ggplot(dfs[[2]], aes(x = cell_type, y = c103610_score, fill = cell_type)) + 
-        geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
-        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+        scale_y_continuous(name='gene_signature_score c1369') + ggtitle("PBMC-Covid19")
+plot_grid(p1, p2, align = "h", nrow = 1, rel_widths = c(0.6, 2.4))
 
-p1
-p2
-p3
+```
+```{r fig.height=5, fig.width=9}
+p1 <- ggplot(dfs[[1]], aes(x = cell_type, y = c470_score, fill = cell_type)) + 
+        geom_boxplot(outlier.shape= NA, show.legend = FALSE) + 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+        scale_y_continuous(name='gene_signature_score c470') + ggtitle("PBMC-3k")
+p2 <- ggplot(dfs[[2]], aes(x = cell_type, y = c470_score, fill = cell_type)) + 
+        geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+        scale_y_continuous(name='gene_signature_score c470') + ggtitle("PBMC-Covid19")
+plot_grid(p1, p2, align = "h", nrow = 1, rel_widths = c(0.6, 2.4))
+
+```
+```{r fig.height=5, fig.width=9}
+p1 <- ggplot(dfs[[1]], aes(x = cell_type, y = c5018_score, fill = cell_type)) + 
+        geom_boxplot(outlier.shape= NA, show.legend = FALSE) + 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+        scale_y_continuous(name='gene_signature_score c5018') + ggtitle("PBMC-3k")
+p2 <- ggplot(dfs[[2]], aes(x = cell_type, y = c5018_score, fill = cell_type)) + 
+        geom_boxplot(outlier.shape = NA, show.legend = FALSE) + 
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+        scale_y_continuous(name='gene_signature_score c5018') + ggtitle("PBMC-Covid19")
+plot_grid(p1, p2, align = "h", nrow = 1, rel_widths = c(0.6, 2.4))
+
 ```
 
 Remarkably, despite the 10-7.5 fold reduction in the number of considered features to build the gene score,  also this score confirmed that the considered sniper combinations were as accurate as the whole signature in indicating the NK clusters and that the values were even less noisy, suggesting that these combination can be used as a refined version of the NK signature.
