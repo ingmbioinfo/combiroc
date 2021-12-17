@@ -77,9 +77,9 @@ Boxplot<- ggplot(data_long, aes(Markers, Values)) +
   rocobj <-roc(Values, response=bin, levels=c("0","1"), quiet= TRUE)
   coord <- coords(rocobj)
   coord$Youden <- coord$specificity+coord$sensitivity - 1
+  coord <- coord[coord$specificity>=min_SP/100 & coord$sensitivity>=min_SE/100, ]
   coord$specificity <- round(coord$specificity*100)
   coord$sensitivity <- round(coord$sensitivity*100)
-  coord <- coord[coord$specificity>=min_SP & coord$sensitivity>=min_SE, ]
 
 
   if (length(coord$threshold)==0){
