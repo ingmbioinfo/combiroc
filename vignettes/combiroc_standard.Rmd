@@ -1,17 +1,17 @@
 ---
-title: "Guide to CombiROC package"
-subtitle: |
-  | Selection and ranking of omics biomarkers combinations made easy.  
+title: "Guide to CombiROC package - Standard workflow"
 author: "Ivan Ferrari, Riccardo L. Rossi"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
+  pdf_document:
+    toc: yes
+    latex_engine: xelatex
   html_document:
-    toc: true 
+    toc: yes
     df_print: paged
-vignette: >
-  %\VignetteIndexEntry{Quick guide to CombiROC}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+subtitle: "| Selection and ranking of omics biomarkers combinations made easy.  \n"
+vignette: |
+  %\VignetteIndexEntry{Quick guide to CombiROC} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -485,3 +485,7 @@ mks %>%
 
 
 Back to the [top](#top) of this doc
+
+```{r}
+sessionInfo()
+```
