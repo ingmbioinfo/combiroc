@@ -33,7 +33,7 @@ Powerful biomarkers are important tools in diagnostic, clinical and research set
 
 # The complete workflow
 
-The aim of this document is to show the whole CombiROC workflow to get you up and running as quickly as possible with this package. To do so we're going to use the proteomic dataset from [Zingaretti et al. 2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3518104/) containing multi-marker signatures for Autoimmune Hepatitis (AIH) for samples clinically diagnosed as “abnormal” (class A) or "normal" (class B). The scope of the workflow is to first find the markers combinations, then to assess their performance in classifying samples of the dataset.
+The aim of this document is to show the whole CombiROC workflow for biomarkers analysis to get you up and running as quickly as possible with this package. To do so we're going to use the proteomic dataset from [Zingaretti et al. 2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3518104/) containing multi-marker signatures for Autoimmune Hepatitis (AIH) for samples clinically diagnosed as “abnormal” (class A) or "normal" (class B). The scope of the workflow is to first find the markers combinations, then to assess their performance in classifying samples of the dataset.
 
 __Note:__ if you use CombiROC in your research, please cite:
 
