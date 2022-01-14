@@ -13,6 +13,7 @@ navbar:
     articles:
       text: Vignette
       href: articles/combiroc_standard.html
+      href: articles/combiroc_singlecell.html
     reference:
       text: Reference
       href: reference/index.html
