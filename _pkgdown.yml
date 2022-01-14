@@ -1,5 +1,3 @@
-url: https://ingmbioinfo.github.io/combiroc
-
 template:
   params:
     bootswatch: cosmo
@@ -15,7 +13,7 @@ navbar:
     articles:
       text: Vignette
       href: articles/combiroc_standard.html
-      href: articles/combiroc_singlecell.html
+      href: articles/combiroc_singlecell3.html
     reference:
       text: Reference
       href: reference/index.html
