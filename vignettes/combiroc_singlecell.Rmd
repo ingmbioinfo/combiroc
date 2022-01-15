@@ -91,8 +91,9 @@ pbmc68k_reduced <- LoadH5Seurat("../inst/external_data/pbmc68k/train_dataset.h5s
 
 Now add the annotations:
 ```{r}
-pbmc68k_reduced_labels <- read.csv2("../inst/external_data/pbmc68k/bulk_labels.csv", sep = ',')
-Idents(pbmc68k_reduced) <- pbmc68k_reduced_labels[,2]
+# pbmc68k_reduced_labels <- read.csv2("../inst/external_data/pbmc68k/bulk_labels.csv", sep = ',')
+# Idents(pbmc68k_reduced) <- pbmc68k_reduced_labels[,2]
+Idents(pbmc68k_reduced)<- pbmc68k_reduced@meta.data$bulk_labels
 ```
 
 And the list of gene markers (i.e. differentially expressed genes) for each identified cluster:
