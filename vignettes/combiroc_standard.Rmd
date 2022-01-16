@@ -485,6 +485,7 @@ mks %>%
 
 Back to the [top](#top) of this doc
 
+Session Info for this vignette:
 ```{r}
 sessionInfo()
 ```
