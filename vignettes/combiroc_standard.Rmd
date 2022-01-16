@@ -483,7 +483,6 @@ mks %>%
   theme_light()
 ```
 
-
 Back to the [top](#top) of this doc
 
 ```{r}
