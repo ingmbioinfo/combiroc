@@ -3,9 +3,6 @@ title: "Guide to CombiROC package - Standard workflow"
 author: "Ivan Ferrari, Riccardo L. Rossi"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
-  pdf_document:
-    toc: yes
-    latex_engine: xelatex
   html_document:
     toc: yes
     df_print: paged
