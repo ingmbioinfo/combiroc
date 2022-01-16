@@ -41,7 +41,7 @@ library(pheatmap)
 ```
 
 
-## Rationale
+## Rationale {#top}
 
 Single-cell transcriptomics is a rapidly growing field which is essential to improve our understanding of complex tissues and organisms at an unprecedent resolution. A major limitation in most scRNA-seq analysis is the manual annotation step, which is the gold standard procedure to determine cell populations identities. This step is highly time-demanding as it involves the manual inspection of a considerable amount of cluster-specific marker genes, which must be checked one by one in literature [[1]](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z) . In addition, some marker gene could be unspecific if taken singularly, specially if that given gene is involved in all the differentiation steps in some cellular population of the dataset (from stem cells to a terminally differentiated population), making it a differentially expressed gene (DEG) in more than one cluster. 
 
@@ -1440,6 +1440,7 @@ Identifying NK cells using the expression level of the best markers individually
 
 Finally, the usefulness of a highly specific tool, such as combiroc in the *"Sniper"* mode, is of particular relevance in cases in which researchers need to manually annotate cell population clusters obtained in scRNAseq experiments.  
 
+Back to the [top](#top) of this doc
 
 ```{r}
 sessionInfo()
