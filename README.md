@@ -29,13 +29,13 @@ The preprint's Supplementary Material 1 and 2 can be accessed here:
 ## Installation
 
 ```r
-# You can install combiroc pulling it from the CRAN:
+# You can install combiroc pulling it from CRAN:
 install.packages("combiroc")
 ```
 ### Development version
 
 ```r
-# To install the development version from this repository install "remotes"" first:
+# To install the most recent development version from this repository install "remotes" first:
 install.packages("remotes")
 library(remotes)
 
