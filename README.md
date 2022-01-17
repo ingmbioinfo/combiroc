@@ -16,6 +16,15 @@ This is the development version of CombiROC package (combiroc), code in this rep
 The CombiROC approach was first published by [Mazzara et al. Scientific Reports 2017](https://www.nature.com/articles/srep45477) as a Shiny app. A description of the analitycal protocol is also published in [Bombaci & Rossi, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16).
 The Shiny web-app version of CombiROC is still available at [combiroc.eu](http://combiroc.eu/), but it has limited features (as well as low computational power) and is not further maintained. For full capabilities, new and improved features and customized analyses is advisable to install this package on your own machines.
 
+## Combiroc preprint Supplementary material
+
+The combiroc package is featured in our recent biorXiv preprint (details soon here) titled "Combinatorial selection of biomarkers to optimize gene signatures in diagnostics and single cell applications" by Ferrari et al.  
+Supplementary Material 1 and 2 can be accessed here:  
+
+* Supplementary Material 1 (Standard vignette): [Standard worlkflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html)
+* Supplementary Material 2 (Additional vignette): [scRNAseq workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_singlecell.html)
+
+
 ## Installation
 
 ```r
