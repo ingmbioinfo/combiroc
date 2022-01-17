@@ -18,11 +18,11 @@ The Shiny web-app version of CombiROC is still available at [combiroc.eu](http:/
 
 ## Combiroc preprint Supplementary material
 
-The combiroc package is featured in our recent biorXiv preprint (details soon here) titled "Combinatorial selection of biomarkers to optimize gene signatures in diagnostics and single cell applications" by Ferrari et al.  
+The combiroc package is going to be publicly featured on a preprint (details soon here) titled "Combinatorial selection of biomarkers to optimize gene signatures in diagnostics and single cell applications" by Ferrari et al.  
 Supplementary Material 1 and 2 can be accessed here:  
 
-* Supplementary Material 1 (Standard vignette): [Standard worlkflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html)
-* Supplementary Material 2 (Additional vignette): [scRNAseq workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_singlecell.html)
+* __Supplementary Material 1__ (Standard vignette): [Standard worlkflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html). In pdf [here](https://github.com/ingmbioinfo/combiroc/raw/master/docs/articles/combiroc_standard.pdf)
+* __Supplementary Material 2__ (Additional vignette): [scRNAseq workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_singlecell.html). In pdf [here](https://github.com/ingmbioinfo/combiroc/raw/master/docs/articles/combiroc_singlecell.pdf)
 
 
 ## Installation
