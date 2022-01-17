@@ -44,7 +44,7 @@ library(scattermore)
 ```
 
 
-## Rationale {#top}
+# Rationale {#top}
 
 Single-cell transcriptomics is a rapidly growing field which is essential to improve our understanding of complex tissues and organisms at an unprecedent resolution. A major limitation in most scRNA-seq analysis is the manual annotation step, which is the gold standard procedure to determine cell populations identities. This step is highly time-demanding as it involves the manual inspection of a considerable amount of cluster-specific marker genes, which must be checked one by one in literature [[1]](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z) . In addition, some marker gene could be unspecific if taken singularly, specially if that given gene is involved in all the differentiation steps in some cellular population of the dataset (from stem cells to a terminally differentiated population), making it a differentially expressed gene (DEG) in more than one cluster. 
 
@@ -69,13 +69,13 @@ These are the two datsets used as test/validation:
 __Please note__: the main reason we choose the above datasets is because __they are well annotated__. While the cell clusters annotation of the first (training) dataset was indeed used in the computations by combiroc (we needed to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and __it will be only used *ex-post* as a ground truth to check the prediction results__.
 
 
-### A note on executing this vignette
+## A note on executing this vignette
 
 *The code described in this vignette was originally run on a jupyter-based R-kernel notebook backed by a high-performance computing (HPC) server infrastructure. Due to relevant size of some of the objects loaded and/or created (such as the Seurat object and count data of the PBMC-Covid19 dataset) __it is unlikely that the whole code can be run on a standard computing equipment (i.e. a laptop)__. For this reason __many intermediate objects/files have been pre-computed and can be read as `RDS` files__: such files have names starting with `precomp_`. In this way the reader/reviewer will be able to complete the whole workflow without having a HPC server. It is mentioned throughout the code when this occurs.*  
 
 *To be able to run the whole workflow without high memory or computational requirements the user need to __download all the pre-computed files__ to be read instead, preserving the file names and folder structure (or changing the code accordingly).*
 
-## Training dataset and Models
+# Training dataset and Models
 
 The purpose of this analysis is to find - starting from a NK-cell scRNAseq signature - the combinations of known gene markers that best describe the NK-cell populations, and using the models calculated on such combinations on other scRNAseq datasets.  
 To guarantee the best possible performance of the training dataset (the one we extract the markers combinations from) is important to make sure its value ranges are similar to those of the test/validation datasets. For this reason we will use the raw counts matrices for all the datasets, so we will be able to consistently rescale them in the same way by using the function `Seurat::ScaleData()`.  
@@ -134,7 +134,7 @@ asp.ratio <- 1
 plot + theme(plot.title = element_text(size = 5))
 ```
 
-### Building the training dataset
+## Building the training dataset
 
 As previously mentioned, to be sure to compare gene expressions with the same value range we have to obtain the raw counts for the ~ 700 cells in the reduced PBMC-68K dataset from the complete original pbmc68k dataset. We are using the `.rds` file that can be downloaded from the [10X Genomics GitHub repository](https://github.com/10XGenomics/single-cell-3prime-paper/tree/master/pbmc68k_analysis) to build a dataframe of raw counts of all cells in the dataset. For reproducibility purpose the next three code chunks are gven but not run. To run them you need to download the `PBMC68k_data.rds` linked above.  
 
@@ -207,7 +207,7 @@ data_long <- combiroc_long(data)
 head(data_long)
 ```
 
-### Finding the best marker combinations and models
+## Finding the best marker combinations and models
 
 We have previously extracted the top 30 marker genes from the NK-cells cluster of the reduced-PBMC68K dataset. These are the genes that compose the `NK_signature`: 
 
@@ -257,7 +257,7 @@ As described in the [combiroc's vignette for the standard workflow](https://ingm
 
 Single cell RNAseq datasets are exactly one of such cases in which it's not possible or easy to extrapolate the best signal threshold, due to the highly scattered distribution of the expression values: here we thus take advantage of the package-specific `distr$Density_plot` feature and will let the package find this value without intervention.
 
-### Three modalities of combi() calculation
+## Three modalities of combi() calculation
 
 The core of a combiroc analysis are the two `marker_distribution()` and `combi()` functions: changing the value of key parameters in these functions we can modulate the stringency and severity of the analysis.  
 In the first step (`marker_distribution()`), `min_SE` and `min_SP` can be adjusted: while we leave untouched the suggested values `min_SP = 80`, we are going to raise the defalut `min_SE` value.  
@@ -338,7 +338,7 @@ rmks <- ranked_combs(data, combo_table = mks,
 head(rmks$table)
 ```
 
-#### Training the default model
+### Training the default model
 
 Now we use the top 4 combinations to train the model and we evaluate the performances of classification within the train dataset computing the ROC curves.  
 These are the selected combinations:
@@ -364,7 +364,7 @@ reports_default <- reports
 markers_default <- show_markers(markers_table = tab_default, selected_combinations = c(1687,3196, 3664, 6850))
 ```
 
-#### Hi performance mode
+### Hi performance mode
 
 We now repeat the procedure in *hi performance* mode, i.e. using a slightly different set of parameters as previously mentioned. Briefly:
 
@@ -403,7 +403,7 @@ reports_hiperf <- reports
 markers_hiperf <- show_markers(markers_table = tab_hiperf, selected_combinations = c(9, 227, 633, 651))
 ```
 
-#### Sniper mode
+### Sniper mode
 
 We now repeat the procedure in *sniper* mode, i.e. raising the __combithr__ parameter to __2__, thus having a more stringent, sniper-like, effect. Briefly:
 
@@ -441,7 +441,7 @@ reports_sniper <- reports
 markers_sniper <- show_markers(markers_table = tab_sniper, selected_combinations = c(470, 103610, 1369, 5018))
 ```
 
-### Review of training data & models
+## Review of training data & models
 
 So far we obtained three different set of optimized signatures (combinations) and models, one for each stringency mode (default, hi-performance and sniper) performed on the training dataset `data` from the reduced PBMC-68K dataset.  
 Let's have a look at the three sets of top combinations.
@@ -466,7 +466,7 @@ As already mentioned in the introduction, these datasets are:
 - [COVID-19 PBMC Ncl-Cambridge-UCL](https://www.covid19cellatlas.org/index.patient.html) from [Stephenson et al. 2021](https://www.nature.com/articles/s41591-021-01329-2).  
 
 
-### The PBMC3K dataset
+## The PBMC3K dataset
 
 The PBMC3K test dataset was directly installed and loaded from the `SeuratData` library. The dataset is immediately available as a Seurat object named `pbmc3k.final`.
 
@@ -541,7 +541,7 @@ Also for this test dataset the NK cells markers are not specific enough individu
 FeaturePlot(pbmc3k.final, features = NK_signature_orig[1:6])
 ```
 
-### The PBMC-Covid19 Haniffa dataset
+## The PBMC-Covid19 (Haniffa) dataset
 
 The PBMC-Covid19 dataset from Haniffa's lab was downloaded from the [COVID-19 cell atlas](https://www.covid19cellatlas.org/index.patient.html) in the .h5ad format (see *"COVID-19 PBMC Ncl-Cambridge-UCL"* section, then the *"haniffa21.processed.h5ad"* file among the available downloads). Then it was converted into a SeuratObject and underwent the very same steps of the other datasets, as already described. You can directly load the resulting object from the precomputed `rds` files where indicated. For the sake of reproducibility, we report also the code originally used to produce all the needed objects, and to scale them, which is computationally intensive: __please note__ that if you want to run such code you need first to download the above `.h5ad` file, which is *not* natively released or contained in the combiroc package repository.  
 
@@ -578,7 +578,7 @@ tail(df_covid)
 ```
 
 Let's see the UMAP plot for he entire PBMC-Covid19 dataset, with all cell population clusters annotations.
-```{r fig.height=10, fig.width=8, eval=FALSE}
+```{r fig.height=10, fig.width=8}
 options(repr.plot.width = NULL)
 options(repr.plot.height = 10)
 p <- ggplot(df_covid, aes(x=umap_1, y=umap_2, color=cell_type)) + 
@@ -588,6 +588,7 @@ p + theme(legend.position="bottom")
 ```
 
 Let's plot now the UMAPs for he PBMC-Covid19 dataset, limiting cell population clusters annotations to NK cells (there are more than 50 cell types annotated in this dataset). On the left all NK cells are grouped, while in the right different types of NK cells are highlighted by different colors.  
+
 ```{r fig.height=4, fig.width=8}
 df_covid_2plot <- arrange(df_covid, NK_tot) # rearranged to avoid overplotting
 p1 <- ggplot(df_covid_2plot, aes(x=umap_1, y=umap_2, color=NK_tot)) + 
@@ -640,7 +641,7 @@ ggplot(datafull_covid, aes(umap_1, umap_2)) +
         theme_minimal()
 ```
 
-## Validation tests on unclassified data
+# Validation tests on unclassified data
 
 Finally we proceed with the classification of test dataset by fitting the computed models. The `combiroc::classify()` function returns the predicted class according to the models in `reports$Models`.  
 To this aim we prepare a list `unc_data` containing the unclassified data from the two test datatsets, `data_3k` and `data_covid`:
@@ -657,7 +658,7 @@ names(dfs) <- c('pbmc3k', 'pbmcCovid')
 
 The `classify()` function requires as input the *unclassified_data* in the `pbmc3k` or `pbmcCovid` data prepared from PBMC3K and Covid19-Haniffa datasets respectively. To test both datasets with all three models obtained in the three analyses modes at different stringency, we now build a loop that will do it using the lists just prepared.
 
-### Test in default mode
+## Test in default mode
 ```{r}
 # empty lists to be populated by the for loop
 cl_data <- list()
@@ -699,7 +700,7 @@ default_analysis <- analysis
 
 ```
 
-### Test in hi-performance mode
+## Test in hi-performance mode
 ```{r}
 # empty lists to be populated by the for loop
 cl_data <- list()
@@ -741,7 +742,7 @@ hiperf_analysis <- analysis
 
 ```
 
-### Test in Sniper mode
+## Test in Sniper mode
 ```{r}
 # empty lists to be populated by the for loop
 cl_data <- list()
@@ -950,6 +951,7 @@ table_covid <- table_covid  %>%
     mutate(perc_pop = 100*round(NK/(NK+Other),4))
 table_covid
 ```
+
 repeating it for the three analysis modes and aggregating the results:
 ```{r}
 # for markers combination in columns 6:9 of dataframe dfs[[2]], repeat the above process
@@ -1041,7 +1043,7 @@ p3 <- ggplot(dfs[[2]], aes(x=umap_1, y=umap_2, color=c5018)) +
 plot_grid(p1, p2, p3, align = "h", nrow = 2, rel_widths = c(0.5, 0.5))
 ```
 
-## The "combi-score" of the top combinations discriminates cell types
+# The "combi-score" of the top combinations discriminates cell types
 
 With the `roc_reports()` function we previously computed the models (`reports$Models`) for each analysis mode, and assigned them to three separated objects: `models_default`, `models_hiperf` and `models_sniper`. 
 
@@ -1160,7 +1162,7 @@ pheatmap(mat,
          treeheight_row = 15)
 ```
 
-## Distribution of the "combi-score" of selected combinations
+# Distribution of the "combi-score" of selected combinations
 
 Combi_score for the combination #1369 for both test datasets can be calculated and visualized in this way: 
 ```{r fig.height=5, fig.width=9}
@@ -1224,7 +1226,7 @@ As shown also by these combi scores, combiroc proved to be effective in finding 
 Overall, the identification of NK cells with all the 3 analysis modes is quite accurate. Forcing combiroc to work at high SE/SP regime and - in particular - increasing the stringency of the analysis (as in *sniper* mode) the package was able to identify NK cells in an highly specific manner.  
 This kind of classification is highly specific with a cost on the side of sensitivity, i.e. it favours false negatives more than false positives (that's why it was dubbed as *sniper* mode of action). Such modality can help to pinpoint a considerable amount of cells in a very accurate way (even if not *all* of them), and to locate them precisely on UMAPs, facilitating and significantly accelerating the process of manual annotation starting from combinations obtained with a classic unbiased selection.
 
-## Effect of combiroc combinatios on the "gene signature score"
+# Effect of combiroc combinatios on the "gene signature score"
 
 We want now to check the effect of using selected combinations on a different published score developed for whole genes signatures.  
 To do so, we are going to use the __gene signature score__ described in [Della Chiara, Gervasoni, Fakiola, Godano et al. 2021](https://www.nature.com/articles/s41467-021-22544-y) which takes into account both the expression level and co-expression of genes within each single cell.
@@ -1235,7 +1237,7 @@ source("../inst/external_code/signature_score.R")
 ```
 which takes as input a Seurat object and a character vector of a gene signature and computes the score.
 
-### Gene score with the whole 30 NK genes
+## Gene score with the whole 30 NK genes
 
 To this extent, we first compute the signature score of the whole NK signature (30 genes) for all the cells in the PBMC-3K test dataset and we store it in its list object:
 ```{r}
@@ -1284,6 +1286,7 @@ We can see which genes are in these combinations with the `show_markers()` funct
 # show_markers(markers_table = tab_default, selected_combinations = c(6850,1687, 103610))
 show_markers(markers_table = tab_default, selected_combinations = c(1369,470, 5018))
 ```
+
 First, we define selected combinations in vector-like structures:
 ```{r}
 c1369 <- c("GNLY","GNLY","MCM7")
@@ -1321,6 +1324,7 @@ p3 <- ggplot(dfs[[1]], aes(x = cell_type, y = c5018_score, fill = cell_type)) +
 
 plot_grid(p1, p2, p3, align = "h", nrow = 1, rel_widths = c(0.33, 0.33, 0.33))
 ```
+
 ```{r, echo=FALSE, eval=FALSE}
 # We now pick five random gene combinations of lenght 2, 3, 4, 5, and 30 and see how do they perform as a gene-signature. We are using them as negative control compared to the combiroc selected marker combinations as well as to the 30-genes full gene signature. We are going to append six more columns to the `dfs[[pbmc3k]]` dataframe relative to the random combinations, then plotting them as done before.
 
@@ -1363,6 +1367,7 @@ dfs[['pbmcCovid']][['c470_score']] <- df$scaled_combined_score
 df <- signature_score(hd, c5018)
 dfs[['pbmcCovid']][['c5018_score']] <- df$scaled_combined_score
 ```
+
 Read a pre-computed dfs object with all precomputed scores
 ```{r}
 dfs <- readRDS("../inst/precomp/precomp_dfs_all_scores.rds")
@@ -1434,7 +1439,7 @@ Here random combinations do not have a preferential cluster and show a generaliz
 Beyond using scores of random combinations as negative control, they also show the magnitude of background noise associated to each random combination taken into consideration. In fact, random scores show quite homogeneously distributed values across clusters indicating that the cluster-preferential distributions of real combinations scores are not stochastic.
 Generally speaking since the higher is the length of random signatures, the higher will be the noise hence the probability to pick genes expressed in all the clusters: this suggests that the higher is the length of a real DEG signature the higher is the probability to include less specific genes and to increase the noise.
 
-## Conclusions
+# Conclusions
 
 This guided tutorial shows how to use the combiroc package to optimize single-cell gene signature with combinations of marker and to identify NK cells in two different public scRNAseq datasets:   
 
