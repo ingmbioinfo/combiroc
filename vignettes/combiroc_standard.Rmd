@@ -3,6 +3,10 @@ title: "Guide to CombiROC package - Standard workflow"
 author: "Ivan Ferrari, Riccardo L. Rossi"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
+  pdf_document:
+    toc: yes
+    latex_engine: xelatex
+    keep_tex: true
   html_document:
     toc: yes
     df_print: paged
@@ -12,10 +16,12 @@ vignette: |
 ---
 
 ```{r, include = FALSE}
-#library(httr)
-#knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
+library(httr)
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = "..")
+#knitr::opts_knit$set(root.dir = "..")
 ```
 
 ```{r setup, include=FALSE}
