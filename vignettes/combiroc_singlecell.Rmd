@@ -923,13 +923,13 @@ c103610 <- dfs[[1]][,14]
 c227 <- dfs[[1]][,10]
 c1687 <- dfs[[1]][,5]
 p1 <- ggplot(dfs[[1]], aes(x=umap_1, y=umap_2, color=c3196)) + 
-        geom_point(size = 0.2) 
+        geom_scattermore(size = 0.2) 
 p2 <- ggplot(dfs[[1]], aes(x=umap_1, y=umap_2, color=c103610)) + 
-        geom_point(size = 0.2)
+        geom_scattermore(size = 0.2)
 p3 <- ggplot(dfs[[1]], aes(x=umap_1, y=umap_2, color=c227)) + 
-        geom_point(size = 0.2)
+        geom_scattermore(size = 0.2)
 p4 <- ggplot(dfs[[1]], aes(x=umap_1, y=umap_2, color=c1687)) + 
-        geom_point(size = 0.2)
+        geom_scattermore(size = 0.2)
 p1 + p2 + p3 + p4
 ```
 
@@ -1024,17 +1024,18 @@ pheatmap(mat,
 As expected the sensitivity strongly increases using combination obtained with high *performance* mode. *Default* mode is scattered across different levels of efficiency, while the *Sniper* mode is highly specific.
 
 The heatmap above is clustered by rows (with the default `method = "complete"` of `hclust()`): the twelve combinations taken into consideration (rows) appear to segregate in three different clusters. The first, bigger cluster contains all combinations form hi-performance mode and a couple more from the default mode: these combinations have the strongest signals, both for the NK cells but also for the closely related CD8 cells. The second cluster contains just two combinations (#3664 and #103610): these combinations shows the weakest signals. The third cluster containing three combinations from sniper mode and one from default mode is the one  in which the biggest different between NK and CD8 signals can be observed. Such combinations are probably the most interesting, with particular reference to the three from sniper mode (#1369, #470 and #5018).  
+
 Below we plot the distribution of cells identified as "NK" by these combinations:
 ```{r fig.height=4, fig.width=8}
 c1369 <- dfs[[2]][,16]
 c470 <- dfs[[2]][,14]
 c5018 <- dfs[[2]][,17]
 p1 <- ggplot(dfs[[2]], aes(x=umap_1, y=umap_2, color=c1369)) + 
-        geom_point(size = 0.2)
+        geom_scattermore(size = 0.2)
 p2 <- ggplot(dfs[[2]], aes(x=umap_1, y=umap_2, color=c470)) + 
-        geom_point(size = 0.2)
+        geom_scattermore(size = 0.2)
 p3 <- ggplot(dfs[[2]], aes(x=umap_1, y=umap_2, color=c5018)) + 
-        geom_point(size = 0.2)
+        geom_scattermore(size = 0.2)
 plot_grid(p1, p2, p3, align = "h", nrow = 2, rel_widths = c(0.5, 0.5))
 ```
 
