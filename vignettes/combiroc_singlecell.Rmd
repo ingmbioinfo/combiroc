@@ -5,20 +5,21 @@ date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   pdf_document:
     toc: yes
-    latex_engine: xelatex
-    keep_tex: true
   html_document:
     toc: yes
     df_print: paged
-subtitle: "| Identification of NK cells at single cell resolution by combiroc-driven optimization of marker signatures.  \n"
+subtitle: "| Identification of NK cells at single cell resolution by combiroc-driven
+  optimization of marker signatures.  \n"
 vignette: |
   %\VignetteIndexEntry{Single cell Combiroc tutorial} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
 ---
 
 
 ```{r, include = FALSE}
-#library(httr)
-#knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
+library(httr)
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 knitr::opts_chunk$set(echo = TRUE)
 #knitr::opts_knit$set(root.dir = "..")
 
@@ -587,15 +588,15 @@ p + theme(legend.position="bottom")
 
 Let's plot now the UMAPs for he PBMC-Covid19 dataset, limiting cell population clusters annotations to NK cells (there are more than 50 cell types annotated in this dataset). On the left all NK cells are grouped, while in the right different types of NK cells are highlighted by different colors.  
 ```{r fig.height=4, fig.width=8}
-df_covid <- arrange(df_covid, NK_tot) # rearranged to avoid overplotting
-p1 <- ggplot(df_covid, aes(x=umap_1, y=umap_2, color=NK_tot)) + 
-        geom_scattermore(size = 0.3) + 
+df_covid_2plot <- arrange(df_covid, NK_tot) # rearranged to avoid overplotting
+p1 <- ggplot(df_covid_2plot, aes(x=umap_1, y=umap_2, color=NK_tot)) + 
+        geom_scattermore(size = 0.5) + 
         #scale_color_manual(values = c('#00BFC4','#f8766d')) +
         scale_color_manual(values = c('#d3d3d3','#f8766d')) +
         theme(legend.position="none") +
         theme_void()
-p2 <- ggplot(df_covid, aes(x=umap_1, y=umap_2, color= NK_sub)) + 
-        geom_scattermore(size = 0.3) +
+p2 <- ggplot(df_covid_2plot, aes(x=umap_1, y=umap_2, color= NK_sub)) + 
+        geom_scattermore(size = 0.5) +
         #scale_color_manual(values = c("#ff7f00","#e41a1c","#4daf4a","#984ea3","#377eb8")) +
         scale_color_manual(values = c("#ff7f00","#e41a1c","#4daf4a","#984ea3","#d3d3d3")) +
         theme(legend.position="none") +
@@ -633,7 +634,7 @@ Or you can plot individual genes (here GNLY) using a `ggplot` call on the UMAP c
 ```{r fig.height=4, fig.width=5}
 datafull_covid <- cbind(df_covid, data_covid)
 ggplot(datafull_covid, aes(umap_1, umap_2)) + 
-        geom_point(aes(color = GNLY), size = 0.5) +
+        geom_scattermore(aes(color = GNLY), size = 0.5) +
         scale_color_gradient2(low = "gray", mid = "gray", high = "purple", space = "Lab") +
         theme_minimal()
 ```
@@ -923,13 +924,13 @@ c103610 <- dfs[[1]][,14]
 c227 <- dfs[[1]][,10]
 c1687 <- dfs[[1]][,5]
 p1 <- ggplot(dfs[[1]], aes(x=umap_1, y=umap_2, color=c3196)) + 
-        geom_scattermore(size = 0.2) 
+        geom_scattermore(size = 0.5) 
 p2 <- ggplot(dfs[[1]], aes(x=umap_1, y=umap_2, color=c103610)) + 
-        geom_scattermore(size = 0.2)
+        geom_scattermore(size = 0.5)
 p3 <- ggplot(dfs[[1]], aes(x=umap_1, y=umap_2, color=c227)) + 
-        geom_scattermore(size = 0.2)
+        geom_scattermore(size = 0.5)
 p4 <- ggplot(dfs[[1]], aes(x=umap_1, y=umap_2, color=c1687)) + 
-        geom_scattermore(size = 0.2)
+        geom_scattermore(size = 0.5)
 p1 + p2 + p3 + p4
 ```
 
