@@ -126,9 +126,6 @@
 <h2 class="hasAnchor">
 <a href="#load" class="anchor"></a>Data loading</h2>
 <p>The <code><a href="../reference/load_data.html">load_data()</a></code> function uses a customized <strong>read.table()</strong> function that checks the conformity of the dataset format. If all the checks are passed, marker-related columns are reordered alphabetically, depending on marker names (this is necessary for a proper computation of combinations), and it imposes “Class” as the name of the second column. The loaded dataset is here assigned to the “<em>data</em>” object. Please note that <code><a href="../reference/load_data.html">load_data()</a></code> takes the semicolumn (“;”) as default separator: if the dataset to be loaded has a different separator, i.e. a comma (“,”), is necessary to specify it in the argument <code>sep</code>. The code below shows how to load a data set contained in the “data” folder (remember to adjust the path according to your current working directory):</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "C:/Users/rossiriccardo/Documents/R_projects/combiroc/vignettes"</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_data.html">load_data</a></span><span class="op">(</span><span class="st">"./data/demo_data.csv"</span><span class="op">)</span></code></pre></div>
 <p>We are going to use an AIH demo data set, that has been included in CombiROC package and can be directly called as <code>demo_data</code>.</p>
