@@ -15,10 +15,10 @@ navbar:
     articles:
       text: Vignettes
       menu:
-      - text: "2. scRNAseq Workflow""
-        href: articles/combiroc_singlecell.html
-      - text: "1. Standard Workflow""
+      - text: "1-Standard Workflow"
         href: articles/combiroc_standard.html
+      - text: "2-scRNAseq Workflow"
+        href: articles/combiroc_singlecell.html
     reference:
       text: Reference
       href: reference/index.html
