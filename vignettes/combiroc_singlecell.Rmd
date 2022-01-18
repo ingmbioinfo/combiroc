@@ -3,13 +3,13 @@ title: "NK cells labelling tutorial - scRNAseq Workflow"
 author: "Ivan Ferrari, Riccardo L. Rossi"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   pdf_document:
     toc: yes
     latex_engine: xelatex
     keep_tex: true
-  html_document:
-    toc: yes
-    df_print: paged
 subtitle: "| Identification of NK cells at single cell resolution by combiroc-driven optimization of marker signatures.  \n"
 vignette: |
   %\VignetteIndexEntry{Single cell Combiroc tutorial} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
