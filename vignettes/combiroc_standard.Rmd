@@ -62,11 +62,12 @@ First of all, load the package
 library(combiroc)
 ```
 
-
+Then load the data. To do so you can use the function `load_data()` if you have a correctly formatted dataset ready:
 ```{r, eval=FALSE}
 data <- load_data("./data/demo_data.csv")
 ```
-We are going to use an AIH demo data set, that has been included in CombiROC package and can be directly called as `demo_data`. 
+
+Now, we are going to use an AIH demo data set, that has been included in CombiROC package and can be directly called as `demo_data`. 
 ```{r}
 data <- demo_data
 head(data)
