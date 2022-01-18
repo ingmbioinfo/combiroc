@@ -13,8 +13,11 @@ navbar:
       icon: fa-home fa-lg
       href: index.html
     articles:
-      text: Vignette
-      href: articles/combiroc_standard.html
+      menu:
+      - text: Standard Workflow
+        href: articles/combiroc_standard.html
+      - text: scRNAseq Workflow
+        href: articles/combiroc_singlecell.html
     reference:
       text: Reference
       href: reference/index.html
