@@ -13,14 +13,14 @@ CombiROC is a totally new music in multi-markers analysis: an R package for effi
 
 This is the development version of CombiROC package (combiroc), code in this repo is work in progress and it is uploaded here "as-is" with no warranties implied. Improvements and new features will be added on a regular basis, please check on this github page for new features and releases. 
 
-The CombiROC approach was first published by [Mazzara et al. Scientific Reports 2017](https://www.nature.com/articles/srep45477) as a Shiny app. A description of the analitycal protocol is also published in [Bombaci & Rossi, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16).
-The Shiny web-app version of CombiROC is still available at [combiroc.eu](http://combiroc.eu/), but it has limited features (as well as low computational power) and is not further maintained. For full capabilities, new and improved features and customized analyses is advisable to install this package on your own machines.
+The CombiROC approach was first released as a Shiny Application with limitied features. This version is still available at [combiroc.eu](http://combiroc.eu/), but it has limited features (as well as low computational power) and is __not further maintained__. If you need to cite the method or the web-app please refer to [Mazzara et al. Scientific Reports 2017](https://www.nature.com/articles/srep45477) and [Bombaci & Rossi, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16).
 
-## Combiroc preprint Supplementary material
+For full capabilities, new and improved features and customized analyses we suggest to install the combiroc package, either the release from CRAN or the development version from this repo. If you are using the combiroc package in your research, please cite our preprint:  
+[*Combinatorial selection of biomarkers to optimize gene signatures in diagnostics and single cell applications*, Ferrari et al. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603*](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v1) 
 
-The combiroc package is going to be publicly featured on a preprint (details soon here) titled _"Combinatorial selection of biomarkers to optimize gene signatures in diagnostics and single cell applications"_ by Ferrari et al.  
+## Combiroc bioRxiv preprint Supplementary material
 
-The preprint's Supplementary Material 1 and 2 can be accessed here:  
+The [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v1) preprint's Supplementary Material 1 and 2 can be accessed here:  
 
 * __Supplementary Material 1__ (Standard vignette): [Standard worlkflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html). In pdf [here](https://github.com/ingmbioinfo/combiroc/raw/master/docs/articles/combiroc_standard.pdf)
 * __Supplementary Material 2__ (Additional vignette): [scRNAseq workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_singlecell.html). In pdf [here](https://github.com/ingmbioinfo/combiroc/raw/master/docs/articles/combiroc_singlecell.pdf)
