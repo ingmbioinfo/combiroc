@@ -93,12 +93,12 @@
 <a href="#combiroc" class="anchor"></a>CombiROC</h1></div>
 <p>CombiROC is a totally new music in multi-markers analysis: an R package for efficient and easy combinatorial selection of biomarkers and sensitivity/specificity-driven prioritization of features.</p>
 <p>This is the development version of CombiROC package (combiroc), code in this repo is work in progress and it is uploaded here “as-is” with no warranties implied. Improvements and new features will be added on a regular basis, please check on this github page for new features and releases.</p>
-<p>The CombiROC approach was first published by <a href="https://www.nature.com/articles/srep45477">Mazzara et al. Scientific Reports 2017</a> as a Shiny app. A description of the analitycal protocol is also published in <a href="https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16">Bombaci &amp; Rossi, Methods Mol Biol 2019</a>. The Shiny web-app version of CombiROC is still available at <a href="http://combiroc.eu/">combiroc.eu</a>, but it has limited features (as well as low computational power) and is not further maintained. For full capabilities, new and improved features and customized analyses is advisable to install this package on your own machines.</p>
-<div id="combiroc-preprint-supplementary-material" class="section level2">
+<p>The CombiROC approach was first released as a Shiny Application with limitied features. This version is still available at <a href="http://combiroc.eu/">combiroc.eu</a>, but it has limited features (as well as low computational power) and is <strong>not further maintained</strong>. If you need to cite the method or the web-app please refer to <a href="https://www.nature.com/articles/srep45477">Mazzara et al. Scientific Reports 2017</a> and <a href="https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16">Bombaci &amp; Rossi, Methods Mol Biol 2019</a>.</p>
+<p>For full capabilities, new and improved features and customized analyses we suggest to install the combiroc package, either the release from <a href="https://cloud.r-project.org/web/packages/combiroc/index.html">CRAN</a> or the development version from this repo. If you are using the combiroc package in your research, please cite our <strong>bioRxiv preprint</strong>: <a href="https://www.biorxiv.org/content/10.1101/2022.01.17.476603v1"><strong>Ferrari et al.</strong> <em>Combinatorial selection of biomarkers to optimize gene signatures in diagnostics and single cell applications</em>. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603</a></p>
+<div id="combiroc-biorxiv-preprint-supplementary-material" class="section level2">
 <h2 class="hasAnchor">
-<a href="#combiroc-preprint-supplementary-material" class="anchor"></a>Combiroc preprint Supplementary material</h2>
-<p>The combiroc package is going to be publicly featured on a preprint (details soon here) titled <em>“Combinatorial selection of biomarkers to optimize gene signatures in diagnostics and single cell applications”</em> by Ferrari et al. </p>
-<p>The preprint’s Supplementary Material 1 and 2 can be accessed here:</p>
+<a href="#combiroc-biorxiv-preprint-supplementary-material" class="anchor"></a>Combiroc bioRxiv preprint Supplementary material</h2>
+<p>The <a href="https://www.biorxiv.org/content/10.1101/2022.01.17.476603v1">bioRxiv</a> preprint’s Supplementary Material 1 and 2 can be accessed here:</p>
 <ul>
 <li>
 <strong>Supplementary Material 1</strong> (Standard vignette): <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html">Standard worlkflow</a>. In pdf <a href="https://github.com/ingmbioinfo/combiroc/raw/master/docs/articles/combiroc_standard.pdf">here</a>
@@ -121,13 +121,12 @@
 <code class="sourceCode R"><span class="co"># To install the most recent development version from this repository install "remotes" first:</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span>
+<span class="co"># remotes is a lightweight replacement of install functions from devtools</span>
+<span class="co"># if you already have devtools, you can also use devtools::install_github() </span>
 
 <span class="co"># Then install the development version of CombiROC:</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ingmbioinfo/combiroc"</span>, 
-                        dependencies <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-                        
-<span class="co"># remotes is a lightweight replacement of install functions from devtools</span>
-<span class="co"># if you already have devtools, you can also use devtools::install_github() </span></code></pre></div>
+                        dependencies <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="full-documentation---tutorial" class="section level2">
@@ -139,7 +138,7 @@
 <h2 class="hasAnchor">
 <a href="#quick-start-example" class="anchor"></a>Quick start example</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ingmbioinfo.github.io/combiroc">combiroc</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ingmbioinfo/combiroc">combiroc</a></span><span class="op">)</span>
 
 <span class="co"># load the preformatted demo dataset</span>
 <span class="co"># (you can load a dataset of yours using load_data() function: see full docs)</span>
