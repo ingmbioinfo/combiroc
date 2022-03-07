@@ -9,7 +9,8 @@ classify(
   Models,
   Metrics,
   Positive_class = 1,
-  Negative_class = 0
+  Negative_class = 0,
+  deal_NA = "impute"
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ classify(
 \item{Positive_class}{a numeric or a character that specifies the label of the samples that will be classified as positives}
 
 \item{Negative_class}{a numeric or a character that specifies the label of the samples that will be classified as negatives}
+
+\item{deal_NA}{a character that specifies how to treat missing values. With 'impute' NAs of each marker are substituted with the median of that given marker values. With 'remove' the whole observations containing a NA are removed'.}
 }
 \value{
 a data.frame containing the predicted class of each sample, for each marker/combination in Models

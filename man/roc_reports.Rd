@@ -9,7 +9,8 @@ roc_reports(
   markers_table,
   selected_combinations = NULL,
   single_markers = NULL,
-  case_class
+  case_class,
+  deal_NA = "impute"
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ roc_reports(
 \item{single_markers}{a character vector that specifies the single markers of interest.}
 
 \item{case_class}{a character that specifies which of the two classes of the dataset is the case class.}
+
+\item{deal_NA}{a character that specifies how to treat missing values. With 'impute' NAs of each marker are substituted with the median of that given marker values in the class that observation belongs to. With 'remove' the whole observations containing a NA are removed'.}
 }
 \value{
 a named list containing 3 objects: "Plot", "Metrics" and "Models".

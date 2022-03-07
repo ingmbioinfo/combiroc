@@ -11,15 +11,39 @@
 #' @param single_markers a character vector that specifies the single markers of interest.
 #' @param selected_combinations a numeric vector that specifies the combinations of interest.
 #' @param case_class a character that specifies which of the two classes of the dataset is the case class.
+#' @param deal_NA a character that specifies how to treat missing values. With 'impute' NAs of each marker are substituted with the median of that given marker values in the class that observation belongs to. With 'remove' the whole observations containing a NA are removed'.
 #' @return a named list containing 3 objects: "Plot", "Metrics" and "Models".
 #' @import dplyr ggplot2 pROC stringr
 #' @example R/examples/roc_reports_example.R
 #' @export
 
-roc_reports <- function(data, markers_table, selected_combinations=NULL, single_markers=NULL, case_class){
+roc_reports <- function(data, markers_table, selected_combinations=NULL, single_markers=NULL, case_class, deal_NA='impute'){
   # to binarize $Class
-  bin<- rep(NA, length(rownames(data)))
-  for (i in 1:length(rownames(data))){
+
+  if(deal_NA!='impute' & deal_NA!='remove'){
+    stop('deal_NA must be "impute" or "remove"' )
+  }
+
+  if (sum(is.na(data))>0){
+    if(deal_NA=='impute'){
+      for (i in 3:dim(data)[2]){
+        data[is.na(data[,i]) & data$Class==case_class,i] <-median(data[!is.na(data[,i]) & data$Class==case_class,i])
+        data[is.na(data[,i]) & data$Class!=case_class,i] <-median(data[!is.na(data[,i]) & data$Class!=case_class,i])
+      }
+      warning('NAs have been substituted with median of markers values')
+    }
+    if(deal_NA=='remove'){
+      for (i in 3:dim(data)[2]){
+        if (sum(is.na(data[,i]))>0){
+        data <- data[-which(is.na(data[,i])),]
+        rownames(data)<- 1:dim(data)[1]
+      }}
+      warning('Observations with NAs were not been considered' )
+    }
+  }
+
+  bin<- rep(NA, dim(data)[1])
+  for (i in 1:dim(data)[1]){
     if (data$Class[i] == case_class){bin[i] <- 1}
     else{bin[i] <- 0}}
   bin <- factor(bin)
@@ -29,6 +53,7 @@ roc_reports <- function(data, markers_table, selected_combinations=NULL, single_
 
   roc_list <- list() # It will contain ROC objects
   model_list <- list()
+
 
 
   if (is.null(selected_combinations)){
