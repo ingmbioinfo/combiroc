@@ -7,7 +7,7 @@ test_that("bubble_chard objects is a ggplot objects", {
   expect_s3_class(rmks$bubble_chart, c("gg", "ggplot"))
 })
 
-test_that("table objects is a data frame of lenght 6", {
+test_that("table objects is a data frame of lenght 7", {
   expect_s3_class(rmks$table, "data.frame")
-  expect_length(rmks$table, 6)
+  expect_length(rmks$table, 7)
 })

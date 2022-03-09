@@ -43,7 +43,7 @@ This function trains a logistic regression model for each combination and return
 \examples{
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
-combs <- combi(data= demo_data, signalthr=450, combithr=1)  # compute combinations
+combs <- combi(data= demo_data, signalthr=450, combithr=1, case_class='A')  # compute combinations
 
 
 # To train logistic regression models on each selected combinations and

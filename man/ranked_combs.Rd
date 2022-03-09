@@ -4,14 +4,10 @@
 \alias{ranked_combs}
 \title{Rank combinations.}
 \usage{
-ranked_combs(data, combo_table, case_class, min_SE = 0, min_SP = 0)
+ranked_combs(combo_table, min_SE = 0, min_SP = 0)
 }
 \arguments{
-\item{data}{a data.frame returned by load_data().}
-
 \item{combo_table}{a data.frame with SE, SP and number of composing markers for each combination (returned by se_sp()).}
-
-\item{case_class}{a character that specifies which of the two classes of the dataset is the case class.}
 
 \item{min_SE}{a numeric that specifies the min value of SE that a combination must have to be filtered-in.}
 
@@ -33,17 +29,15 @@ This function is meant to help the user in finding the best combinations (in the
 \examples{
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
-combs <- combi(data= demo_data, signalthr=450, combithr=1)  # compute combinations
-
-combs_SE_SP <- se_sp(data=demo_data, combinations_table=combs) # compute SE and SP
+combs <- combi(data= demo_data, signalthr=450, combithr=1, case_class='A')  # compute combinations
+                                                                  # compute SE and SP
                                                                # of each combination
 
 
 
 # To rank combinations by Youden index and filter-out the ones with SE < min_SE and SP < min_SP
 
-rc <- ranked_combs(data= demo_data, combo_table= combs_SE_SP,
-                       case_class='A', min_SE=40, min_SP=80)
+rc <- ranked_combs(combo_table= combs, min_SE=40, min_SP=80)
 rc$table # to visualize the selected gold combinations through a data.frame
 rc$bubble_chart # to visualize the selected gold combinations through a data.frame
 }

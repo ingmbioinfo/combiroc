@@ -39,7 +39,7 @@ This function  can classify dataset loaded with load_unclassified_data() that MU
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 demo_unclassified_data # combiroc built-in unclassified demo data
 
-combs <- combi(data= demo_data, signalthr=450, combithr=1)  # compute combinations
+combs <- combi(data= demo_data, signalthr=450, combithr=1, case_class='A')  # compute combinations
 
 reports <- roc_reports(data= demo_data, markers_table= combs,
                        selected_combinations= c(1,11,15),

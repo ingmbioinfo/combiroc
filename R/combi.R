@@ -7,17 +7,18 @@
 #' - Positively selects most samples belonging to the case class, which must be above signalthr.
 #' - Negatively selects most control samples, which must be below signalthr.
 #'@param combithr a numeric that specifies the necessary number of positively expressed markers (>= signalthr), in a given combination, to cosinder that combination positivelly expressed in a sample.
+#'@param case_class a character that specifies which of the two classes of the dataset is the case class
 #'@param max_length an integer that specifies the max combination length that is allowed
-#'@return a data.frame containing how many samples of each class are "positive" for each combination.
+#'@return a data.frame containing how many samples of each class are "positive" for each combination, sensitivity and specificity.
 #'@import gtools
 #'@example R/examples/combi_example.R
 #'@export
 
 
-combi <-function(data,signalthr=0, combithr=1, max_length=NULL){
+combi <-function(data,signalthr=0, combithr=1, max_length=NULL, case_class){
 
   nclass <- unique(data$Class) # to retrieve the 2 classes
-
+  control_class<- nclass[nclass!=case_class]
 
   #sample df to get names and dims
   dfe <- data[data$Class== nclass[1], 3:dim(data)[2]]
@@ -67,7 +68,7 @@ combi <-function(data,signalthr=0, combithr=1, max_length=NULL){
 
   if (max_length==1){
     cdf <- data.frame(listCombinationMarkers, frequencyCombinationMarkers)
-    colnames(cdf) <- c('Markers', paste0('#Positives_', nclass[1]), paste('#Positives_', nclass[2]))
+    colnames(cdf) <- c('Markers', paste0('#Positives ', nclass[1]), paste0('#Positives ', nclass[2]))
     for (i in 1:n_features){
       rownames(cdf)[i] <- cdf[i,1]
     }
@@ -79,7 +80,7 @@ combi <-function(data,signalthr=0, combithr=1, max_length=NULL){
 
   # creation of the dataframe with combinations and corresponding frequencies
   cdf <- data.frame(listCombinationMarkers, frequencyCombinationMarkers)
-  colnames(cdf) <- c('Markers', paste('#Positives ', nclass[1]), paste('#Positives ', nclass[2]))
+  colnames(cdf) <- c('Markers', paste0('#Positives ', nclass[1]), paste0('#Positives ', nclass[2]))
   for (i in 1:n_features){
     rownames(cdf)[i] <- cdf[i,1]
   }
@@ -87,5 +88,8 @@ combi <-function(data,signalthr=0, combithr=1, max_length=NULL){
     rownames(cdf)[j] <- paste('Combination', as.character(j-n_features) )
   }
   }
+  cdf$SE <- 100*(cdf[, paste0('#Positives ', case_class)] / sum(data$Class==case_class))
+  cdf$SP <- 100-(100*(cdf[,paste0('#Positives ', control_class)] / sum(data$Class==control_class)))
+  cdf$n_markers <- lapply(cdf$Markers, function(x) str_count(x, pattern = "-")+1)
 
   return(cdf)}
