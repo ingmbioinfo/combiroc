@@ -42,16 +42,15 @@ rownames(df) <- nclass
 colnames(df) <- c('# observations', 'Min', 'Max','Median', 'Mean', '1st Q.',  '3rd Q.', 'SD')
 
 
-for (i in 1:2){
-  df[i,1] <-  dim(unique(data_long[Class==nclass[i],1]))[1]
-  df[i,2] <- min(data_long[Class==nclass[i], 4])
-  df[i,3] <- max(data_long[Class==nclass[i], 4])
-  df[i,4] <- median(data_long[Class==nclass[i], 4][[1]])
-  df[i,5] <- mean(data_long[Class==nclass[i], 4][[1]])
-  df[i,6] <- as.numeric(quantile(t(data_long[Class==nclass[i], 4]),0.25))
-  df[i,7] <- as.numeric(quantile(t(data_long[Class==nclass[i], 4]),0.75))
-  df[i,8] <- sd(data_long[Class==nclass[i], 4][[1]])
-}
+df <- data_long %>% group_by(Class) %>% summarise('# observations' = n(),
+                                                  Min=min(Values),
+                                                  Max=max(Values),
+                                                  Median=median(Values),
+                                                  Mean=mean(Values),
+                                                  "1st Q"=quantile(Values,0.25),
+                                                  "3rd Q"=quantile(Values,0.75),
+                                                  SD=sd(Values))
+
 if (is.null(boxplot_lim)){
   boxplot_lim= max(df$Max)*1.15
   warning('boxplot_lim is not set. Boxplot may be difficult to interpret due to outliers. You should set an appropriate y axis limit.')

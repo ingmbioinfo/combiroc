@@ -30,7 +30,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(Seurat)
 library(patchwork)
-library(combiroc)
+library(devtools)
+load_all()
+#library(combiroc)
 library(SeuratData)
 library(SeuratDisk)
 library(tidyr)
@@ -298,42 +300,25 @@ p1 + p2
 
 Let's apply now the `combi()` function on the training dataset `data` with the suggested threshold. The results is a table (the `tab_default` dataframe) of all the combinations with 1 (= the individual markers) to 5 genes in them. 
 
+In this dataframe are also shown sensitivity (SE) and specificity (SP) for each combination:  
+
+- SE as the percentage of positive cells for a 'NK' class
+- SP as the percentage of negative cells for 'Other' class
+
 *(if computationally heavy, use the pre-computed below)*   
 ```{r, eval=FALSE}
-tab_default <- combi(data, signalthr = 2, combithr = 1, max_length = 5)
+tab_default <- combi(data, signalthr = 2, combithr = 1, max_length = 5, case_class = 'NK')
 ```
 ```{r}
 # read the pre-computed tab_default dataset:
 tab_default <- readRDS(file = "../inst/precomp/precomp_tab_default.rds")
-```
-
-After renaming column names for clarity, we can have a glimpse at the obtained table. This dataframe contains all 174436 unique combinations of up to 5 markers among 30 markers (i.e. 30 single markers + 174406 combinations of 2, 3, 4 and 5 genes).
-```{r}
-colnames(tab_default)<- c('Markers','#Positives  Other','#Positives  NK')
 tail(tab_default)
 ```
-
-Sensitivity (SE) and specificity (SP) can now be computed from the numbers in the `tab_default` dataframe.  
-
-- SE as the percentage of positive cells for a class
-- SP as the percentage of negative cells for a class (SP class = 100 - SE class)
-
-Since the case class in this case is 'NK' we focused on SE% NK (percentage of real 'NK' detected) and on SP% Other (percentage of real 'Other' not detected). 
-
-(SE% NK = SE% combination ; SP% Other = SP% combination)
-
-
-```{r}
-mks <- se_sp(data , combinations_table = tab_default)
-head(mks)
-```
-
 Then we rank the combinations by Youden index (SE+SP) and we filter them by their SE and SP values. 
 We will select the top 4 (for demonstration purposes only, others may be also good): what we are using to rank is the Youden index and the number of genes in the combiantion, where combinations with fewer genes are considered better ones.
 
 ```{r}
-rmks <- ranked_combs(data, combo_table = mks, 
-                     case_class = 'NK', 
+rmks <- ranked_combs(combo_table = tab_default, 
                      min_SE = 60, min_SP = 80) 
 head(rmks$table)
 ```
@@ -385,16 +370,14 @@ distr <- markers_distribution(data_long,
 Computing the combination performances.  
 *(Computationally heavy chunk: you can read the precomputed object in the next chunk)*
 ```{r eval=FALSE}
-tab_hiperf <- combi(data, signalthr = 1.22, combithr = 1, max_length = 5)
+tab_hiperf <- combi(data, signalthr = 1.22, combithr = 1, max_length = 5, case_class = 'NK')
 ```
 ```{r}
 tab_hiperf <- readRDS(file = "../inst/precomp/precomp_tab_hiperf.rds")
 ```
 
 ```{r}
-colnames(tab_hiperf)<- c('Markers','#Positives  Other','#Positives  NK')
-mks <- se_sp(data , combinations_table = tab_hiperf)
-rmks <- ranked_combs(data, combo_table = mks, case_class = 'NK', 
+rmks <- ranked_combs(combo_table = tab_hiperf,  
                      min_SE = 60, min_SP = 80) # using top 4 markers/combinations
 reports <-roc_reports(data, markers_table = tab_hiperf, 
                       selected_combinations =  c(9,227,633, 651), 
@@ -421,7 +404,7 @@ distr <- markers_distribution(data_long,
 
 ```{r eval=FALSE}
 # computationally heavy, use the next chunk to read the pre-computed object
-tab_sniper <- combi(data, signalthr = 1.22, combithr = 2, max_length = 5)
+tab_sniper <- combi(data, signalthr = 1.22, combithr = 2, max_length = 5, case_class = 'NK)
 ```
 
 ```{r}
@@ -430,9 +413,7 @@ tab_sniper <- readRDS(file = "../inst/precomp/precomp_tab_sniper.rds")
 ```
 
 ```{r}
-colnames(tab_sniper)<- c('Markers','#Positives  Other','#Positives  NK')
-mks <- se_sp(data , combinations_table = tab_sniper)
-rmks <- ranked_combs(data, combo_table = mks, case_class = 'NK', 
+rmks <- ranked_combs(combo_table = tab_sniper, 
                      min_SE = 60, min_SP = 80) # using top 4 markers/combinations
 reports <-roc_reports(data, markers_table = tab_sniper, 
                       selected_combinations =  c(470, 103610, 1369, 5018), 

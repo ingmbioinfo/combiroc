@@ -90,6 +90,6 @@ combi <-function(data,signalthr=0, combithr=1, max_length=NULL, case_class){
   }
   cdf$SE <- 100*(cdf[, paste0('#Positives ', case_class)] / sum(data$Class==case_class))
   cdf$SP <- 100-(100*(cdf[,paste0('#Positives ', control_class)] / sum(data$Class==control_class)))
-  cdf$n_markers <- lapply(cdf$Markers, function(x) str_count(x, pattern = "-")+1)
+  cdf$n_markers <- as.double(lapply(cdf$Markers, function(x) str_count(x, pattern = "-")+1))
 
   return(cdf)}

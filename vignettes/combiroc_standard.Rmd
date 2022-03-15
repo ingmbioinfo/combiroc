@@ -3,13 +3,13 @@ title: "Guide to CombiROC package - Standard workflow"
 author: "Ivan Ferrari, Riccardo L. Rossi"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   pdf_document:
     toc: yes
     latex_engine: xelatex
     keep_tex: true
-  html_document:
-    toc: yes
-    df_print: paged
 subtitle: "| Selection and ranking of omics biomarkers combinations made easy.  \n"
 vignette: |
   %\VignetteIndexEntry{Quick guide to CombiROC} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
@@ -157,7 +157,7 @@ distr$Boxplot
 
 ### The ROC curve for all markers and its coordinates
 
-The __ROC__ curve shows how many real positive samples would be found positive (sensitivity, or SE) and how many real negative samples would be found negative (specificity, or SP) in function of signal threshold. Please note that the _False Positive Rate_ (i.e. _1 - specificity_) is plotted on the x-axis. These SE and SP are refereed to the signal intensity threshold considering _all_ the markers together; they are _not_ the SE and SP of a single marker/combination computed by the `se_sp()` function further discussed in the **Sensitivity and specificity** paragraph.
+The __ROC__ curve shows how many real positive samples would be found positive (sensitivity, or SE) and how many real negative samples would be found negative (specificity, or SP) in function of signal threshold. Please note that the _False Positive Rate_ (i.e. _1 - specificity_) is plotted on the x-axis. These SE and SP are refereed to the signal intensity threshold considering _all_ the markers together; they are _not_ the SE and SP of a single marker/combination computed by the 'combi()` function further discussed in the **Combinatorial analyisis, sensitivity and specificity** paragraph.
 ```{r, ROC}
 distr$ROC
 ```
@@ -186,7 +186,7 @@ distr$Density_summary
 ```
 
 
-## Combinatorial analysis {#combi}
+## Combinatorial analysis, sensitivity and specificity {#combi}
 
 `combi()` function works on the dataset initially loaded. It computes the marker combinations and counts their corresponding positive samples for each class (once thresholds are selected). A sample, to be considered positive for a given combination, must have a value higher than a given signal threshold (signalthr) for at least a given number of markers composing that combination (combithr). 
 
@@ -194,31 +194,23 @@ As mentioned before, `signalthr` should be set depending on the guidelines and c
 
 In this vignette `signalthr` is set at __450__ while `combithr` is set at __1__. We are setting this at 450 (instead of __407__ as suggested by the `distr$Density_plot`) in order to reproduce the results reported in [Mazzara et. al 2017](https://www.nature.com/articles/srep45477) (the original CombiROC paper) or in [Bombaci & Rossi 2019](https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16) as well as in the tutorial of the web app with default thresholds.
 
-`combithr`, instead, should be set exclusively depending on the needed stringency: __1__ is the less stringent and most common choice (meaning that _at least one_ marker in a combination needs to reach the threshold). The obtained __tab__ object is a dataframe of all the combinations obtained with the chosen parameters. 
+`combithr`, instead, should be set exclusively depending on the needed stringency: __1__ is the less stringent and most common choice (meaning that _at least one_ marker in a combination needs to reach the threshold). 
 
+Once all the combinations are computed, the function calculates:
+
+- Sensitivity (SE) and specificity (SP) of each combination for each class;
+- the number of markers composing each combination (n_markerrs). 
+
+SE of is calculated dividing the number of detected positive samples for case class by the total sample of case class (% of positive "A" samples).
+
+SP of control class ("B") is calculated by subtracting the percentage of positive samples for control class in the total sample of control class to 100 (100 - % of positive "B" samples).
+
+The obtained __tab__ object is a dataframe of all the combinations obtained with the chosen parameters, the obtained value  of SE, SP and number of markers. 
 ```{r}
-tab <- combi(data, signalthr = 450, combithr = 1)
+tab <- combi(data, signalthr = 450, combithr = 1, case_class='A')
 head(tab, n=20)
 ```
 
-## Sensitivity and specificity {#sesp}
-
-Once all the combinations are computed, `se_sp()` function takes as inputs the loaded data `data` and the previously obtained set of combinations (`tab`) to calculate:
-
-- Sensitivity (SE) and specificity (SP) of each combination for each class;
-- the number of markers composing each combination (#Markers). 
-
-SE of case class ("A") is calculated dividing the number of positive samples by the total sample of case class (% of positive "A" samples), while case class SP is calculated subtracting SE to 100 (% of negative "A" samples).
-
-SE of control class ("B") is calculated dividing the number of positive samples by the total sample of control class (% of positive "B" samples), while SP is calculated subtracting SE to 100 (% of negative "B" samples).
-
-Thus, the SE of a given combination (capability to find real positives/cases) corresponds to the SE of the case class (in this case "A"), while its SP (capability to exclude real negatives/controls) corresponds to the SP of the control class (in this case "B").
-The obtained value  of SE, SP and number of markers are assigned to "markers" `mks` dataframe. 
-
-```{r}
-mks <- se_sp(data, tab)
-mks
-```
 ## Selection of combinations
 
 The markers combinations can now be ranked and selected. After specifying the case class ("A" in this case), the function `ranked_combs()` ranks the combinations by the Youden index in order to show the combinations with the highest SE (of cases) and SP (of controls) on the top, facilitating the user in the selection of the best ones. Again, the Youden index (J) is calculated in this way:
@@ -227,16 +219,14 @@ $$
 $$
 The user can also set (not mandatory) a minimal value of SE and/or SP that a combination must have to be selected, i.e. to be considered as _"gold" combinations_.
 
-A possibility to overview how single markers and all combinations are distributed in the SE - SP ballpark is to plot them with the bubble chart code suggested in the Additional Tips&Tricks section (see: [Bubble plot of all combinations](#bubble)) starting from the `mks` dataframe obtained with the `se_sp()` function (see above).
+A possibility to overview how single markers and all combinations are distributed in the SE - SP ballpark is to plot them with the bubble chart code suggested in the Additional Tips&Tricks section (see: [Bubble plot of all combinations](#bubble)) starting from the `tab` dataframe obtained with the `combi()` function (see above).
 
 The bigger the bubble, the more markers are in the combination: looking at the size and distribution of bubbles across SE and SP values is useful to anticipate how effective will be the combinations in the ranking. Setting no cutoffs (i.e. SE = 0 and SP = 0), all single markers and combinations (all bubbles) will be considered as _"gold" combinations_ and ranked in the next passage.
 
 In the the example below the minimal values of SE and SP are set, respectively, to 40 and 80, in order to reproduce the gold combinations selection reported in [Mazzara et. al 2017](https://www.nature.com/articles/srep45477). The obtained values of combinations, ranked according to Youden index, are stored in the "ranked markers" `rmks` object containing the `table` dataframe and the `bubble_chart` plot that can be accessed individually with the `$` operator.
 
 ```{r}
-rmks <- ranked_combs(data, mks, 
-                     case_class = 'A', 
-                     min_SE = 40, min_SP = 80)
+rmks <- ranked_combs(tab, min_SE = 40, min_SP = 80)
 rmks$table
 ```
 
@@ -443,14 +433,14 @@ data_long %>%
 ## Bubble plot of all markers' combinations {#bubble}
 
 The following code can be used to plot a "bubble plot" of the markers combinations according to sensitivity (SE), specificity (SP) and size (number of markers in each combination).
-All these plotting functions take as input the `mks` dataframe obtained with the `se_sp()` function (see above) and containing the SE and SP values for cases and controls in all marker combinations. The original `mks` dataframe can be customly filtered to plot only a subset of combinations meeting specific criteria.  
+All these plotting functions take as input the `tab` dataframe obtained with the `combi()` function (see above) and containing the SE and SP values for cases and controls in all marker combinations. The original `tab` dataframe can be customly filtered to plot only a subset of combinations meeting specific criteria.  
 
 ```{r, message=FALSE}
 library(dplyr) # needed for the filter() function and %>% operator
 library(ggplot2)
 
-mks %>% 
-  ggplot(aes(x = `SP_B`, y = `SE_A`, size = `#Markers` )) +
+tab %>% 
+  ggplot(aes(x = `SP`, y = `SE`, size = `n_markers` )) +
   geom_point(alpha=0.5) +
   scale_size(range = c(5, 15), name="# of markers") +
   scale_x_continuous(limits = c(0,100)) +
@@ -471,9 +461,9 @@ min_SP <- 85 # choosen SP cutoff (as in the web-app slider)
 
 library(dplyr)
 
-mks %>%
-  mutate(Combo = ifelse((`SP_B`>min_SP & `SE_A`>min_SE),"gold","below_thr")) %>% 
-  ggplot(aes(x = `SP_B`, y = `SE_A`, size = `#Markers`, color = Combo)) +
+tab %>%
+  mutate(Combo = ifelse((`SP`>min_SP & `SE`>min_SE),"gold","below_thr")) %>% 
+  ggplot(aes(x = `SP`, y = `SE`, size = `n_markers`, color = Combo)) +
   geom_point(alpha=0.3) +
   scale_size(range = c(5, 15), name="# of markers") +
   scale_x_continuous(limits = c(0,100)) +
