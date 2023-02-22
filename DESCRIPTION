@@ -1,0 +1,64 @@
+Package: combiroc
+Title: Selection and Ranking of Omics Biomarkers Combinations Made Easy
+Date: 2022-03-07
+Version: 0.2.4
+Language: en-US
+Authors@R: 
+  c(person(given = "Ivan",
+           family = "Ferrari",
+           role = "aut",
+           email = "ferrari@ingm.org",
+           comment = c(ORCID = "0000-0003-3746-4143")),
+    person(given = "Riccardo L.",
+           family = "Rossi",
+           role = c("aut", "cre"),
+           email = "ric.rossi@gmail.com",
+           comment = c(ORCID = "0000-0002-4964-3264")),
+    person(given = "Saveria",
+           family = "Mazzara",
+           role = "aut",
+           email = "saveria.mazzara@gmail.com",
+           comment = c(ORCID = "0000-0003-1799-2360")),
+    person(given = "Mauro",
+           family = "Bombaci",
+           role = c("ccp", "ctb", "dtc"),
+           email = "bombaci@ingm.org",
+           comment = c(ORCID = "0000-0002-9887-4165")))
+Description: Provides functions and a workflow to easily and powerfully calculating specificity, sensitivity and ROC curves of biomarkers combinations. Allows to rank and select multi-markers signatures as well as to find the best performing sub-signatures. The method used was first published as a Shiny app and described in Mazzara et al. (2017) <doi:10.1038/srep45477> and further described in Bombaci & Rossi (2019) <doi:10.1007/978-1-4939-9164-8_16>.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
+Imports:
+    tidyr,
+    dplyr,
+    ggplot2,
+    gtools,
+    pROC,
+    stringr,
+    stats,
+    utils,
+    moments,
+    devtools,
+    RColorBrewer,
+    Seurat, 
+    SeuratData, 
+    SeuratDisk, 
+    colorspace,
+    cowplot, 
+    ggpubr, 
+    patchwork, 
+    pheatmap
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    markdown,
+    rmarkdown,
+    covr
+VignetteBuilder: knitr
+Depends: 
+    R (>= 3.5.0)
+URL: https://ingmbioinfo.github.io/combiroc, https://github.com/ingmbioinfo/combiroc
+BugReports: https://github.com/ingmbioinfo/combiroc/issues
+Config/testthat/edition: 3
