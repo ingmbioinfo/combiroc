@@ -48,16 +48,15 @@ library(scattermore)
 
 # Rationale {#top}
 
-Single-cell transcriptomics is a rapidly growing field which is essential to improve our understanding of complex tissues and organisms at an unprecedent resolution. A major limitation in most scRNA-seq analysis is the manual annotation step, which is the gold standard procedure to determine cell populations identities. This step is highly time-demanding as it involves the manual inspection of a considerable amount of cluster-specific marker genes, which must be checked one by one in literature [[1]](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z) . In addition, some marker gene could be unspecific if taken singularly, specially if that given gene is involved in all the differentiation steps in some cellular population of the dataset (from stem cells to a terminally differentiated population), making it a differentially expressed gene (DEG) in more than one cluster. 
-
-In this context we decided to employ combiroc in the scRNA-seq analysis field as a signature refiner, in order to find the best marker genes combinations from a list of differentially expressed genes. Being combiroc specialized in finding specific combinations, its use may allow researchers to find some cells of interest with a high degree of confidence and help them in the process of manual annotation by reducing the number of marker genes to consider.
+Single-cell transcriptomics is a rapidly growing field which is essential to improve our understanding of complex tissues and organisms at an unprecedented resolution. The manual annotation of cell identity, which is the gold standard procedure to determine cell populations, remains a major limitation in most scRNA-seq analysis [[1]](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z); more recently, a growing number of resources are being published offering the scientific community many cell type specific gene signature as a reference. Alas, marker gene belonging to gene signatures could be unspecific if taken singularly, specially if that given gene is involved in all the differentiation steps in some cellular population of the dataset (from stem cells to a terminally differentiated population), making it a differentially expressed gene (DEG) in more than one cluster. 
+In this context we decided to employ combiroc in the scRNA-seq analysis field as a *signature refiner*, in order to find the best **few** marker genes combinations from a list of differentially expressed genes, *regardless their ranking* as differentially expressed gene. Being combiroc specialized in finding specific combinations, its use may allow researchers to find some cells of interest with a high degree of confidence and help them in the process of manual annotation by reducing the number of marker genes to consider.
 
 Here we show an exemplificative workflow of combiroc-mediated signature refinement at single-cell resolution in which we used 3 PBMC public datasets showed in [Seurat](https://satijalab.org/seurat/) vignettes. All of them have been deeply characterized and scrupulously labelled, so they are accepted and used as reference by the scientific community.
 
 __TRAINING DATASET__  
 
-As combiroc training dataset we used the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833?via%3Dihub). we extracted the top 30 differentially expressed genes (DEGs) of Natural Killer cells cluster. The notorious difficulty to distinguish NK from CD8+ T cells in many scRNAseq datasets is a perfect challenge to test combiroc performance in markers signature optimization.   
-We are going to use combiroc on the top 30 NK cells markers to select the best markers combination whose regression model will be use on independent test/validation datasets of the same kind. 
+As combiroc training dataset we used the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833?via%3Dihub). This dataset can be downloaded from the 
+The notorious difficulty to distinguish NK from CD8+ T cells in many scRNAseq datasets is a perfect challenge to test combiroc performance in markers signature optimization: we extracted the top 30 differentially expressed genes (DEGs) of Natural Killer cells cluster. We are going to use combiroc to select the best combinations of markers among these top 30 NK cells markers. Regression models from the selected combinations will then be used on independent test/validation datasets of the same kind. 
 
 __TEST/VALIDATION DATASETS__
 
@@ -71,9 +70,9 @@ __Please note__: the main reason we choose the above datasets is because __they 
 
 ## A note on executing this vignette
 
-*The code described in this vignette was originally run on a jupyter-based R-kernel notebook backed by a high-performance computing (HPC) server infrastructure. Due to relevant size of some of the objects loaded and/or created, __it is unlikely that the whole code can be run on a standard computing equipment (i.e. a laptop)__. For this reason __intermediate objects have been pre-computed and can be read as `csv` files__. In this way the reader/reviewer will be able to complete the whole workflow without having a HPC server. It is mentioned throughout the code when this occurs.*  
+The code described in this vignette was originally run on a jupyter-based R-kernel notebook backed by a high-performance computing (HPC) server infrastructure. Due to relevant size of some of the objects loaded and/or created, __it is unlikely that the whole code can be run on a standard computing equipment (i.e. a laptop)__. For this reason __intermediate objects have been pre-computed and can be read as `csv` files__. In this way the reader/reviewer will be able to complete the whole workflow without having a HPC server. It is mentioned throughout the code when this occurs.
 
-*To be able to run the whole workflow without high memory or computational requirements the user need to __download the pre-computed files__, preserving the file names and folder structure (or changing the code accordingly).*
+To be able to run the whole workflow without high memory or computational requirements the user need to __download the pre-computed files__, preserving the file names and folder structure (or changing the code accordingly).
 
 # Training dataset and Models
 
@@ -94,7 +93,7 @@ atlas
 To select the annotations:
 ```{r}
 Idents(atlas) <- atlas@meta.data$celltype.l1
-DimPlot(atlas)
+DimPlot(atlas, label = T, repel = T)
 ```
 
 To perform differential expression analysis:
