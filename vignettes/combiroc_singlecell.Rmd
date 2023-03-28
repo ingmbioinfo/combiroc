@@ -55,7 +55,7 @@ Here we show an exemplificative workflow of combiroc-mediated signature refineme
 
 __TRAINING DATASET__  
 
-As combiroc training dataset we used the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833?via%3Dihub). This dataset can be downloaded from the 
+As combiroc training dataset we used the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833). This dataset can be downloaded from the 
 The notorious difficulty to distinguish NK from CD8+ T cells in many scRNAseq datasets is a perfect challenge to test combiroc performance in markers signature optimization: we extracted the top 30 differentially expressed genes (DEGs) of Natural Killer cells cluster. We are going to use combiroc to select the best combinations of markers among these top 30 NK cells markers. Regression models from the selected combinations will then be used on independent test/validation datasets of the same kind. 
 
 __TEST/VALIDATION DATASETS__
