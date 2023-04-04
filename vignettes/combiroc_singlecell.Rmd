@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r, warning=FALSE,message=FALSE}
 library(devtools)
 load_all()
-#library(combiroc)
+library(combiroc)
 library(dplyr)
 library(Seurat)
 library(patchwork)
@@ -53,30 +53,22 @@ In this context we decided to employ combiroc in the scRNA-seq analysis field as
 
 Here we show an exemplificative workflow of combiroc-mediated signature refinement at single-cell resolution in which we used 3 PBMC public datasets showed in [Seurat](https://satijalab.org/seurat/) vignettes. All of them have been deeply characterized and scrupulously labelled, so they are accepted and used as reference by the scientific community.
 
-__TRAINING DATASET__  
-
-As combiroc training dataset we used the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833). This dataset can be downloaded from the 
-The notorious difficulty to distinguish NK from CD8+ T cells in many scRNAseq datasets is a perfect challenge to test combiroc performance in markers signature optimization: we extracted the top 30 differentially expressed genes (DEGs) of Natural Killer cells cluster. We are going to use combiroc to select the best combinations of markers among these top 30 NK cells markers. Regression models from the selected combinations will then be used on independent test/validation datasets of the same kind. 
-
-__TEST/VALIDATION DATASETS__
-
-As independent test/validation we used 2 different datasets on which we will evaluate the expression levels of the previously selected marker combinations in each cluster of the datasets (ground thruth):
-
-- CBMC CITE-seq dataset shown in ['Using Seurat with multimodal data'](https://satijalab.org/seurat/articles/multimodal_vignette.html) vignette 
-- [PBMC3K scRNA-seq](https://satijalab.org/se(https://satijalab.org/seurat/articles/multimodal_vignette.html)urat/articles/pbmc3k_tutorial.html) dataset from Satija, R., Farrell, J., Gennert, D. et al. 2015 [[3]](https://www.nature.com/articles/nbt.3192)
-
-__Please note__: the main reason we choose the above datasets is because __they are well annotated__. While the cell clusters annotation of the first (training) dataset was indeed used in the computations by combiroc (we needed to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and __it will be only used *ex-post* as a ground truth to check the expression of maker combinations__.
-
 
 ## A note on executing this vignette
 
 The code described in this vignette was originally run on a jupyter-based R-kernel notebook backed by a high-performance computing (HPC) server infrastructure. Due to relevant size of some of the objects loaded and/or created, __it is unlikely that the whole code can be run on a standard computing equipment (i.e. a laptop)__. For this reason __intermediate objects have been pre-computed and can be read as `csv` files__. In this way the reader/reviewer will be able to complete the whole workflow without having a HPC server. It is mentioned throughout the code when this occurs.
 
-To be able to run the whole workflow without high memory or computational requirements the user need to __download the pre-computed files__, preserving the file names and folder structure (or changing the code accordingly).
+To be able to run the whole workflow without high memory or computational requirements the user needs to __download the pre-computed files__, preserving the file names and folder structure (or changing the code accordingly).
 
 # Training dataset and Models
 
 The purpose of this analysis is to find - starting from a NK-cell single-cell transcriptomic signature - the combinations of known gene markers that best describe the NK-cell populations, and using the models calculated on such combinations on other scRNAseq datasets.  
+The difficulty to distinguish NK (Natural Killer) cells from CD8+ T cells in many scRNAseq datasets is a good challenge to test combiroc performance in markers signature optimization; after performing differential marker expression we took into account the top 30 differentially expressed genes (DEGs) specific for NK cells cluster. We are going to use combiroc to select the best combinations of markers among these top 30 NK cells markers. Regression models from the selected combinations will then be used on other independent datasets of the same kind (test/validation datasets). 
+
+__TRAINING DATASET__  
+
+As combiroc training dataset we used the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833). This dataset can be downloaded as an h5 Seurat data (h5s) from the [FredHutch-NYCG atlas page](https://atlas.fredhutch.org/nygc/multimodal-pbmc/).
+
 To guarantee the best possible performance of the training dataset (the one we extract the markers combinations from) is important to make sure its value ranges are similar to those of the test/validation datasets. For this reason we will use the raw counts matrices for all the datasets, so we will be able to consistently rescale them in the same way by using the function `Seurat::ScaleData()`.  
 
 We start working on the training dataset, preprocessing it, extracting the NK-cells markers, finding their best markers combinations with combiroc and the relative models that will be used on the test/validation datasets. 
@@ -85,19 +77,19 @@ We start working on the training dataset, preprocessing it, extracting the NK-ce
 
 We performed the differential expression analysis (NK cells vs all the others) and we extracted a gene signature composed by the top 30 DEGs.  
 
-```{r warning=FALSE, message=FALSE}
-atlas <- readRDS('../inst/external_data/pbmc_multimodal.rds')
+To select the annotations *(Code not run)*:
+```{r eval=FALSE, warning=FALSE, message=FALSE}
+atlas <- readRDS('data/pbmc_multimodal.rds')
 atlas
 ```
 
-To select the annotations:
-```{r}
+To select the annotations *(Code not run)*:
+```{r eval=FALSE}
 Idents(atlas) <- atlas@meta.data$celltype.l1
 DimPlot(atlas, label = T, repel = T)
 ```
 
-To perform differential expression analysis:
-*(Code not run)*
+To perform differential expression analysis *(Code not run)*:
 ```{r eval=FALSE}
 #nk.de.markers <- FindMarkers(atlas, ident.1 = "NK", ident.2 = NULL)
 #nk.de.markers<-nk.de.markers[order(-nk.de.markers$avg_log2FC),]
@@ -176,7 +168,6 @@ Single cell RNA-seq datasets are exactly one of such cases in which it's not pos
 The core of a combiroc analysis are the two `marker_distribution()` and `combi()` functions: changing the value of key parameters in these functions we can modulate the stringency and severity of the analysis.  To obtain a performant and stringent signature refinement we set `min_SP =80` and the highest possible `min_SP =78` in `marker_distribution()`. 
 In `combi()`, we raised `combithr` argument to __2__: this is the minimum number of positively expressed genes (i.e. the minimum number of genes that need to reach the signal threshold) to consider the whole combination as a valid one.  
 
-
 The plots below show expression values (signal) distribution obtained with the `markers_distributions()` functions on the training dataset in long format (`train_long`). Differently from two well-defined classes (as seen in the standard combiroc workflow), it's not intuitive where to put the signal threshold, but the function suggests a signal intensity value of __0.9__. Genes expression values, as expected, are distributed in different ways in the two classes:
 
 *Please note: the `markers_distribution()` command naturally triggers a few warnings in which the user is reminded how to use the command arguments*
@@ -211,7 +202,7 @@ rmks <- ranked_combs(combo_table = train_tab,
                      min_SE = 95, min_SP = 95)
 head(rmks$table)
 ```
-And with `roc_reports()` we carry out the computations for the selected combinations (we need to explicitly indicate their number IDs in the `selected_combinations` argument). Also, we need to indicate the case class (NK):
+And with `roc_reports()` we carry out the computations for the four top selected combinations (we need to explicitly indicate their number IDs in the `selected_combinations` argument). Also, we need to indicate the case class (NK):
 ```{r}
 reports <-roc_reports(train, markers_table = train_tab, 
                       selected_combinations =  c(169807,172173,163878, 137550),                      
@@ -219,17 +210,28 @@ reports <-roc_reports(train, markers_table = train_tab,
 ```
 
 Let's explore the results generated:
-```{r}
+```{r warning=F}
 reports$Plot
+rocplot <- (reports$Plot) + xlim(0, 0.20)
+rocplot
 reports$Metrics
 ```
 The overall internal classification performances of the top 4 combinations are better than the top 4 single markers ones, and are very similar with each other.
 
 # Analysis of test datasets
 
+__TEST/VALIDATION DATASETS__
+
+As independent test/validation we used 2 different datasets on which we will evaluate the expression levels of the previously selected NK related marker combinations in each cluster of the datasets:
+
+- CBMC CITE-seq dataset shown in ['Using Seurat with multimodal data'](https://satijalab.org/seurat/articles/multimodal_vignette.html) vignette 
+- [PBMC3K scRNA-seq](https://satijalab.org/se(https://satijalab.org/seurat/articles/multimodal_vignette.html)urat/articles/pbmc3k_tutorial.html) dataset from Satija, R., Farrell, J., Gennert, D. et al. 2015 [[3]](https://www.nature.com/articles/nbt.3192)
+
+__Please note__: the main reason we choose the above datasets is because __they are well annotated__. While the cell clusters annotation of the first (training) dataset was indeed used in the computations by combiroc (we needed to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and __it will be only used *ex-post* as a ground truth to check the expression of maker combinations__.
+
 ## CBMC dataset
 
-The CBMC test dataset was directly downloaded from the [Seurat vignette](https://satijalab.org/seurat/articles/multimodal_vignette.html). 
+The CBMC test dataset was directly downloaded from [here](ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz) as described in the [Seurat multimodal vignette](https://satijalab.org/seurat/articles/multimodal_vignette.html)
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -238,6 +240,22 @@ cbmc[['ID']]<- Idents(cbmc)
 cbmc <- cbmc[, cbmc[['ID']]!='Unknown'] # removal of unlabelled cells
 cbmc
 ```
+
+```{r}
+InstallData("cbmc")
+data("cbmc")
+annotations <- readRDS(file = system.file('extdata/annotations/annotations.Rds', package = 'cbmc.SeuratData'))
+cbmc <- Seurat::AddMetaData(object = cbmc, metadata = annotations)
+DefaultAssay(cbmc) <- 'RNA'
+cbmc <- NormalizeData(cbmc) %>% FindVariableFeatures() %>% ScaleData() %>% RunPCA()
+cbmc <- FindNeighbors(cbmc, dims = 1:30)
+cbmc <- FindClusters(cbmc, resolution = 0.8, verbose = FALSE)
+cbmc <- RunUMAP(cbmc, dims = 1:30)
+Idents(cbmc) <- cbmc@meta.data$protein_annotations
+DimPlot(cbmc, repel = T, label = T) + NoLegend()
+```
+
+
 ```{r, message=FALSE, warning=FALSE, fig.height = 10, fig.width = 8, fig.align = "center"}
 DimPlot(cbmc)
 ```
@@ -263,7 +281,7 @@ pbmc3k.final
 ```
 The original UMAP embedding of the PBMC3K datasets:
 ```{r,fig.height = 10, fig.width = 8, fig.align = "center"}
-DimPlot(pbmc3k.final, reduction = "umap", label = F, repel = TRUE)
+DimPlot(pbmc3k.final, reduction = "umap", label = T, repel = T)
 ```
 Exploitiong `seurat_to_combiroc()` we obtained also the second combiroc test dataset (`test_pbmc3k`). This dataset does not contain 'TRDC' expression values since this gene is not present in the PBMC3K dataset.
 ```{r, message=FALSE, warning=FALSE}
