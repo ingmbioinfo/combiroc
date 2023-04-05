@@ -137,7 +137,7 @@ distr <- markers_distribution(data_long, case_class = 'A',
                               boxplot_lim = 2000)
 ```
 
-### The __distr__ object
+## The __distr__ object
 
 The __distr__ object contains the following elements: 
 
