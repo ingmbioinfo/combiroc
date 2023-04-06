@@ -62,7 +62,7 @@ All of them have been deeply characterized and scrupulously labelled, so they ar
 
 The code described in this vignette was originally run on a jupyter-based R-kernel notebook backed by a high-performance computing (HPC) server infrastructure.
 Due to relevant size of some of the objects loaded and/or created, **it is unlikely that the whole code can be run on a standard computing equipment (i.e. a laptop)**.
-The computationally heavy passages are therefore marked as [[Heavy-Code]]{style="color: red;"} and can be skipped by the user by reading/loading **pre-computed objects or intermediate results either from `rds` or `csv` files**.
+The computationally heavy passages are therefore marked as [[Heavy-Code]]{style="color: orange;"} and can be skipped by the user by reading/loading **pre-computed objects or intermediate results either from `rds` or `csv` files**.
 In this way the reader/reviewer will be able to complete the whole workflow without having a HPC server.
 
 # Training dataset and Models
@@ -75,7 +75,7 @@ Regression models from the selected combinations will then be used on other inde
 **TRAINING DATASET**
 
 As combiroc training dataset we used the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833).
-This dataset can be downloaded as an h5 Seurat data (h5s) from the [FredHutch-NYCG atlas page](https://atlas.fredhutch.org/nygc/multimodal-pbmc/) (exact download link: [here](https://atlas.fredhutch.org/data/nygc/multimodal/pbmc_multimodal.h5seurat)) [[Heavy-Code]]{style="color: red;"}
+This dataset can be downloaded as an h5 Seurat data (h5s) from the [FredHutch-NYCG atlas page](https://atlas.fredhutch.org/nygc/multimodal-pbmc/) (exact download link: [here](https://atlas.fredhutch.org/data/nygc/multimodal/pbmc_multimodal.h5seurat)) [[Heavy-Code]]{style="color: orange;"}
 
 ```{r eval=FALSE}
 # load the SeuratDisk library to read h5seurat
@@ -95,7 +95,7 @@ For this reason we advise using the raw counts matrices for all the datasets, in
 
 ## Extracting the NK markers
 
-The gene markers for NK cells were obtained with a standard Seurat analysis (see [here](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html)); the `Seurat::FindMarkers()` function was used, then markers were ordered by fold change: [[Heavy-Code]]{style="color: red;"}
+The gene markers for NK cells were obtained with a standard Seurat analysis (see [here](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html)); the `Seurat::FindMarkers()` function was used, then markers were ordered by fold change: [[Heavy-Code]]{style="color: orange;"}
 
 ```{r eval=FALSE}
 # Performing differential expression analysis
@@ -105,7 +105,7 @@ nk_genes <- rownames(nk.de.markers)[1:30]
 ```
 
 By visualising the expression values of the top 4 markers of NK cells cluster it is evident that the majority of them is also higly expressed in other non-NK clusters (e.g. CD8 T), making them too unspecific to allow a well defined cluster annotation if considered individually.
-[[Heavy-Code]]{style="color: red;"}
+[[Heavy-Code]]{style="color: orange;"}
 
 ```{r eval= FALSE, fig.height = 10, fig.width = 8, fig.align = "center"}
 FeaturePlot(atlas, nk_genes[1:4])
@@ -129,7 +129,7 @@ It takes a Seurat object as input and extracts both the selected marker expressi
 ## Building the training dataset
 
 Once you have a Seurat object obtained from a standard Seurat protocol, it needs to be converted in a combiroc-ready version in order to perform the training procedure (i.e. finding the markers combinations and models).
-Such a `train` object can be obtained with the `seurat_to_combiroc()` function: [[Heavy-Code]]{style="color: red;"}
+Such a `train` object can be obtained with the `seurat_to_combiroc()` function: [[Heavy-Code]]{style="color: orange;"}
 
 ```{r eval=F}
 train <- seurat_to_combiroc(SeuratObject = atlas, 
@@ -241,11 +241,13 @@ In this dataframe are also shown sensitivity (SE) and specificity (SP) for each 
 -   SE as the percentage of positive cells for a 'NK' class
 -   SP as the percentage of negative cells for 'Other' class
 
-[[Heavy-Code]]{style="color: red;"} *(use the pre-computed below)*
+[[Heavy-Code]]{style="color: orange;"} *(use the pre-computed below)*
 
 ```{r eval=F}
 train_tab <- combi(train, signalthr = autoThreshold, combithr = 2, max_length = 5, case_class = 'NK')
 ```
+
+Read the precomputed object:
 
 ```{r}
 train_tab <- read.table('inst/precomp/train_tab')
