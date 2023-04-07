@@ -100,12 +100,11 @@ The gene markers for NK cells were obtained with a standard Seurat analysis (see
 ```{r eval=FALSE}
 # Performing differential expression analysis
 nk.de.markers <- FindMarkers(atlas, ident.1 = "NK", ident.2 = NULL)
-nk.de.markers <- nk.de.markers[order(-nk.de.markers$avg_log2FC),]
+nk.de.markers <- nk.de.markers[order(-nk.de.markers$avg_log2FC), ]
 nk_genes <- rownames(nk.de.markers)[1:30]
 ```
 
 By visualising the expression values of the top 4 markers of NK cells cluster it is evident that the majority of them is also higly expressed in other non-NK clusters (e.g. CD8 T), making them too unspecific to allow a well defined cluster annotation if considered individually.
-[[Heavy-Code]]{style="color: orange;"}
 
 ```{r eval= FALSE, fig.height = 10, fig.width = 8, fig.align = "center"}
 FeaturePlot(atlas, nk_genes[1:4])
@@ -121,17 +120,17 @@ nk_genes <- rownames(nk.de.markers)[1:30]
 nk_genes
 ```
 
-## Converting Seurat object in combiroc ready data
+## Converting Seurat objects in combiroc's input format
 
 Central to the combiroc workflow applied to single cell data is the function `seurat_to_combiroc()`.
-It takes a Seurat object as input and extracts both the selected marker expression values from the @data slot of a given assay and, optionally, the class of any specific celltype (in our case 'NK' or 'Other'); then it directly assembles a dataframe compatible with combiroc workflow either for training (finding combinations and models) or test (using combinations) purposes.
+It takes a Seurat object as input and extracts both the selected marker expression values from the @data slot of a given assay and, optionally, the class of any specific celltype (in our case 'NK' or 'Other'); then it directly assembles a dataframe compatible with combiroc workflow either for training (finding combinations and models) or testing purposes (using previously found combinations).
 
-## Building the training dataset
+## Preparing the training single-cell RNAseq dataset
 
-Once you have a Seurat object obtained from a standard Seurat protocol, it needs to be converted in a combiroc-ready version in order to perform the training procedure (i.e. finding the markers combinations and models).
+Once we have a Seurat object obtained from a standard Seurat protocol, it needs to be converted in a combiroc-ready version in order to perform the training procedure, i.e. finding the best markers combinations and models, with combiroc's functions.
 Such a `train` object can be obtained with the `seurat_to_combiroc()` function: [[Heavy-Code]]{style="color: orange;"}
 
-```{r eval=F}
+```{r eval=FALSE}
 train <- seurat_to_combiroc(SeuratObject = atlas, 
                             gene_list = nk_genes, 
                             assay = 'SCT', 
@@ -141,14 +140,14 @@ train <- seurat_to_combiroc(SeuratObject = atlas,
                             control_label =  'Other')
 ```
 
-The `train` object obtained with the code above can be directly read here:
+The pre-computed `train` object obtained with the code above can be directly read here:
 
 ```{r}
 train <- readRDS(file = "inst/precomp/train.rds")
 head(train)
 ```
 
-Then, as described in the [main combiroc vignette](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html), we used `combiroc_long` to make the data in long form, fit for further processing:
+Then, as described in the [main combiroc vignette](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html), we used `combiroc_long` to make the data in long tidy format, fit for further processing:
 
 ```{r}
 train_long <- combiroc_long(train)
@@ -243,7 +242,7 @@ In this dataframe are also shown sensitivity (SE) and specificity (SP) for each 
 
 [[Heavy-Code]]{style="color: orange;"} *(use the pre-computed below)*
 
-```{r eval=F}
+```{r eval=FALSE}
 train_tab <- combi(train, signalthr = autoThreshold, combithr = 2, max_length = 5, case_class = 'NK')
 ```
 
@@ -279,6 +278,11 @@ Let's explore the results generated:
 
 ```{r warning=F}
 reports$Plot
+```
+
+Zooming in to show the higher performance of the combinations:
+
+```{r}
 rocplot <- (reports$Plot) + coord_cartesian(xlim = c(0, 0.2))
 rocplot
 reports$Metrics
@@ -286,7 +290,13 @@ reports$Metrics
 
 The overall internal classification performances of the top 4 combinations are better than the top 4 single markers ones, and are very similar with each other.
 
-# Analysis of test datasets
+To know which are the genes in any specific combination we can use the `show_markers()` function. For combinations 169807 and 172173, use:
+```{r}
+show_markers(selected_combinations =c(169807,172713), markers_table = train_tab)
+```
+
+
+# Testing the combinations on independent datasets (validation)
 
 **TEST/VALIDATION DATASETS**
 
@@ -296,12 +306,14 @@ As independent test/validation we used 2 different datasets on which we will eva
 -   Peripheral blood mononuclear cells (PBMC) [PBMC3K scRNA-seq](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html) dataset from Satija, R., Farrell, J., Gennert, D. et al. 2015 [[4]](https://www.nature.com/articles/nbt.3192)
 
 **Please note**: the main reason we choose the above datasets is because **they are well annotated**.
-While the cell clusters annotation of the first (training) dataset was indeed used in the computations by combiroc (we needed to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and **it will be only used *ex-post* as a ground truth to check the expression of maker combinations**.
+While the cell clusters annotation of the first (training) dataset was indeed used in the computations by combiroc (we needed to distinguish NK cells from all other cells), the cells annotation of the other two validation datasets is stripped away from the data, and **it will be only used *ex-post* as a ground truth to check the expression of maker combinations**
 
-## CBMC dataset
+For each dataset, first we prepare the
+
+## Testing marker combinations on CBMC dataset
 
 The CBMC test dataset, made of 8617 cord blood mononuclear cells (CBMCs), produced with CITE-seq was directly loaded from the `SeuratData` package.
-The dataset hah been generated by Stoeckius et al. 2017 [[3]](https://www.nature.com/articles/nmeth.4380).
+The dataset has been generated by Stoeckius et al. 2017 [[3]](https://www.nature.com/articles/nmeth.4380).
 Further description can be found in the [Seurat multimodal vignette](https://satijalab.org/seurat/articles/multimodal_vignette.html) or by calling the guide with `?cbmc`.
 
 We are going to invoke the cbmc dataset from the `SeuratData` package and preprocess it as needed:
@@ -324,6 +336,7 @@ DimPlot(cbmc, repel = T, label = T)
 ```
 
 Please note that the "NA" gray cells cluster is from mouse cells whose presence acts as negative control in the original experiment/dataset.
+Also, cluster annotations are just superimposed and pulled out as ground truth of cells identity but are not further used in the combiroc procedure.
 
 As previosuly done for the training dataset, we now obtain the first combiroc test dataset using `seurat_to_combiroc()` function.
 The `test_cbmc` object contains cell barcodes as sample IDs and the expression values of the 30 NK signature genes).
@@ -336,10 +349,45 @@ test_cbmc
 
 ```
 
-## PBMC3K dataset
+### Distribution of individual markers' expression
 
-The PBMC3K test dataset can also be directly invoked from the `SeuratData` library.
-The dataset is immediately available as a Seurat object named `pbmc3k.final`
+Let's have a look at how the top four single NK-markers expression is distributed across the cell clusters in the CBMC dataset:
+
+```{r warning=FALSE, message=FALSE, fig.height=8, fig.align = "center"}
+VlnPlot(cbmc, features = nk_genes[1:4], group.by = 'ID', pt.size=0, ncol = 2)
+```
+
+In this dataset, expressions of top individual NK markers is higher in the NK cluster, but also moderate in others: they are expressed in some CD8 T cells, CD34+ and CD16+ Mono cells, even if clusters have been defined and annotated relying on protein-level information (CITE seq).
+Moreover, GZMB alone is not sufficient to discriminate NK cells from pDCs.
+Only PRF1 among the top four markers is able to discriminate NK cells alone.
+Mouse cells (the "NA" cluster), which are kept from the original dataset as negative control, also show a bit of GNLY and NKG7 expression, which is not surprising given the mixed nature of this cluster.
+
+### Combiroc NK probability across CBMC cell clusters
+
+We now look at the performance of the marker combination selected with combiroc using the combi-score, which is calculated here for the top *Combination 172173* (made by genes GZMB, IL2RB, KLRF1, SPON2 and TRDC), which has the highest accuracy.
+This score expresses the probability of being NK cells.
+
+```{r}
+# adding combi score for combination 172173
+cs_cbmc <- combi_score(unclassified_data = test_cbmc, Models = reports$Models, Metrics = reports$Metrics, Positive_class = 'NK', Negative_class = 'Other')
+cbmc[['c172173_combi_score']]<- cs_cbmc$`Combination 172173`  
+```
+
+Let's plot the combi-score for *Combination 172173* across CBMC clusters:
+
+```{r fig.width=10, fig.align = "center"}
+p1 <- FeaturePlot(cbmc, features = "c172173_combi_score")
+p2 <- VlnPlot(cbmc, features = "c172173_combi_score", group.by = "ID", pt.size = 0)
+p1 | p2
+```
+
+The combi-score, which is the probability of belonging to NK cells, is highly specific for the clusters that are annotated with a "NK" label.
+pDCs cells do not show any signal and a very small number of mouse cells are colored in the FeaturePlot (left), yet without any relevance to the combi-score as seen in the violin plots (right).
+
+## Testing marker combination on PBMC3K dataset
+
+The Peripheral blood mononuclear cells (PBMC3K) test dataset can also be directly invoked from the `SeuratData` library.
+The dataset is immediately available as an already processed Seurat object named `pbmc3k.final`.
 
 ```{r, message=FALSE, warning=FALSE}
 #InstallData("pbmc3k")
@@ -351,120 +399,139 @@ pbmc3k.final
 
 The original UMAP embedding of the PBMC3K datasets:
 
-```{r,fig.height = 10, fig.width = 8, fig.align = "center"}
+```{r fig.align = "center"}
 DimPlot(pbmc3k.final, reduction = "umap", label = T, repel = T)
 ```
 
-In the same way as oreviously done we are using now `seurat_to_combiroc()` to obtain the second combiroc test dataset (`test_pbmc3k`).
-Please note that this dataset does not contain 'TRDC expression values since this gene ' (which is part of the selected combinations) is not present in the original PBMC3K dataset.
+In the same way as previously done we are using now `seurat_to_combiroc()` to obtain the second combiroc test dataset (`test_pbmc3k`).
+Please note that this dataset does not contain TRDC expression values since this gene (which contributes to the top selected combinations) is not present in the original PBMC3K dataset.
 
 ```{r, message=FALSE, warning=FALSE}
 test_pbmc3k <- seurat_to_combiroc(SeuratObject = pbmc3k.final, gene_list = nk_genes, assay = 'RNA')
 test_pbmc3k
 ```
 
-## Distribution of top single markers
+### Distribution of individual markers' expression
 
-Let's have a look how the top four single NK-markers expression is distributed in the CBMC dataset:
+Let's have a look how the top four single NK-markers expression is distributed in the PBMC-3K dataset:
 
-```{r warning=FALSE, message=FALSE, fig.height = 10, fig.width = 8, fig.align = "center"}
-p1 <- FeaturePlot(cbmc, features = nk_genes[1:4])
-p2 <- VlnPlot(cbmc, features = nk_genes[1:4], group.by = 'ID', pt.size=0, ncol = 2)
-p1
-p2
+```{r warning=FALSE, message=FALSE, fig.height=8, fig.align="center"}
+VlnPlot(pbmc3k.final, features = nk_genes[1:4], group.by = 'ID', pt.size=0, ncol = 2)
 ```
 
-In CBMC dataset, single markers values are higher in NK cluster and moderate in all the others, but still slightly present in some CD8 T cells, CD34+ and CD16+ Mono cells, even if clusters have been defined by the authors relying on protein-level (CITE seq) information.
-Moreover, GZMB per se is not sufficient to discriminate NK cells from pDC.
-In this dataset only PRF1 among the top four markers is able to discriminate NK cells alone.
-Mouse cells (the "NA" cluster), which are kept from the original dataset as negative control, also show a bit of GNLY and NKG7 expression.
+In this PBMC dataset, all top four markers have high expression values in NK cells and in CD8 T cells too, showing that individual markers mRNA level may be not sufficient to clearly identify the cells of interest.
 
-And the same in the PBMC3K dataset:
+### Combiroc NK probability across PBMC-3K cell clusters
 
-```{r warning=FALSE, message=FALSE, fig.height = 10, fig.width = 8, fig.align = "center"}
-p3 <- FeaturePlot(pbmc3k.final, features = nk_genes[1:4])
-p4 <- VlnPlot(pbmc3k.final, features = nk_genes[1:4], group.by = 'ID', pt.size=0, ncol = 2)
-p3
-p4
+We now look at the performance of the marker combination selected with combiroc using the combi-score, which is calculated here for the top *Combination 137550* (made by genes CLIC3, FCGR3A, IL2RB, KLRD1 and KLRF1), the highest accuracy combination without TRDC gene (which is not expressed in the this dataset).
+This score also expresses the probability of being NK cells.
+
+```{r}
+sub <- reports$Models
+sub$`Combination 169807` <- NULL
+sub$`Combination 172173` <- NULL
+cs_pbmc3k <- combi_score(unclassified_data = test_pbmc3k, Models = sub,
+    Metrics = reports$Metrics, Positive_class = "NK", Negative_class = "Other")
+pbmc3k.final[["c137550_combi_score"]] <- cs_pbmc3k$`Combination 137550`  # to add combi score of combination 137550
 ```
 
-In PBMC3K dataset, all top four markers have high expression values on CD8 T cells too, showing that single markers mRNA level may be not sufficient to clearly identify the cells of interest.
+Let's plot the combi-score for *Combination 137550* across PBMC-3K clusters:
 
-## Distributions of the best combination
+```{r fig.width=10, fig.align="center"}
+p1 <- FeaturePlot(pbmc3k.final, features = "c137550_combi_score")
+p2 <- VlnPlot(pbmc3k.final, features = "c137550_combi_score", group.by = "ID", pt.size = 0)
+p1 | p2
+```
 
-We now look at the performance of the selected marker combinations.
-To assess the descriptive power, for both test datasets, we compare the expression of top 4 single markers with the expression of the best combination (since the top 4 are very similar in terms of performance), exploiting both our "combi-score" and an already published "gene-signature-score".
+Here too, as seen for the previous dataset, the cell cluster labeled as "NK" is the only one displaying a very high combi-score, i.e. showing an actual probability of being NK cells.
+No other cell in any cluster produces noisy interference.
 
-While the **combi-score** defined here is defined as the predicted probability obtained while fitting the combinations models to the test datasets (returned by `combi_score()`), the **gene-signature-score** that we use as a comparison is described in Della Chiara et al. 2021 [[5]](https://www.nature.com/articles/s41467-021-22544-y): it takes into account both the expression level and co-expression of genes within each single cell.
+## Combinations selected with combiroc are optimised smaller signatures
+
+While the **combi-score** described here is defined as the predicted probability obtained while fitting the combinations models to the test datasets (returned by `combi_score()`), other metrics exist such as the **gene-signature-score** described in Della Chiara et al. 2021 [[5]](https://www.nature.com/articles/s41467-021-22544-y): the gene-signature-score takes into account both the expression level and co-expression of genes within each single cell.\
 Given a geneset, the gene-signature-score's increase is directly proportional to the number of expressed genes in the signature and to the sum of their level of expression.
-We reproduced this score in the custom R function `signature_score.R`:
+
+We are going now to use this gene-signature-score computed on the whole signature and computed on the combiroc-selected combinations. To do so, we reproduced the gene-signature-score computation in the custom R function `signature_score.R`:
 
 ```{r}
 source("inst/external_code/signature_score.R")
 ```
 
-First, we compute the "gene-signature-score" of the **whole 30 DEGs signature** that we assume as reference.
+First, we compute the "gene-signature-score" for the **whole 30 DEGs signature** that we assume as reference.
+Being this a whole signature (30 genes) we expect it to be very specific.
+We are doing this on both test datasets previously used.
 
 ```{r}
+# computing whole signature gene-signature-score for CBMC
 NK_sig_cbmc<-signature_score(SeuratObj = cbmc, geneset = nk_genes)
 cbmc$NK_signature_score <- NK_sig_cbmc$scaled_combined_score
 
+# computing whole signature gene-signature-score for PBMC-3K
 NK_sig_pbmc3k<-signature_score(SeuratObj = pbmc3k.final, geneset = nk_genes)
 pbmc3k.final$NK_signature_score <- NK_sig_pbmc3k$scaled_combined_score
 ```
 
-We then calculate both the "gene-signature-score" and the "combi-score" of the top combinations: - *Combination 172173* (made by genes GZMB, IL2RB, KLRF1, SPON2 and TRDC), with the highest accuracy, is investigated in CBMC dataset.
-- *Combination 137550* (made by genes CLIC3, FCGR3A, IL2RB, KLRD1 and KLRF1) is used in PBMC3K dataset since it's the first top combination without the TRDC gene, which is not expressed in the this dataset.
+Then, we compute the "gene-signature-score" **limited to the combinations of five genes previously used**: 
+- *Combination 172173* (made by genes GZMB, IL2RB, KLRF1, SPON2 and TRDC) in CBMC dataset.
+- *Combination 137550* (made by genes CLIC3, FCGR3A, IL2RB, KLRD1 and KLRF1) in PBMC3K dataset These combinations are going to be our "optimized-signatures".
 
 ```{r}
+# computing gene-signature-score of combination 172173 for CBMC
 comb_cbmc<-signature_score(SeuratObj = cbmc, geneset = c('GZMB','IL2RB','KLRF1','SPON2','TRDC'))
-cbmc[['c172173_signature_score']] <- comb_cbmc$scaled_combined_score  # to add signature score of combination 172173
+cbmc[['c172173_signature_score']] <- comb_cbmc$scaled_combined_score  
+
+# computing gene-signature-score of combination 137550 for PBMC-3K
 comb_pbmc3k<-signature_score(SeuratObj = pbmc3k.final, geneset = c('CLIC3', 'FCGR3A', 'IL2RB','KLRD1','KLRF1'))
-pbmc3k.final[['c137550_signature_score']] <- comb_pbmc3k$scaled_combined_score # to add signature score of combination 137550
-
-cs_cbmc <- combi_score(unclassified_data = test_cbmc, Models = reports$Models, Metrics = reports$Metrics, Positive_class = 'NK', Negative_class = 'Other')
-cbmc[['c172173_combi_score']]<- cs_cbmc$`Combination 172173`  # to add combi score of combination 172173
-
-sub<- reports$Models
-sub$`Combination 169807` <- NULL
-sub$`Combination 172173` <- NULL
-cs_pbmc3k <- combi_score(unclassified_data = test_pbmc3k, Models = sub, Metrics = reports$Metrics, Positive_class = 'NK', Negative_class = 'Other')
-pbmc3k.final[['c137550_combi_score']]<- cs_pbmc3k$`Combination 137550`  # to add combi score of combination 137550
-
+pbmc3k.final[['c137550_signature_score']] <- comb_pbmc3k$scaled_combined_score 
 ```
 
-The NK-signature score for both datasets correctly discriminates NK-cells from others:
+We are now plotting side by side the gene-signature-scores from the whole-signature (30 genes) and the combinations (5 genes).\
+For the CBMC dataset:
 
-```{r warning=FALSE, message=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
-p1<-FeaturePlot(cbmc, features = 'NK_signature_score')
-p2<-FeaturePlot(pbmc3k.final, features = 'NK_signature_score')
-p1|p2
-v1<- VlnPlot(cbmc, features='NK_signature_score', group.by = 'ID', pt.size=0)
-v2<- VlnPlot(pbmc3k.final, features='NK_signature_score', group.by = 'ID', pt.size=0)
+```{r warning=FALSE, message=FALSE, fig.height = 5, fig.width = 10, fig.align = "center"}
+v1 <- VlnPlot(cbmc, features='NK_signature_score', group.by = 'ID', pt.size=0)
+v2 <- VlnPlot(cbmc, features='c172173_signature_score', group.by = 'ID', pt.size=0)
 v1|v2
 ```
 
-The NK-signature score for both datasets correctly discriminates NK-cells from others:
+And for the PBMC-3K dataset:
 
-Strikingly, in CBMC the highest scores are all found in NK cluster, while in all the others the values are drastically lower and all comparable to mouse cell ones (negative control).
-In PBMC3K the highest scores are in NK cells but a still relevant score is found in cytotoxic CD8-T cells.
-The signal of the whole-30genes-signature is, as expected, less noisy than the signal from the single top markers.
-
-Then we compare the whole signature score with the "gene signature score" and "combi score" of the best combination.
-
-```{r warning=FALSE, message=FALSE, fig.height =5, fig.width = 8, fig.align = "center"}
-FeaturePlot(cbmc, features = c('NK_signature_score','c172173_signature_score', 'c172173_combi_score'))
-VlnPlot(cbmc, features=c('NK_signature_score','c172173_signature_score', 'c172173_combi_score'), group.by = 'ID', pt.size=0)
-FeaturePlot(pbmc3k.final, features = c('NK_signature_score','c137550_signature_score', 'c137550_combi_score'))
-VlnPlot(pbmc3k.final, features=c('NK_signature_score','c137550_signature_score', 'c137550_combi_score'), group.by = 'ID', pt.size=0)
+```{r warning=FALSE, message=FALSE, fig.height = 5, fig.width = 10, fig.align = "center"}
+v1 <- VlnPlot(pbmc3k.final, features='NK_signature_score', group.by = 'ID', pt.size=0)
+v2 <- VlnPlot(pbmc3k.final, features = "c137550_signature_score", group.by = "ID", pt.size = 0)
+v1|v2
 ```
 
-Remarkably, despite the 6 fold reduction in the number of considered features to build the gene score, for both the datasets, the signature score confirmed that the best combination is, at worst, as accurate as the whole signature in indicating the NK cluster.
-In addition, combi-score results to be even more precise and further suggests that these combinations can be used as a refined version of the 30-genes NK whole-signature.
-In PBMC3K, gene score values in CD8 T cells were moderately higher and closer to NK cluster ones with respect to combiroc score values.
-This difference was expected since to compute the gene scores the genes within the combinations are considered equally, while combiroc models assign a 'weight' to each gene, further indicating the power of combiroc combination models in suggesting the identity of a cluster with a modest amount of genes.
+As expected, the gene-signature-score for both datasets correctly discriminates NK-cells from others, but while in CBMC cells the NK cluster is unequivocally selected, in PBMC-3K cells also cytotoxic CD8-T cells are picked with a still relevant score. This does not happen when the gene-signature-score is computed over the combinations selected with combiroc (plots on the right). Overall, the gene-signature-scores on combinations are highly specific and less noisy. 
 
-Finally, to validate the results, we check the effect of a set of random combinations on the test datasets
+This demonstrates that having more genes as in the 30-genes whole signature does not add discriminatory power compared to combinations with much less genes. The 5-genes **combinations selected with combiroc are de-facto optimized gene signatures** with equal or even higher discriminatory power compared to the bigger gene signatures they are extracted from.
+
+## The combi-score can be used to discriminate among cell clusters
+
+Finally we compare here the complete NK whole gene-signature-score with the combiroc's NK combi-score to see how they perform in both test datasets.
+
+Comparison in CBMC cells:
+
+```{r warning=FALSE, message=FALSE, fig.height = 5, fig.width = 10, fig.align = "center"}
+v1 <- VlnPlot(cbmc, features='NK_signature_score', group.by = 'ID', pt.size=0)
+v2 <- VlnPlot(cbmc, features='c172173_combi_score', group.by = 'ID', pt.size=0)
+v1|v2
+```
+
+Comparison in PBMC-3K cells:
+
+```{r warning=FALSE, message=FALSE, fig.height = 5, fig.width = 10, fig.align = "center"}
+v1 <- VlnPlot(pbmc3k.final, features='NK_signature_score', group.by = 'ID', pt.size=0)
+v2 <- VlnPlot(pbmc3k.final, features = "c137550_combi_score", group.by = "ID", pt.size = 0)
+v1|v2
+```
+
+Remarkably, despite the 6 fold reduction in the number of considered features to build the gene score, for both the datasets, the signature score confirmed that the best combination is, at worst, as accurate as the whole signature in indicating the NK cluster.\
+In addition, combi-score results to be even more precise and further suggests that these combinations can be used as a refined version of the 30-genes NK whole-signature.
+
+The difference between the gene-signature-score and combi-score is not surprising since to compute the first the genes within the combinations are considered equally, while in the latter combiroc models assign a 'weight' to each gene, further indicating the power of combiroc combination models in suggesting the identity of a cluster with a modest amount of genes.
+
+As a mean of control, we check the effect of a set of random combinations on the test datasets
 
 ```{r}
 combs_length <- c(30, 5)
@@ -488,23 +555,32 @@ print('PBMC3K')
 VlnPlot(pbmc3k.final, features = c('random_30', 'random_5'), group.by = 'ID', pt.size=0)
 ```
 
-Beyond using scores of random combinations as negative control, they also show the magnitude of background noise associated to each random combination taken into consideration.
-In fact, random scores show quite homogeneously distributed values across clusters indicating that the cluster-preferential distributions of real combinations scores are not stochastic.
+Beyond using scores of random combinations as negative control, they also show the magnitude of background noise associated to each random combination taken into consideration. In fact, random scores show quite homogeneously distributed values across clusters indicating that the cluster-preferential distributions of real combinations scores are not stochastic.\
 Generally speaking since the higher is the length of random signatures, the higher will be the noise hence the probability to pick genes expressed in all the clusters: this suggests that **the higher is the length of a real DEG signature the higher is the probability to include less specific genes and to increase the noise**.
 
 # Conclusions
 
 This guided tutorial shows how to use the combiroc package to optimize single-cell gene signature with combinations of marker and to identify a population of interest in scRNA-seq datasets:
 
--   combiroc accurately selects the most informative markers from a trancriptional signature.
--   combiroc's specificity can also ameliorate results obtained by other published gene-signature score: the gene-signature summarizing method is remarkably less noisy when performed on markers combinations compared to whole gene signatures.
+-   combiroc accurately selects the most informative markers from a wider trancriptional signature.
+-   combiroc's specificity can also ameliorate results obtained by other published gene-signature scores: the gene-signature summarizing method is remarkably less noisy when performed on markers combinations compared to whole gene signatures.
 
-Identifying NK cells using the expression level of the best markers individually is not efficient since they are too unspecific for classification purposes if taken one by one.
+Identifying NK cells using the expression level of the best markers individually is not efficient since they are too unspecific for classification purposes if taken one by one.\
 The power of a combined signature of five markers only is comparable - and in some cases superior - to that of a whole scRNA-seq gene signature, typically in the range of tens of genes: **scaling down a gene signature while retaining its discriminatory power is highly relevant in both research and diagnostic context**.
 
 Back to the [top](#top) of this docment.
 
 Go to [Combiroc standard workflow tutorial](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html)
+
+# References
+
+1. Abdelaal et al. 2019. *Genome Biology*. A comparison of automatic cell identification methods for single-cell RNA sequencing data
+2. Hao et al. 2021.*Cell* Integrated analysis of multimodal single-cell data
+3. Stoeckius et al. 2017. *Nature Methods*. Simultaneous epitope and transcriptome measurement in single cells
+4. Satija et al. 2015. *Nature Biotechnology*. Spatial reconstruction of single-cell gene expression data.
+5. Della Chiara et al. 2021. *Nature Comunications*. Epigenomic landscape of human colorectal cancer unveils an aberrant core of pan-cancer enhancers orchestrated by YAP/TAZ.
+
+# Session Info
 
 ```{r}
 sessionInfo()
