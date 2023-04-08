@@ -47,7 +47,7 @@ library(pheatmap)
 library(scattermore)
 ```
 
-# Rationale {#top}
+# Introduction {#top}
 
 Single-cell transcriptomics is a rapidly growing field which is essential to improve our understanding of complex tissues and organisms at an unprecedented resolution.
 The manual annotation of cell identity, which is the gold standard procedure to determine cell populations, remains a major limitation in most scRNA-seq analysis [[1]](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z); more recently, a growing number of resources are being published offering the scientific community many cell type specific gene signature as a reference.
@@ -58,23 +58,20 @@ Combiroc is specialized in finding specific combinations, thus its use may allow
 Here we show the complete workflow of combiroc-mediated signature refinement at single-cell resolution in which we used 3 PBMC public datasets showed in [Seurat](https://satijalab.org/seurat/) vignettes.
 All of them have been deeply characterized and scrupulously labelled, so they are accepted and used as reference by the scientific community.
 
-## A note on executing this vignette
+**A note on executing this vignette**
 
 The code described in this vignette was originally run on a jupyter-based R-kernel notebook backed by a high-performance computing (HPC) server infrastructure.
 Due to relevant size of some of the objects loaded and/or created, **it is unlikely that the whole code can be run on a standard computing equipment (i.e. a laptop)**.
 The computationally heavy passages are therefore marked as [[Heavy-Code]]{style="color: orange;"} and can be skipped by the user by reading/loading **pre-computed objects or intermediate results either from `rds` or `csv` files**.
 In this way the reader/reviewer will be able to complete the whole workflow without having a HPC server.
 
-# Training dataset and Models
+# Selection of NK cells marker combinations
 
-The purpose of this analysis is to find - starting from a NK-cell single-cell transcriptomic signature - the combinations of known gene markers that best describe the NK-cell populations, and using the models calculated on such combinations on other scRNAseq datasets.\
-The difficulty to distinguish NK (Natural Killer) cells from CD8+ T cells in many scRNAseq datasets is a good challenge to test combiroc performance in markers signature optimization; after performing differential marker expression we took into account the top 30 differentially expressed genes (DEGs) specific for NK cells cluster.
-We are going to use combiroc to select the best combinations of markers among these top 30 NK cells markers.
-Regression models from the selected combinations will then be used on other independent datasets of the same kind (test/validation datasets).
+The purpose of this analysis is to find the best combinations of known gene markers that best describe the NK-cell populations starting from a NK-cell single-cell transcriptomic signature, then using the models calculated on such combinations on other scRNAseq datasets.\
+The difficulty to distinguish NK (Natural Killer) cells from CD8+ T cells in many scRNAseq datasets is a good challenge to test combiroc performance in markers signature optimization. After performing differential marker expression on an initial "training" scRNAseq dataset we will take into account the top 30 differentially expressed genes (DEGs) specific for NK cells cluster; then we will use combiroc to select the best gene combinations among these top 30 NK cells markers.
+Regression models from the selected combinations will then be used on other independent datasets ("test" datasets) of the same kind.
 
-**TRAINING DATASET**
-
-As combiroc training dataset we used the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833).
+As combiroc training dataset we are using the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833).
 This dataset can be downloaded as an h5 Seurat data (h5s) from the [FredHutch-NYCG atlas page](https://atlas.fredhutch.org/nygc/multimodal-pbmc/) (exact download link: [here](https://atlas.fredhutch.org/data/nygc/multimodal/pbmc_multimodal.h5seurat)) [[Heavy-Code]]{style="color: orange;"}
 
 ```{r eval=FALSE}
@@ -90,8 +87,7 @@ DimPlot(atlas, label = T, repel = T)
 
 ![](../inst/precomp/images/atlas_dimplot.png){width="80%"}
 
-To guarantee the best possible performance of the training dataset (the one we extract the markers combinations from) is important to make sure its value ranges are similar to those of the test/validation datasets.
-For this reason we advise using the raw counts matrices for all the datasets, in order to be able to consistently rescale them in the same way by using the function `Seurat::ScaleData()`.
+To guarantee the best possible performance of the training dataset (the one we extract the markers combinations from) is important to make sure its value ranges are similar to those we wanto to use as test/validation datasets. For this reason we advise using the raw counts matrices for all the datasets, in order to be able to consistently rescale them in the same way by using the function `Seurat::ScaleData()`.
 
 ## Extracting the NK markers
 
@@ -196,18 +192,17 @@ ggplot(n_df, aes(n_markers)) +
     )
 ```
 
-The `combi()` function works on the `train` dataset and it computes the marker combinations and counts their corresponding positive samples for each class (once thresholds are selected).
+The `combi()` function works on the `train` dataset computing the marker combinations and counting their corresponding positive samples in each class (once thresholds are selected).\
 A sample, to be considered positive for a given combination, must have a value higher than a given signal threshold (**signalthr**) for at least a given number of markers composing that combination (**combithr**).
 
-As described in the [combiroc's vignette for the standard workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.htm), the argument **signalthr** in the `combi()` function should be set depending on the guidelines and characteristics of the methodology used for the analysis or by an accurate inspection of signal intensity distribution.
-In case of lack of specific guidelines, one should set the value signalthr as suggested by the `distr$Density_plot` feature.
+As described in the [combiroc's vignette for the standard workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.htm), the argument **signalthr** in the `combi()` function should be set according to the guidelines and characteristics of the methodology used for the analysis or by an accurate inspection of the signal intensity distribution. In the event specific guidelines are missing, one should set the value signalthr as suggested by the `distr$Density_plot` feature.
 
-Single cell RNA-seq datasets are exactly one of such cases in which it's not possible or easy to extrapolate the best signal threshold, due to the highly scattered distribution of the expression values: here we thus take advantage of the package-specific `distr$Density_plot` feature and will let the package find this value without intervention.
+Single cell RNA-seq datasets are exactly one of such cases: it is often neither possible nor easy to extrapolate the best signal threshold, due to the highly scattered distribution of the expression values: here we thus take advantage of the package-specific `distr$Density_plot` feature and will let the package find this value without the user intervention.
 
 ## Combinatorial analysis
 
 The core of a combiroc analysis are the two `marker_distribution()` and `combi()` functions: changing the value of key parameters in these functions we can modulate the stringency and severity of the analysis.
-To obtain a performant and stringent signature refinement we set `min_SP =80` and the highest possible `min_SP =78` in `marker_distribution()`.
+To obtain a performing and stringent signature refinement we set `min_SP =80` and the highest possible `min_SP =78` in `marker_distribution()`.
 In `combi()`, we raised `combithr` argument to **2**: this is the minimum number of positively expressed genes (i.e. the minimum number of genes that need to reach the signal threshold) to consider the whole combination as a valid one.
 
 The plots below show expression values (signal) distribution obtained with the `markers_distributions()` functions on the training dataset in long format (`train_long`).
@@ -225,7 +220,7 @@ distr$Density_plot
 ```
 
 The suggested threshold is indicated by the vertical dashed line and its value is shown in overlay.
-The exact value can be retrieved from the `distr` object by `distr$Coord$threshold` (see the [Standard workflow](https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_standard.html#dens) for further details ):
+The exact value can be retrieved from the `distr` object by `distr$Coord$threshold` (see the [Standard workflow](https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_standard.html#dens) for further details):
 
 ```{r}
 autoThreshold <- median(distr$Coord$threshold)
@@ -294,7 +289,6 @@ To know which are the genes in any specific combination we can use the `show_mar
 ```{r}
 show_markers(selected_combinations =c(169807,172713), markers_table = train_tab)
 ```
-
 
 # Testing the combinations on independent datasets (validation)
 
