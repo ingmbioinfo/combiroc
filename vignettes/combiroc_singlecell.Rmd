@@ -28,6 +28,8 @@ knitr::opts_knit$set(root.dir = "..")
 
 ```
 
+# Libraries needed {#top}
+
 ```{r warning=FALSE,message=FALSE}
 library(devtools)
 load_all()
@@ -36,7 +38,6 @@ library(dplyr)
 library(Seurat)
 library(patchwork)
 library(SeuratData)
-#library(SeuratDisk)
 library(tidyr)
 library(ggplot2)
 library(ggpubr)
@@ -47,7 +48,7 @@ library(pheatmap)
 library(scattermore)
 ```
 
-# Introduction {#top}
+# Introduction
 
 Single-cell transcriptomics is a rapidly growing field which is essential to improve our understanding of complex tissues and organisms at an unprecedented resolution.
 The manual annotation of cell identity, which is the gold standard procedure to determine cell populations, remains a major limitation in most scRNA-seq analysis [[1]](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z); more recently, a growing number of resources are being published offering the scientific community many cell type specific gene signature as a reference.
@@ -85,7 +86,7 @@ Idents(atlas) <- atlas@meta.data$celltype.l1
 DimPlot(atlas, label = T, repel = T)
 ```
 
-![](../inst/precomp/images/atlas_dimplot.png){width="80%"}
+![](../vignettes/atlas_dimplot.png){width="80%"}
 
 To guarantee the best possible performance of the training dataset (the one we extract the markers combinations from) is important to make sure its value ranges are similar to those we wanto to use as test/validation datasets. For this reason we advise using the raw counts matrices for all the datasets, in order to be able to consistently rescale them in the same way by using the function `Seurat::ScaleData()`.
 
@@ -106,7 +107,7 @@ By visualising the expression values of the top 4 markers of NK cells cluster it
 FeaturePlot(atlas, nk_genes[1:4])
 ```
 
-![](../inst/precomp/images/FeaturePlot1.png){width="80%"}
+![](../vignettes/FeaturePlot1.png){width="80%"}
 
 The user not willing (or computationally limited) to run the differential expression analysis above can read the pre-computed object containing the gene signature of the **top 30 DEGs** (overexpressed in NK cells vs all others):
 
