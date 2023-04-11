@@ -1,5 +1,5 @@
-#' @title Load CombiROC data.
-#' @description  A function to extract a combiroc data (both labelled and unlabelled) from a SeuratObject.
+#' @title Extract data from Seurat object.
+#' @description  A function to extract combiroc-ready data (both labelled and unlabelled) from a SeuratObject.
 
 #' @details By specifying a gene list (if the genes are in rownames of SeuratObject assay matrix, it subsets the gene expression matrix (@data) and it retreives their expression values. If a combiroc training dataset (labelled_data=T) is required, one or more categories of Idents(SeuratObject) must be selected as case_class, the others will be merged into control class.
            
