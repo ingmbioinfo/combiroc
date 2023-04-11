@@ -1,8 +1,11 @@
 url: https://ingmbioinfo.github.io/combiroc
 
 template:
-  params:
-    bootswatch: cosmo
+  bootstrap: 5
+  bslib:
+    base_font: {google: "Roboto"}
+    heading_font: {google: "Roboto Slab"}
+    code_font: {google: "JetBrains Mono"}
 
 navbar:
   structure:
@@ -35,6 +38,7 @@ reference:
   contents:
   - demo_data
   - demo_unclassified_data
+  - seurat_demo
 
 - title: "Input and format data"
   desc: "Functions to read-in and correctly format datasets"
@@ -42,6 +46,7 @@ reference:
   - load_data
   - load_uclassified_data
   - combiroc_long
+  - seurat_to_combiroc
 
 - title: "Exploratory functions"
   desc: "Functions to explore the data before actual analysis"
@@ -56,7 +61,7 @@ reference:
   - se_sp
   - ranked_combs
   - roc_reports
-  - classify
+  - combi_score
 
 - title: "Ancillary"
   desc: "Additional functions to explore results"
