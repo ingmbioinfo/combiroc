@@ -59,6 +59,8 @@ Suggests:
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.5.0)
-URL: https://ingmbioinfo.github.io/combiroc, https://github.com/ingmbioinfo/combiroc
+URL: https://ingmbioinfo.github.io/combiroc,
+    https://github.com/ingmbioinfo/combiroc,
+    https://ingmbioinfo.github.io/combiroc/
 BugReports: https://github.com/ingmbioinfo/combiroc/issues
 Config/testthat/edition: 3
