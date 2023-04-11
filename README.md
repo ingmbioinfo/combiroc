@@ -1,4 +1,4 @@
-<img src="inst/www/combiroc.png" align="right" alt="" width="120" />
+<img src="man/figures/combiroc.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ingmbioinfo/combiroc/workflows/R-CMD-check/badge.svg)](https://github.com/ingmbioinfo/combiroc/actions)
