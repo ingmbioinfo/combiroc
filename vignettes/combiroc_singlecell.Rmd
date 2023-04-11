@@ -1,6 +1,6 @@
 ---
 title: "Signature refining tutorial - scRNA-seq Workflow"
-author: "Ivan Ferrari, Riccardo L. Rossi"
+author: "Riccardo L. Rossi, Ivan Ferrari"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   html_document:
@@ -12,7 +12,9 @@ output:
     keep_tex: true
 subtitle: "| Combiroc-driven optimization of NK cells marker signature at single cell resolution.  \n"
 vignette: |
-  %\VignetteIndexEntry{Single cell Combiroc tutorial} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::knitr} 
+  %\VignetteIndexEntry{Single cell Combiroc tutorial} 
+  %\usepackage[utf8]{inputenc}
 editor_options: 
   markdown: 
     wrap: sentence

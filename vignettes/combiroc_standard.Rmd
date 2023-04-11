@@ -12,7 +12,9 @@ output:
     keep_tex: true
 subtitle: "| Selection and ranking of omics biomarkers combinations made easy.  \n"
 vignette: |
-  %\VignetteIndexEntry{Quick guide to CombiROC} %\VignetteEngine{knitr::rmarkdown} %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Quick guide to CombiROC} 
+  %\usepackage[utf8]{inputenc}
 ---
 
 ```{r, include = FALSE}
