@@ -17,4 +17,5 @@ navbar:
     - articles
     - reference
     - news
+    - github
     right: github
