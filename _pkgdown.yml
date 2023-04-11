@@ -1,16 +1,21 @@
-url: https://ingmbioinfo.github.io/combiroc
-
+url: https://ingmbioinfo.github.io/combiroc/
 template:
   bootstrap: 5
   bslib:
-    base_font: {google: "Roboto"}
-    heading_font: {google: "Roboto Slab"}
-    code_font: {google: "JetBrains Mono"}
-
+    base_font:
+      google: Roboto
+    heading_font:
+      google: Roboto Slab
+    code_font:
+      google: JetBrains Mono
 navbar:
   structure:
-    left:  [home, articles, reference, news]
-    right: [github]
+    left:
+    - home
+    - articles
+    - reference
+    - news
+    right: github
   components:
     home:
       icon: fa-home fa-lg
@@ -18,9 +23,9 @@ navbar:
     articles:
       text: Vignettes
       menu:
-      - text: "1-Standard Workflow"
+      - text: 1-Standard Workflow
         href: articles/combiroc_standard.html
-      - text: "2-scRNAseq Workflow"
+      - text: 2-scRNAseq Workflow
         href: articles/combiroc_singlecell.html
     reference:
       text: Reference
@@ -31,40 +36,36 @@ navbar:
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/ingmbioinfo/combiroc
-
 reference:
-- title: "Built-in demo datasets"
-  desc: "Demonstrative datasets to be used as examples (AIH proteomics datasets)"
+- title: Built-in demo datasets
+  desc: Demonstrative datasets to be used as examples (AIH proteomics datasets)
   contents:
   - demo_data
   - demo_unclassified_data
   - seurat_demo
-
-- title: "Input and format data"
-  desc: "Functions to read-in and correctly format datasets"
+- title: Input and format data
+  desc: Functions to read-in and correctly format datasets
   contents:
   - load_data
   - load_uclassified_data
   - combiroc_long
   - seurat_to_combiroc
-
-- title: "Exploratory functions"
-  desc: "Functions to explore the data before actual analysis"
+- title: Exploratory functions
+  desc: Functions to explore the data before actual analysis
   contents:
   - markers_distribution
   - single_markers_statistics
-
-- title: "Analysis functions"
-  desc: "Functions for the standard analytical workflow"
+- title: Analysis functions
+  desc: Functions for the standard analytical workflow
   contents:
   - combi
   - se_sp
   - ranked_combs
   - roc_reports
   - combi_score
-
-- title: "Ancillary"
-  desc: "Additional functions to explore results"
+- title: Ancillary
+  desc: Additional functions to explore results
   contents:
   - show_markers
   - combs_with
+
