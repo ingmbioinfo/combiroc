@@ -88,7 +88,7 @@ Idents(atlas) <- atlas@meta.data$celltype.l1
 DimPlot(atlas, label = T, repel = T)
 ```
 
-![](../vignettes/atlas_dimplot.png){width="80%"}
+![](vignettes/atlas_dimplot.png){width="80%"}
 
 To guarantee the best possible performance of the training dataset (the one we extract the markers combinations from) is important to make sure its value ranges are similar to those we wanto to use as test/validation datasets. For this reason we advise using the raw counts matrices for all the datasets, in order to be able to consistently rescale them in the same way by using the function `Seurat::ScaleData()`.
 
@@ -109,7 +109,7 @@ By visualising the expression values of the top 4 markers of NK cells cluster it
 FeaturePlot(atlas, nk_genes[1:4])
 ```
 
-![](../vignettes/FeaturePlot1.png){width="80%"}
+![](vignettes/FeaturePlot1.png){width="80%"}
 
 The user not willing (or computationally limited) to run the differential expression analysis above can read the pre-computed object containing the gene signature of the **top 30 DEGs** (overexpressed in NK cells vs all others):
 
@@ -342,8 +342,7 @@ The `test_cbmc` object contains cell barcodes as sample IDs and the expression v
 test_cbmc <- seurat_to_combiroc(SeuratObject = cbmc, 
                                 gene_list = nk_genes, 
                                 assay = 'RNA')
-test_cbmc
-
+head(test_cbmc)
 ```
 
 ### Distribution of individual markers' expression
@@ -405,7 +404,7 @@ Please note that this dataset does not contain TRDC expression values since this
 
 ```{r, message=FALSE, warning=FALSE}
 test_pbmc3k <- seurat_to_combiroc(SeuratObject = pbmc3k.final, gene_list = nk_genes, assay = 'RNA')
-test_pbmc3k
+head(test_pbmc3k)
 ```
 
 ### Distribution of individual markers' expression
