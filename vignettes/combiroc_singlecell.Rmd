@@ -88,7 +88,12 @@ Idents(atlas) <- atlas@meta.data$celltype.l1
 DimPlot(atlas, label = T, repel = T)
 ```
 
-![](vignettes/atlas_dimplot.png){width="80%"}
+
+```{r echo=FALSE, fig.align = "center"}
+mywd <- getwd()
+knitr::include_graphics(paste0(mywd, "/vignettes/atlas_dimplot.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
+```
+
 
 To guarantee the best possible performance of the training dataset (the one we extract the markers combinations from) is important to make sure its value ranges are similar to those we wanto to use as test/validation datasets. For this reason we advise using the raw counts matrices for all the datasets, in order to be able to consistently rescale them in the same way by using the function `Seurat::ScaleData()`.
 
@@ -109,7 +114,11 @@ By visualising the expression values of the top 4 markers of NK cells cluster it
 FeaturePlot(atlas, nk_genes[1:4])
 ```
 
-![](vignettes/FeaturePlot1.png){width="80%"}
+```{r echo=FALSE, fig.align = "center"}
+vmywd <- getwd()
+knitr::include_graphics(paste0(mywd, "/vignettes/FeaturePlot1.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
+```
+
 
 The user not willing (or computationally limited) to run the differential expression analysis above can read the pre-computed object containing the gene signature of the **top 30 DEGs** (overexpressed in NK cells vs all others):
 
