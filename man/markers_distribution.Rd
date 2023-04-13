@@ -6,8 +6,8 @@
 \usage{
 markers_distribution(
   data_long,
-  min_SE = 40,
-  min_SP = 80,
+  min_SE = 0,
+  min_SP = 0,
   x_lim = NULL,
   y_lim = NULL,
   boxplot_lim = NULL,

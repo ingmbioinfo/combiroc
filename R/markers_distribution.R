@@ -30,7 +30,7 @@
 #' @export
 
 
-markers_distribution <- function(data_long, min_SE=40, min_SP=80, x_lim=NULL, y_lim=NULL, boxplot_lim=NULL , signalthr_prediction=FALSE, case_class) {
+markers_distribution <- function(data_long, min_SE=0, min_SP=0, x_lim=NULL, y_lim=NULL, boxplot_lim=NULL , signalthr_prediction=FALSE, case_class) {
 Class <- data_long$Class
 Values <- data_long$Values
 Markers <- data_long$Markers
@@ -62,8 +62,8 @@ Boxplot<- ggplot(data_long, aes(Markers, Values)) +
   coord_cartesian(ylim = c(0,boxplot_lim)) # shows the boxplot for both classes
 
 
-  if (min_SE==40 & min_SP==80){
-    warning('In $Coord object you will see only the signal threshold values at which SE>=40 and SP>=80 by default. If you want to change this limits, please set min_SE and min_SP')
+  if (min_SE==0 & min_SP==0){
+    warning('In $Coord object you will see only the signal threshold values at which SE>=0 and SP>=0 by default. If you want to change this limits, please set min_SE and min_SP')
   }
 
   bin<- rep(NA, length(rownames(data_long)))
@@ -119,13 +119,14 @@ Boxplot<- ggplot(data_long, aes(Markers, Values)) +
 
 
 
-    pr <- median(coord$threshold)
-    warning('The suggested signal threshold in $Plot_density is the median of the signal thresholds at which SE>=min_SE and SP>=min_SP. This is ONLY a suggestion. Please check if signal threshold is suggested by your analysis kit guidelines instead, and remember to check $Plot_density to better judge our suggested threshold by inspecting the 2 distributions.')
+    pr <- coord[coord$Youden==max(coord$Youden),'threshold'][1]
+    warning('The suggested signal threshold in $Plot_density is the threshold with the highest Youden index of the signal thresholds at which SE>=min_SE and SP>=min_SP. This is ONLY a suggestion. Please check if signal threshold is suggested by your analysis kit guidelines instead, and remember to check $Plot_density to better judge our suggested threshold by inspecting the 2 distributions.')
 
     res <- p+geom_vline(aes(xintercept=pr),
                         color="black", linetype="dashed", size=0.5)+
       annotate("text", x = pr*0.50, y = 0, label =  as.character(round(pr,2)))+
-      labs(x = "Signal intensity", y="Frequency")}
+      labs(x = "Signal intensity", y="Frequency")
+    }
 
   robj <- list(res, coord, ggroc(rocobj, legacy.axes=T), df, Boxplot)
   names(robj) <- c('Density_plot', 'Coord', 'ROC', 'Density_summary', 'Boxplot')

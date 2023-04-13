@@ -213,9 +213,8 @@ Single cell RNA-seq datasets are exactly one of such cases: it is often neither 
 
 ## Combinatorial analysis
 
-The core of a combiroc analysis are the two `marker_distribution()` and `combi()` functions: changing the value of key parameters in these functions we can modulate the stringency and severity of the analysis.
-To obtain a performing and stringent signature refinement we set `min_SP =80` and the highest possible `min_SP =78` in `marker_distribution()`.
-In `combi()`, we raised `combithr` argument to **2**: this is the minimum number of positively expressed genes (i.e. the minimum number of genes that need to reach the signal threshold) to consider the whole combination as a valid one.
+The core of a combiroc analysis are the two `marker_distribution()` and `combi()` functions: changing the value of key parameters in these functions we can modulate the stringency and severity of the analysis. G
+To obtain a performing and stringent signature refinement we set `combithr` argument to **2** in `combi()`: this is the minimum number of positively expressed genes (i.e. the minimum number of genes that need to reach the signal threshold) to consider the whole combination as a valid one.
 
 The plots below show expression values (signal) distribution obtained with the `markers_distributions()` functions on the training dataset in long format (`train_long`).
 Differently from two well-defined classes (as seen in the standard combiroc workflow), it's not intuitive where to put the signal threshold, but the function suggests a signal intensity value of **0.9**.
@@ -224,8 +223,7 @@ Genes expression values, as expected, are distributed in different ways in the t
 *Please note: the `markers_distribution()` command naturally triggers a few warnings in which the user is reminded how to use the command arguments*
 
 ```{r warning=FALSE, message=FALSE, fig.height = 4, fig.width = 8}
-distr <- markers_distribution(train_long, 
-                              min_SE = 78, min_SP = 80, 
+distr <- markers_distribution(train_long,
                               signalthr_prediction = TRUE, 
                               case_class = "NK")
 distr$Density_plot
@@ -235,8 +233,8 @@ The suggested threshold is indicated by the vertical dashed line and its value i
 The exact value can be retrieved from the `distr` object by `distr$Coord$threshold` (see the [Standard workflow](https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_standard.html#dens) for further details):
 
 ```{r}
-autoThreshold <- median(distr$Coord$threshold)
-autoThreshold
+autoThreshold <- distr$Coord[distr$Coord$Youden==max(distr$Coord$Youden), 'threshold'][1]
+distr$Coord[distr$Coord$Youden==max(distr$Coord$Youden),] # optimal threshold
 ```
 
 Let's apply now the `combi()` function on the training dataset `train` with the suggested threshold.
@@ -586,7 +584,7 @@ Go to [Combiroc standard workflow tutorial](https://ingmbioinfo.github.io/combir
 2. Hao et al. 2021.*Cell* Integrated analysis of multimodal single-cell data
 3. Stoeckius et al. 2017. *Nature Methods*. Simultaneous epitope and transcriptome measurement in single cells
 4. Satija et al. 2015. *Nature Biotechnology*. Spatial reconstruction of single-cell gene expression data.
-5. Della Chiara et al. 2021. *Nature Comunications*. Epigenomic landscape of human colorectal cancer unveils an aberrant core of pan-cancer enhancers orchestrated by YAP/TAZ.
+5. Della Chiara et al. 2021. *Nature Communications*. Epigenomic landscape of human colorectal cancer unveils an aberrant core of pan-cancer enhancers orchestrated by YAP/TAZ.
 
 # Session Info
 
