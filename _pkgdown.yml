@@ -2,7 +2,7 @@ url: ~
 template:
   bootstrap: 5
   params:
-    bootswatch: flatly
+    bootswatch: simplex
 navbar:
   structure:
     left:
