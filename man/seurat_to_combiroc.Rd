@@ -23,7 +23,7 @@ seurat_to_combiroc(
 
 \item{labelled_data}{a boolean that specifies whether the combiroc data to be extracted must be labelled (with 'Class' column) or not.}
 
-\item{case_class}{a character or a character vector specifing the category/ies to be considered as 'case class'. Required if labelled_data is TRUE.}
+\item{case_class}{a character or a character vector specifying the category/ies to be considered as 'case class'. Required if labelled_data is TRUE.}
 
 \item{case_label}{a character that will be assigned to the cells belonging to 'case class' category.}
 

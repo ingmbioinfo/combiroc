@@ -49,13 +49,17 @@ Imports:
     cowplot, 
     ggpubr, 
     patchwork, 
-    pheatmap
+    pheatmap,
+    scattermore
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
     markdown,
     rmarkdown,
-    covr
+    covr,
+    cbmc.SeuratData,
+    pbmc3k.SeuratData,
+    httr
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.5.0)

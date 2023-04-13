@@ -332,7 +332,7 @@ For purely demonstrative purposes, in the following example a "synthetic" unclas
 Please note that this unclassified data set lacks the "Class" column but has a Patient.ID column which actually allows the identification of the class __but sample names here are not used in the workflow and have labeling purposes to check the prediction outcomes__ (a "no" prefix identifies healthy/normal subjects while the absence of the prefix identifies affected/abnormal subjects).
 
 ```{r, eval=FALSE}
-unc_data <- load_unclassified_data(data = './data/demo_unclassified_data.csv', sep = ',')
+unc_data <- load_data(data = './data/demo_unclassified_data.csv', sep = ',', labelled_data = F)
 ```
 This very same dataset has been included in CombiROC package as an unclassified demo dataset, which can be directly called typing `demo_unclassified_data`. 
 ```{r}

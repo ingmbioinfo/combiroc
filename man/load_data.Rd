@@ -4,7 +4,7 @@
 \alias{load_data}
 \title{Load CombiROC data.}
 \usage{
-load_data(data, sep = ";", na.strings = "")
+load_data(data, sep = ";", na.strings = "", labelled_data = TRUE)
 }
 \arguments{
 \item{data}{the name of the file which the data are to be read from.}
@@ -12,6 +12,8 @@ load_data(data, sep = ";", na.strings = "")
 \item{sep}{the field separator character.}
 
 \item{na.strings}{a character vector of strings which are to be interpreted as NA values.}
+
+\item{labelled_data}{a boolean that specifies whether the combiroc data to be loaded is labelled (with 'Class' column) or not.}
 }
 \value{
 a data frame (data.frame) containing a representation of the data in the file.
@@ -23,9 +25,9 @@ A customized read.table() function that checks the conformity of the dataset for
 The dataset to be analysed should be in text format, which can be comma, tab or semicolon separated:
 \itemize{
 \item The 1st column must contain patient/sample IDs as characters.
-\item The 2nd column must contain the class to which each sample belongs.
+\item If dataset is labelled, the 2nd column must contain the class to which each sample belongs.
 \item The classes must be exactly 2 and they must be written in character format.
-\item From the 3rd column on, the dataset must contain numerical values that represent the signal corresponding to the markers abundance in each sample (marker-related columns).
+\item From the 3rd column on (2nd if dataset is unlabelled), the dataset must contain numerical values that represent the signal corresponding to the markers abundance in each sample (marker-related columns).
 \item Marker-related columns can be called 'Marker1, Marker2, Marker3, ...' or can be called directly with the gene/protein name, but "-" is not allowed in the column name.
 Only if all the checks are passed, it reorders alphabetically the marker-related columns depending on marker names (necessary for a proper computation of combinations), and it forces "Class" as 2nd column name.
 }
@@ -34,11 +36,23 @@ Only if all the checks are passed, it reorders alphabetically the marker-related
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
 # save a data.frame as a csv to be load by combiroc package
-file= tempfile()
+file<- tempfile()
 write.csv2(demo_data, file = file, row.names = FALSE)
 
 
 #To load a csv file if correctly formatted
 
 demo_data <- load_data(data = file, sep = ';', na.strings = "")
+
+
+demo_unclassified_data # combiroc built-in unclassified demo data
+
+# save a data.frame as a csv to be load by combiroc package
+file<- tempfile()
+write.csv2(demo_unclassified_data, file = file, row.names = FALSE)
+
+# To load an unclassified dataset.
+
+demo_unclassified_data <- load_data(data = file, sep = ';', na.strings = "", labelled_data = FALSE)
+
 }
