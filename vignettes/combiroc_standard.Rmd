@@ -83,7 +83,7 @@ Box plots are a nice option to observe the distribution of measurements in each 
 
 Data in long format are required for the plotting functions of the package and for any other Tidyverse-oriented applications. 
 
-The __data__ object in the original wide format can be thus transformed into the reshaped long format __data_long__ object, and further used. See also the section ["Code snippets"](#snipp) for some plotting examples taking advantage of the reshaped format.
+The __data__ object in the original wide format can be thus transformed into the reshaped long format __data_long__ object, and further used. 
 
 ```{r}
 data_long <- combiroc_long(data)
