@@ -21,8 +21,8 @@ For full capabilities, new and improved features and customized analyses we sugg
 
 The [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v1) preprint's Supplementary Material 1 and 2 can be accessed here:  
 
-* __Supplementary Material 1__ (Standard vignette): [Standard worlkflow](#). In pdf [here](#)
-* __Supplementary Material 2__ (Additional vignette): [scRNAseq workflow](#). In pdf [here](#)
+* __Supplementary Material 1__ (Standard vignette): [Standard worlkflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html). In pdf [here](#)
+* __Supplementary Material 2__ (Additional vignette): [scRNAseq workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_singlecell.html). In pdf [here](#)
 
 
 ## Installation
