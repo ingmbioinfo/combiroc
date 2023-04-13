@@ -5,7 +5,6 @@
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental-1)
 [![](https://img.shields.io/github/last-commit/ingmbioinfo/combiroc.svg)](https://github.com/ingmbioinfo/combiroc/commits/master)
 [![Codecov test coverage](https://codecov.io/gh/ingmbioinfo/combiroc/branch/master/graph/badge.svg)](https://codecov.io/gh/ingmbioinfo/combiroc?branch=master)
-[![R-CMD-check](https://github.com/ingmbioinfo/combiroc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ingmbioinfo/combiroc/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # CombiROC
