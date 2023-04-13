@@ -213,7 +213,8 @@ Single cell RNA-seq datasets are exactly one of such cases: it is often neither 
 
 ## Combinatorial analysis
 
-The core of a combiroc analysis are the two `marker_distribution()` and `combi()` functions: changing the value of key parameters in these functions we can modulate the stringency and severity of the analysis. G
+The core of a combiroc analysis are the two `marker_distribution()` and `combi()` functions: changing the value of key parameters in these functions we can modulate the stringency and severity of the analysis. 
+
 To obtain a performing and stringent signature refinement we set `combithr` argument to **2** in `combi()`: this is the minimum number of positively expressed genes (i.e. the minimum number of genes that need to reach the signal threshold) to consider the whole combination as a valid one.
 
 The plots below show expression values (signal) distribution obtained with the `markers_distributions()` functions on the training dataset in long format (`train_long`).
@@ -427,7 +428,7 @@ VlnPlot(pbmc3k.final, features = nk_genes[1:4], group.by = 'ID', pt.size=0, ncol
 
 In this PBMC dataset, all top four markers have high expression values in NK cells and in CD8 T cells too, showing that individual markers mRNA level may be not sufficient to clearly identify the cells of interest.
 
-### Combiroc NK probability across PBMC-3K cell clusters
+### Combiroc NK probability across PBMC3K cell clusters
 
 We now look at the performance of the marker combination selected with combiroc using the combi-score, which is calculated here for the top *Combination 137550* (made by genes CLIC3, FCGR3A, IL2RB, KLRD1 and KLRF1), the highest accuracy combination without TRDC gene (which is not expressed in the this dataset).
 This score also expresses the probability of being NK cells.

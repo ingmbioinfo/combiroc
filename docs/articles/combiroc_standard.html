@@ -87,7 +87,7 @@ combinations made easy.</div></h3>
                         <h4 data-toc-skip class="author">Ivan Ferrari,
 Riccardo L. Rossi</h4>
             
-            <h4 data-toc-skip class="date">12 April 2023</h4>
+            <h4 data-toc-skip class="date">13 April 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_standard.Rmd" class="external-link"><code>vignettes/combiroc_standard.Rmd</code></a></small>
       <div class="d-none name"><code>combiroc_standard.Rmd</code></div>
@@ -328,16 +328,13 @@ computation.</p>
 <span>                              signalthr_prediction <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                              min_SE <span class="op">=</span> <span class="fl">40</span>, min_SP <span class="op">=</span> <span class="fl">80</span>, </span>
 <span>                              boxplot_lim <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in markers_distribution(data_long, case_class = "A", y_lim = 0.0015, :</span></span>
-<span><span class="co">#&gt; In $Coord object you will see only the signal threshold values at which SE&gt;=40</span></span>
-<span><span class="co">#&gt; and SP&gt;=80 by default. If you want to change this limits, please set min_SE and</span></span>
-<span><span class="co">#&gt; min_SP</span></span>
-<span><span class="co">#&gt; Warning in markers_distribution(data_long, case_class = "A", y_lim = 0.0015, :</span></span>
-<span><span class="co">#&gt; The suggested signal threshold in $Plot_density is the median of the signal</span></span>
-<span><span class="co">#&gt; thresholds at which SE&gt;=min_SE and SP&gt;=min_SP. This is ONLY a suggestion. Please</span></span>
-<span><span class="co">#&gt; check if signal threshold is suggested by your analysis kit guidelines instead,</span></span>
-<span><span class="co">#&gt; and remember to check $Plot_density to better judge our suggested threshold by</span></span>
-<span><span class="co">#&gt; inspecting the 2 distributions.</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning in markers_distribution(data_long, case_class = "A", y_lim =</span></span>
+<span><span class="co">#&gt; 0.0015, : The suggested signal threshold in $Plot_density is the threshold</span></span>
+<span><span class="co">#&gt; with the highest Youden index of the signal thresholds at which SE&gt;=min_SE</span></span>
+<span><span class="co">#&gt; and SP&gt;=min_SP. This is ONLY a suggestion. Please check if signal threshold</span></span>
+<span><span class="co">#&gt; is suggested by your analysis kit guidelines instead, and remember to check</span></span>
+<span><span class="co">#&gt; $Plot_density to better judge our suggested threshold by inspecting the 2</span></span>
+<span><span class="co">#&gt; distributions.</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="the-distr-object">The <strong>distr</strong> object<a class="anchor" aria-label="anchor" href="#the-distr-object"></a>
@@ -352,7 +349,7 @@ elements:</p>
 <li>a summary with a few statistics.</li>
 </ul>
 <p>Once the <code>markers_distributions()</code> function is run, all
-the abve elements can be plotted or displayed individually. Let’s see
+the above elements can be plotted or displayed individually. Let’s see
 each one of them</p>
 <div class="section level4">
 <h4 id="boxplot">Boxplot<a class="anchor" aria-label="anchor" href="#boxplot"></a>
@@ -382,11 +379,12 @@ and specificity</strong> paragraph.</p>
 <p>The <strong>Coord</strong> is a dataframe that contains the
 coordinates of the above described “ROC” (threshold, SP and SE) that
 have at least a minimun SE (min_SE) and a minimum SP (min_SP): this two
-threshold are set by default at <code>min_SE = 40</code> and
-<code>min_SP = 80</code>, but they can be set manually by specifying
-different values. The Youden index is also computed: this is the
-Youden’s J statistic capturing the performance of a dichotomous
-diagnostic test, with higher values for better performance ( <span class="math inline">\(J = SE + SP -1\)</span>).</p>
+threshold are set by default at <code>min_SE = 0</code> and
+<code>min_SP = 0</code>, but they can be set manually by specifying
+different values as shown in the example. The Youden index is also
+computed: this is the Youden’s J statistic capturing the performance of
+a dichotomous diagnostic test, with higher values for better performance
+( <span class="math inline">\(J = SE + SP -1\)</span>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span>, n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     threshold specificity sensitivity    Youden</span></span>
@@ -412,13 +410,13 @@ it calculates a possible <strong>signal intensity threshold:</strong> in
 case of lack of <em>a priori</em> knowedge of the threshold the user can
 set the argument <code>signalthr_prediction = TRUE</code> in the
 <code><a href="../reference/markers_distribution.html">markers_distribution()</a></code> function. In this way the function
-calculates a “suggested signal threshold” that corresponds to the median
-of the signal threshold values (in <strong>Coord</strong>) at which SE
-and SP are greater or equal to their set minimal values (min_SE and
-min_SP). This threshold is added to the “Density_plot” object as a
-dashed black line and a number. The use of the median allows to pick a
-threshold whose SE/SP are not too close to the limits (min_SE and
-min_SP), but it is recommended to always inspect “Coord” and choose the
+calculates a “suggested signal threshold” that corresponds to the signal
+threshold value associated to the highest Youden index (in
+<strong>Coord</strong>), at which SE and SP are greater or equal to
+their set minimal values (min_SE and min_SP). This threshold is added to
+the “Density_plot” object as a dashed black line and a number. The use
+of the Youden index allows to pick a threshold with the best SE/SP
+setting, but it is recommended to always inspect “Coord” and choose the
 most appropriate signal threshold by considering SP, SE and Youden
 index.</p>
 <p>This suggested signal threshold can be used as
@@ -461,7 +459,7 @@ section.</p>
 <p>In this vignette <code>signalthr</code> is set at
 <strong>450</strong> while <code>combithr</code> is set at
 <strong>1</strong>. We are setting this at 450 (instead of
-<strong>407</strong> as suggested by the
+<strong>328.5</strong> as suggested by the
 <code>distr$Density_plot</code>) in order to reproduce the results
 reported in <a href="https://www.nature.com/articles/srep45477" class="external-link">Mazzara
 et. al 2017</a> (the original CombiROC paper) or in <a href="https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16" class="external-link">Bombaci
@@ -782,12 +780,12 @@ assigned</strong> to any case or control classes.</p>
 the previous combinatorial analysis ( <em>i.e.</em> of the same nature
 and with the same markers, but obviously <em>without</em> the ‘Class’
 column).</p>
-<p>To load datasets with unclassified samples a specific
-<code><a href="../reference/load_unclassified_data.html">load_unclassified_data()</a></code> function was implemented. This
-function is analogue to <code><a href="../reference/load_data.html">load_data()</a></code> since it loads the same
-kind of files and it performs the same format checks, with the exception
-of the <em>Class</em> column which is not present in an unclassified
-datasets and thus not required.</p>
+<p>To load datasets with unclassified samples <code>labelled_data</code>
+in <code><a href="../reference/load_data.html">load_data()</a></code> function must be set to <em>FALSE</em>. In
+this way the function loads the same kind of files and it performs the
+same format checks shown above, with the exception of the <em>Class</em>
+column which is not present in an unclassified datasets and thus not
+checked.</p>
 <p>For purely demonstrative purposes, in the following example a
 “synthetic” unclassified data set
 (‘data/unclassified_proteomic_data.csv’) was used: it was obtained by
@@ -801,7 +799,7 @@ have labeling purposes to check the prediction outcomes</strong> (a “no”
 prefix identifies healthy/normal subjects while the absence of the
 prefix identifies affected/abnormal subjects).</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">unc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_unclassified_data.html">load_unclassified_data</a></span><span class="op">(</span>data <span class="op">=</span> <span class="st">'./data/demo_unclassified_data.csv'</span>, sep <span class="op">=</span> <span class="st">','</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">unc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_data.html">load_data</a></span><span class="op">(</span>data <span class="op">=</span> <span class="st">'./data/demo_unclassified_data.csv'</span>, sep <span class="op">=</span> <span class="st">','</span>, labelled_data <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p>This very same dataset has been included in CombiROC package as an
 unclassified demo dataset, which can be directly called typing
 <code>demo_unclassified_data</code>.</p>

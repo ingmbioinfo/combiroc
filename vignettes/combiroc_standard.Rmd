@@ -326,7 +326,7 @@ A new feature of the CombiROC package (not present in the CombiROC tool Shiny ap
 
 The unclassified data set must be similar to the data set used for the previous combinatorial analysis ( _i.e._ of the same nature and with the same markers, but obviously _without_ the 'Class' column).
 
-To load datasets with unclassified samples a specific `load_unclassified_data()` function was implemented. This function is analogue to `load_data()` since it loads the same kind of files and it performs the same format checks, with the exception of the _Class_ column which is not present in an unclassified datasets and thus not required.  
+To load datasets with unclassified samples `labelled_data` in `load_data()` function must be set to _FALSE_. In this way the function loads the same kind of files and it performs the same format checks shown above, with the exception of the _Class_ column which is not present in an unclassified datasets and thus not checked.  
 
 For purely demonstrative purposes, in the following example a "synthetic" unclassified data set ('data/unclassified_proteomic_data.csv') was used: it was obtained by randomly picking 20 samples from the already classified data set (the __data__). The loaded unclassified sample is here assigned to the __unc_data__ object.  
 Please note that this unclassified data set lacks the "Class" column but has a Patient.ID column which actually allows the identification of the class __but sample names here are not used in the workflow and have labeling purposes to check the prediction outcomes__ (a "no" prefix identifies healthy/normal subjects while the absence of the prefix identifies affected/abnormal subjects).

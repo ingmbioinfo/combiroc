@@ -87,7 +87,7 @@ signature at single cell resolution.</div></h3>
                         <h4 data-toc-skip class="author">Riccardo L.
 Rossi, Ivan Ferrari</h4>
             
-            <h4 data-toc-skip class="date">12 April 2023</h4>
+            <h4 data-toc-skip class="date">13 April 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_singlecell.Rmd" class="external-link"><code>vignettes/combiroc_singlecell.Rmd</code></a></small>
       <div class="d-none name"><code>combiroc_singlecell.Rmd</code></div>
@@ -376,14 +376,12 @@ this value without the user intervention.</p>
 <p>The core of a combiroc analysis are the two
 <code>marker_distribution()</code> and <code><a href="../reference/combi.html">combi()</a></code> functions:
 changing the value of key parameters in these functions we can modulate
-the stringency and severity of the analysis. To obtain a performing and
-stringent signature refinement we set <code>min_SP =80</code> and the
-highest possible <code>min_SP =78</code> in
-<code>marker_distribution()</code>. In <code><a href="../reference/combi.html">combi()</a></code>, we raised
-<code>combithr</code> argument to <strong>2</strong>: this is the
-minimum number of positively expressed genes (i.e. the minimum number of
-genes that need to reach the signal threshold) to consider the whole
-combination as a valid one.</p>
+the stringency and severity of the analysis.</p>
+<p>To obtain a performing and stringent signature refinement we set
+<code>combithr</code> argument to <strong>2</strong> in
+<code><a href="../reference/combi.html">combi()</a></code>: this is the minimum number of positively expressed
+genes (i.e. the minimum number of genes that need to reach the signal
+threshold) to consider the whole combination as a valid one.</p>
 <p>The plots below show expression values (signal) distribution obtained
 with the <code>markers_distributions()</code> functions on the training
 dataset in long format (<code>train_long</code>). Differently from two
@@ -396,8 +394,7 @@ two classes:</p>
 naturally triggers a few warnings in which the user is reminded how to
 use the command arguments</em></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">distr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/markers_distribution.html">markers_distribution</a></span><span class="op">(</span><span class="va">train_long</span>, </span>
-<span>                              min_SE <span class="op">=</span> <span class="fl">78</span>, min_SP <span class="op">=</span> <span class="fl">80</span>, </span>
+<code class="sourceCode R"><span><span class="va">distr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/markers_distribution.html">markers_distribution</a></span><span class="op">(</span><span class="va">train_long</span>,</span>
 <span>                              signalthr_prediction <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                              case_class <span class="op">=</span> <span class="st">"NK"</span><span class="op">)</span></span>
 <span><span class="va">distr</span><span class="op">$</span><span class="va">Density_plot</span></span></code></pre></div>
@@ -408,9 +405,10 @@ its value is shown in overlay. The exact value can be retrieved from the
 <a href="https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_standard.html#dens" class="external-link">Standard
 workflow</a> for further details):</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">autoThreshold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">threshold</span><span class="op">)</span></span>
-<span><span class="va">autoThreshold</span></span>
-<span><span class="co">#&gt; [1] 0.8958797</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">autoThreshold</span> <span class="op">&lt;-</span> <span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>, <span class="st">'threshold'</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>,<span class="op">]</span> <span class="co"># optimal threshold</span></span>
+<span><span class="co">#&gt;   threshold specificity sensitivity    Youden</span></span>
+<span><span class="co">#&gt; 3 0.8958797          86          79 0.6461265</span></span></code></pre></div>
 <p>Let’s apply now the <code><a href="../reference/combi.html">combi()</a></code> function on the training
 dataset <code>train</code> with the suggested threshold. The results is
 a table (the <code>train_tab</code> dataframe) of all the combinations
@@ -734,7 +732,7 @@ markers mRNA level may be not sufficient to clearly identify the cells
 of interest.</p>
 </div>
 <div class="section level4">
-<h4 id="combiroc-nk-probability-across-pbmc-3k-cell-clusters">Combiroc NK probability across PBMC-3K cell clusters<a class="anchor" aria-label="anchor" href="#combiroc-nk-probability-across-pbmc-3k-cell-clusters"></a>
+<h4 id="combiroc-nk-probability-across-pbmc3k-cell-clusters">Combiroc NK probability across PBMC3K cell clusters<a class="anchor" aria-label="anchor" href="#combiroc-nk-probability-across-pbmc3k-cell-clusters"></a>
 </h4>
 <p>We now look at the performance of the marker combination selected
 with combiroc using the combi-score, which is calculated here for the
@@ -944,7 +942,7 @@ single-cell data</li>
 and transcriptome measurement in single cells</li>
 <li>Satija et al. 2015. <em>Nature Biotechnology</em>. Spatial
 reconstruction of single-cell gene expression data.</li>
-<li>Della Chiara et al. 2021. <em>Nature Comunications</em>. Epigenomic
+<li>Della Chiara et al. 2021. <em>Nature Communications</em>. Epigenomic
 landscape of human colorectal cancer unveils an aberrant core of
 pan-cancer enhancers orchestrated by YAP/TAZ.</li>
 </ol>
