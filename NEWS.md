@@ -1,3 +1,12 @@
+# combiroc 0.3.0 - June 12, 2023
+
+This version of combiroc package enforces the full-fledge single cell RNAseq workflow. The scRNAseq workflow vignette has been thoroughly expanded and updated. This version is synchronized with the most updated version of the biorXiv preprint (the "less is more" version)
+
+* New functions were added for data interoperability between combiroc and Seurat single-cell package
+* New Seurat-style demo data was added
+* Streamlined combi_score() function for model finding
+* Bugs and minor changes troughout the package
+
 # combiroc 0.2.3 - Aug. 13, 2021
 
 This version of combiroc package is the quasi-stable version ready for CRAN submission
