@@ -1,33 +1,4 @@
-url: ~
+url: https://ingmbioinfo.github.io/combiroc/
 template:
   bootstrap: 5
-  params:
-    bootswatch: simplex
-navbar:
-  structure:
-    left:
-    - home
-    - articles
-    - reference
-    - news
-    right: github
-  components:
-    home:
-      icon: fa-home fa-lg
-      href: index.html
-    articles:
-      text: Vignettes
-      menu:
-      - text: 1-Standard Workflow
-        href: articles/combiroc_standard.html
-      - text: 2-scRNAseq Workflow
-        href: articles/combiroc_singlecell.html
-    reference:
-      text: Reference
-      href: reference/index.html
-    news:
-      text: Changelog
-      href: news/index.html
-    github:
-      icon: fab fa-github fa-lg
-      href: https://github.com/ingmbioinfo/combiroc
+
