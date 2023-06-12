@@ -325,35 +325,17 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">score_data</span> <span class="op">&lt;-</span> <span class="fu">combi_score</span><span class="op">(</span>unclassified_data<span class="op">=</span> <span class="va">demo_unclassified_data</span>, Models<span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>,</span></span>
 <span class="r-in"><span>                             Metrics<span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in combi_score(unclassified_data = demo_unclassified_data, Models = reports$Models,     Metrics = reports$Metrics):</span> unused argument (unclassified_data = demo_unclassified_data)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># To classify new samples with logistic regression models.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">classified_data</span> <span class="op">&lt;-</span> <span class="fu">combi_score</span><span class="op">(</span>unclassified_data<span class="op">=</span> <span class="va">demo_unclassified_data</span>,</span></span>
 <span class="r-in"><span>                               Models<span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>,Metrics<span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>,</span></span>
 <span class="r-in"><span>                               Positive_class<span class="op">=</span><span class="fl">1</span>, Negative_class<span class="op">=</span><span class="fl">0</span>, classify<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in combi_score(unclassified_data = demo_unclassified_data, Models = reports$Models,     Metrics = reports$Metrics, Positive_class = 1, Negative_class = 0,     classify = TRUE):</span> unused argument (unclassified_data = demo_unclassified_data)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">classified_data</span>  <span class="co"># show samples classified using Logistic regression models</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           ID Marker1 Marker2 Combination 1 Combination 11 Combination 15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      AIH33       1       1             1              1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  no AIH126       1       1             1              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      AIH12       1       0             0              1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  no AIH112       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   no AIH41       0       1             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   no AIH38       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       AIH4       1       1             1              1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   no AIH32       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      AIH20       1       1             1              1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  no AIH13       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  no AIH11       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 no AIH114       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 no AIH121       0       1             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14     AIH17       1       1             1              1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15     AIH14       1       1             1              1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 no AIH106       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  no AIH67       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18      AIH9       1       1             1              1              1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  no AIH74       0       0             0              0              0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20     AIH16       1       1             1              1              1</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'classified_data' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
