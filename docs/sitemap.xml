@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/404.html</loc>
   </url>
   <url>
-    <loc>/articles/combiroc_singlecell.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/articles/combiroc_singlecell.html</loc>
   </url>
   <url>
-    <loc>/articles/combiroc_standard.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/articles/index.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/combi.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/combi.html</loc>
   </url>
   <url>
-    <loc>/reference/combiroc.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/combiroc.html</loc>
   </url>
   <url>
-    <loc>/reference/combiroc_long.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/combiroc_long.html</loc>
   </url>
   <url>
-    <loc>/reference/combi_score.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/combi_score.html</loc>
   </url>
   <url>
-    <loc>/reference/combs_with.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/combs_with.html</loc>
   </url>
   <url>
-    <loc>/reference/demo_data.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/demo_data.html</loc>
   </url>
   <url>
-    <loc>/reference/demo_seurat.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/demo_seurat.html</loc>
   </url>
   <url>
-    <loc>/reference/demo_unclassified_data.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/demo_unclassified_data.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/load_data.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/load_data.html</loc>
   </url>
   <url>
-    <loc>/reference/markers_distribution.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/markers_distribution.html</loc>
   </url>
   <url>
-    <loc>/reference/ranked_combs.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/ranked_combs.html</loc>
   </url>
   <url>
-    <loc>/reference/roc_reports.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/roc_reports.html</loc>
   </url>
   <url>
-    <loc>/reference/seurat_to_combiroc.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/seurat_to_combiroc.html</loc>
   </url>
   <url>
-    <loc>/reference/show_markers.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/show_markers.html</loc>
   </url>
   <url>
-    <loc>/reference/single_markers_statistics.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/single_markers_statistics.html</loc>
   </url>
 </urlset>

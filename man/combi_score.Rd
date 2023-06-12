@@ -5,7 +5,7 @@
 \title{Compute the combi score using glm(link='binomial') models and optionally classifies the samples.}
 \usage{
 combi_score(
-  unclassified_data,
+  data,
   Models,
   Metrics,
   Positive_class = 1,
@@ -15,7 +15,7 @@ combi_score(
 )
 }
 \arguments{
-\item{unclassified_data}{a data.frame returned by load_unclassified_data().}
+\item{data}{a data.frame returned by load_data().}
 
 \item{Models}{a list of glm() objects returned by roc_reports().}
 
@@ -30,13 +30,13 @@ combi_score(
 \item{classify}{a boolean that specifies if the samples will be classified.}
 }
 \value{
-a data.frame containing the predicted class of each sample, for each marker/combination in Models
+a data.frame containing the combi scores (classify=F) or predicted class of each sample (classify=T), for each marker/combination in Models
 }
 \description{
-A function that applies the previously calculated models to an unclassified dataset to compute combi scores and optionally classify the samples.
+A function that applies the previously calculated models to a dataset to compute combi scores and optionally classify the samples.
 }
 \details{
-This function  can take as input datasets loaded with load_unclassified_data(). They MUST contain all the markers of the classified dataset used to train the models (the one loaded with load_data()).
+This function  can take as input datasets loaded with load_data(). They MUST contain all the markers of the combinations used to train the models.
 }
 \examples{
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
@@ -52,12 +52,12 @@ reports <- roc_reports(data= demo_data, markers_table= combs,
 
 # To fit the models an retrieve the combi scores (predicted probabilities).
 
-score_data <- combi_score(unclassified_data= demo_unclassified_data, Models= reports$Models,
+score_data <- combi_score(data= demo_unclassified_data, Models= reports$Models,
                              Metrics= reports$Metrics)
 
 # To classify new samples with logistic regression models.
 
-classified_data <- combi_score(unclassified_data= demo_unclassified_data,
+classified_data <- combi_score(data= demo_unclassified_data,
                                Models= reports$Models,Metrics= reports$Metrics,
                                Positive_class=1, Negative_class=0, classify=TRUE)
 

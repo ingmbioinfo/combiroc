@@ -36,20 +36,14 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
-  <a class="nav-link" href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
-    <a class="dropdown-item" href="../articles/combiroc_standard.html">1-Standard Workflow</a>
-    <a class="dropdown-item" href="../articles/combiroc_singlecell.html">2-scRNAseq Workflow</a>
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/combiroc_singlecell.html">Signature refining tutorial - scRNA-seq Workflow</a>
+    <a class="dropdown-item" href="../articles/combiroc_standard.html">Guide to CombiROC package - Standard workflow</a>
   </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
@@ -61,7 +55,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/ingmbioinfo/combiroc">
+  <a class="external-link nav-link" href="https://github.com/ingmbioinfo/combiroc/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -98,7 +92,7 @@ Rossi, Ivan Ferrari</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ingmbioinfo.github.io/combiroc" class="external-link">combiroc</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ingmbioinfo.github.io/combiroc">combiroc</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat" class="external-link">Seurat</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
@@ -291,7 +285,7 @@ above can be directly read here:</p>
 <span><span class="co">#&gt; 4 1.791759</span></span>
 <span><span class="co">#&gt; 5 0.000000</span></span>
 <span><span class="co">#&gt; 6 0.000000</span></span></code></pre></div>
-<p>Then, as described in the <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html" class="external-link">main
+<p>Then, as described in the <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html">main
 combiroc vignette</a>, we used <code>combiroc_long</code> to make the
 data in long tidy format, fit for further processing:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -349,7 +343,7 @@ A sample, to be considered positive for a given combination, must have a
 value higher than a given signal threshold (<strong>signalthr</strong>)
 for at least a given number of markers composing that combination
 (<strong>combithr</strong>).</p>
-<p>As described in the <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.htm" class="external-link">combiroc’s
+<p>As described in the <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.htm">combiroc’s
 vignette for the standard workflow</a>, the argument
 <strong>signalthr</strong> in the <code><a href="../reference/combi.html">combi()</a></code> function should
 be set according to the guidelines and characteristics of the
@@ -934,7 +928,7 @@ signature, typically in the range of tens of genes: <strong>scaling down
 a gene signature while retaining its discriminatory power is highly
 relevant in both research and diagnostic context</strong>.</p>
 <p>Back to the <a href="#top">top</a> of this docment.</p>
-<p>Go to <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html" class="external-link">Combiroc
+<p>Go to <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html">Combiroc
 standard workflow tutorial</a></p>
 </div>
 <div class="section level2">
