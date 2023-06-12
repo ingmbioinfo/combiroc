@@ -2,3 +2,12 @@ url: https://ingmbioinfo.github.io/combiroc/
 template:
   bootstrap: 5
 
+navbar:
+ components:
+   articles:
+    text: Vignettes
+    menu:
+    - text: Standard Workflow
+      href: articles/combiroc_standard.html
+    - text: scRNA-seq Workflow
+      href: articles/combiroc_singlecell.html
