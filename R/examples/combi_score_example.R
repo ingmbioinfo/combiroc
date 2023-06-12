@@ -11,12 +11,12 @@ reports <- roc_reports(data= demo_data, markers_table= combs,
 
 # To fit the models an retrieve the combi scores (predicted probabilities).
 
-score_data <- combi_score(unclassified_data= demo_unclassified_data, Models= reports$Models,
+score_data <- combi_score(data= demo_unclassified_data, Models= reports$Models,
                              Metrics= reports$Metrics)
 
 # To classify new samples with logistic regression models.
 
-classified_data <- combi_score(unclassified_data= demo_unclassified_data,
+classified_data <- combi_score(data= demo_unclassified_data,
                                Models= reports$Models,Metrics= reports$Metrics,
                                Positive_class=1, Negative_class=0, classify=TRUE)
 
