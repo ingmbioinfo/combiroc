@@ -375,7 +375,7 @@ This score expresses the probability of being NK cells.
 
 ```{r}
 # adding combi score for combination 172173
-cs_cbmc <- combi_score(unclassified_data = test_cbmc, Models = reports$Models, Metrics = reports$Metrics, Positive_class = 'NK', Negative_class = 'Other')
+cs_cbmc <- combi_score(test_cbmc, Models = reports$Models, Metrics = reports$Metrics, Positive_class = 'NK', Negative_class = 'Other')
 cbmc[['c172173_combi_score']]<- cs_cbmc$`Combination 172173`  
 ```
 
@@ -437,7 +437,7 @@ This score also expresses the probability of being NK cells.
 sub <- reports$Models
 sub$`Combination 169807` <- NULL
 sub$`Combination 172173` <- NULL
-cs_pbmc3k <- combi_score(unclassified_data = test_pbmc3k, Models = sub,
+cs_pbmc3k <- combi_score(test_pbmc3k, Models = sub,
     Metrics = reports$Metrics, Positive_class = "NK", Negative_class = "Other")
 pbmc3k.final[["c137550_combi_score"]] <- cs_pbmc3k$`Combination 137550`  # to add combi score of combination 137550
 ```
