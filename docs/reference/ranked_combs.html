@@ -263,6 +263,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 170  no AIH130     B     135     149     229     864     600</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">combs</span> <span class="op">&lt;-</span> <span class="fu"><a href="combi.html">combi</a></span><span class="op">(</span>data<span class="op">=</span> <span class="va">demo_data</span>, signalthr<span class="op">=</span><span class="fl">450</span>, combithr<span class="op">=</span><span class="fl">1</span>, case_class<span class="op">=</span><span class="st">'A'</span><span class="op">)</span>  <span class="co"># compute combinations</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in combi(data = demo_data, signalthr = 450, combithr = 1, case_class = "A"):</span> unused argument (case_class = "A")</span>
 <span class="r-in"><span>                                                                  <span class="co"># compute SE and SP</span></span></span>
 <span class="r-in"><span>                                                               <span class="co"># of each combination</span></span></span>
 <span class="r-in"><span></span></span>
@@ -271,39 +272,11 @@
 <span class="r-in"><span><span class="co"># To rank combinations by Youden index and filter-out the ones with SE &lt; min_SE and SP &lt; min_SP</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">rc</span> <span class="op">&lt;-</span> <span class="fu">ranked_combs</span><span class="op">(</span>combo_table<span class="op">=</span> <span class="va">combs</span>, min_SE<span class="op">=</span><span class="fl">40</span>, min_SP<span class="op">=</span><span class="fl">80</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in unique(data$Class):</span> argument "data" is missing, with no default</span>
 <span class="r-in"><span><span class="va">rc</span><span class="op">$</span><span class="va">table</span> <span class="co"># to visualize the selected gold combinations through a data.frame</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        Markers #Positives A #Positives B   SE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 11         Marker1-Marker2-Marker3           31            6 77.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 22 Marker1-Marker2-Marker3-Marker5           35           21 87.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 1                  Marker1-Marker2           29            6 72.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 2                  Marker1-Marker3           29            6 72.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 13         Marker1-Marker2-Marker5           33           21 82.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 15         Marker1-Marker3-Marker5           33           21 82.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 18         Marker2-Marker3-Marker5           30           17 75.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Marker1                                Marker1           26            6 65.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 4                  Marker1-Marker5           30           21 75.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 7                  Marker2-Marker5           28           17 70.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 9                  Marker3-Marker5           27           16 67.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 5                  Marker2-Marker3           21            2 52.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Marker2                                Marker2           19            2 47.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Marker5                                Marker5           23           15 57.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      SP n_markers    Youden</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 11 95.38462         3 0.7288462</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 22 83.84615         4 0.7134615</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 1  95.38462         2 0.6788462</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 2  95.38462         2 0.6788462</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 13 83.84615         3 0.6634615</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 15 83.84615         3 0.6634615</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 18 86.92308         3 0.6192308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Marker1        95.38462         1 0.6038462</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 4  83.84615         2 0.5884615</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 7  86.92308         2 0.5692308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 9  87.69231         2 0.5519231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 5  98.46154         2 0.5096154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Marker2        98.46154         1 0.4596154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Marker5        88.46154         1 0.4596154</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'rc' not found</span>
 <span class="r-in"><span><span class="va">rc</span><span class="op">$</span><span class="va">bubble_chart</span> <span class="co"># to visualize the selected gold combinations through a data.frame</span></span></span>
-<span class="r-plt img"><img src="ranked_combs-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'rc' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -283,6 +283,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 170  no AIH130     B     135     149     229     864     600</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">combs</span> <span class="op">&lt;-</span> <span class="fu"><a href="combi.html">combi</a></span><span class="op">(</span>data<span class="op">=</span> <span class="va">demo_data</span>, signalthr<span class="op">=</span><span class="fl">450</span>, combithr<span class="op">=</span><span class="fl">1</span>, case_class<span class="op">=</span><span class="st">'A'</span><span class="op">)</span>  <span class="co"># compute combinations</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in combi(data = demo_data, signalthr = 450, combithr = 1, case_class = "A"):</span> unused argument (case_class = "A")</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># To train logistic regression models on each selected combinations and</span></span></span>
@@ -291,79 +292,16 @@
 <span class="r-in"><span><span class="va">reports</span> <span class="op">&lt;-</span> <span class="fu">roc_reports</span><span class="op">(</span>data<span class="op">=</span> <span class="va">demo_data</span>, markers_table<span class="op">=</span> <span class="va">combs</span>,</span></span>
 <span class="r-in"><span>                        selected_combinations<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">11</span>,<span class="fl">15</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                        single_markers<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Marker1'</span>, <span class="st">'Marker2'</span><span class="op">)</span>, case_class<span class="op">=</span><span class="st">'A'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in roc_reports(data = demo_data, markers_table = combs, selected_combinations = c(1,     11, 15), single_markers = c("Marker1", "Marker2"), case_class = "A"):</span> object 'combs' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span>  <span class="co"># Shows the ROC curves</span></span></span>
-<span class="r-plt img"><img src="roc_reports-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'reports' not found</span>
 <span class="r-in"><span><span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span> <span class="co"># Shows the ROC metrics</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  AUC    SE    SP CutOff   ACC  TN TP FN FP   NPV   PPV</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Marker1        0.910 0.900 0.808  0.219 0.829 105 36  4 25 0.963 0.590</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Marker2        0.900 0.875 0.777  0.193 0.800 101 35  5 29 0.953 0.547</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 1  0.930 0.925 0.831  0.225 0.853 108 37  3 22 0.973 0.627</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 11 0.942 0.950 0.869  0.216 0.888 113 38  2 17 0.983 0.691</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Combination 15 0.935 0.900 0.854  0.248 0.865 111 36  4 19 0.965 0.655</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'reports' not found</span>
 <span class="r-in"><span><span class="va">reports</span><span class="op">$</span><span class="va">Models</span> <span class="co"># show models</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $Marker1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = fla, family = "binomial", data = data)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      (Intercept)  log(Marker1 + 1)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          -13.775             2.246  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 169 Total (i.e. Null);  168 Residual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    185.5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 101.7 	AIC: 105.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $Marker2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = fla, family = "binomial", data = data)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      (Intercept)  log(Marker2 + 1)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          -12.411             2.112  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 169 Total (i.e. Null);  168 Residual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    185.5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 112 	AIC: 116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Combination 1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = fla, family = "binomial", data = data)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      (Intercept)  log(Marker1 + 1)  log(Marker2 + 1)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          -15.932             1.622             1.072  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 169 Total (i.e. Null);  167 Residual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    185.5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 94.69 	AIC: 100.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Combination 11`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = fla, family = "binomial", data = data)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      (Intercept)  log(Marker1 + 1)  log(Marker2 + 1)  log(Marker3 + 1)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         -17.0128            1.5378            0.9176            0.5706  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 169 Total (i.e. Null);  166 Residual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    185.5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 87.49 	AIC: 95.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Combination 15`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:  glm(formula = fla, family = "binomial", data = data)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      (Intercept)  log(Marker1 + 1)  log(Marker3 + 1)  log(Marker5 + 1)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         -16.0554            1.9595            0.6032            0.2805  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Degrees of Freedom: 169 Total (i.e. Null);  166 Residual</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Null Deviance:	    185.5 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual Deviance: 87.95 	AIC: 95.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'reports' not found</span>
 <span class="r-in"><span><span class="va">reports</span><span class="op">$</span><span class="va">reports</span><span class="op">$</span><span class="va">Models</span><span class="op">$</span><span class="va">`Combination 11`</span> <span class="co"># show model trained with Combination 11</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'reports' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

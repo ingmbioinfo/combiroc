@@ -118,7 +118,7 @@
 <h2 id="quick-start-example">Quick start example<a class="anchor" aria-label="anchor" href="#quick-start-example"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ingmbioinfo.github.io/combiroc">combiroc</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ingmbioinfo/combiroc" class="external-link">combiroc</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load the preformatted demo dataset</span></span>
 <span><span class="co"># (you can load a dataset of yours using load_data() function: see full docs)</span></span>
@@ -150,7 +150,7 @@
 <span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/combi.html">combi</a></span><span class="op">(</span><span class="va">data</span>, signalthr <span class="op">=</span> <span class="fl">407</span>, combithr <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># SE &amp; SP computation</span></span>
-<span><span class="va">mks</span> <span class="op">&lt;-</span> <span class="fu">se_sp</span><span class="op">(</span><span class="va">data</span>, <span class="va">tab</span><span class="op">)</span></span>
+<span><span class="va">mks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/combiroc/man/se_sp.html" class="external-link">se_sp</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">tab</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># ranked combinations</span></span>
 <span><span class="va">rmks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/ranked_combs.html">ranked_combs</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">mks</span>, case_class <span class="op">=</span> <span class="st">'A'</span>, min_SE <span class="op">=</span> <span class="fl">40</span>, min_SP <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></span>
