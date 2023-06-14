@@ -9,7 +9,9 @@
 
 # Combiroc
 
-The combiroc package is a totally new music in multi-markers analysis: an R package for efficient and easy combinatorial selection of biomarkers and sensitivity/specificity-driven prioritization of features, now also on single-cell RNAseq datasets. 
+The combiroc package is a totally new music in multi-markers analysis: an R package for efficient and easy combinatorial selection of biomarkers and sensitivity/specificity-driven prioritization of features. 
+
+`r icon::fa_party_horn()`With the current version (v0.3.0) is now possible to work __also on single-cell RNAseq datasets__, selecting smaller sub-signatures that can be used to efficiently identify and annotate cell clusters. 
 
 This is the development version of CombiROC package (combiroc), code in this repo is work in progress and it is uploaded here "as-is" with no warranties implied. Improvements and new features will be added on a regular basis, please check on this github page for new features and releases. 
 
