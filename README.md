@@ -7,13 +7,13 @@
 [![Codecov test coverage](https://codecov.io/gh/ingmbioinfo/combiroc/branch/master/graph/badge.svg)](https://codecov.io/gh/ingmbioinfo/combiroc?branch=master)
 <!-- badges: end -->
 
-# CombiROC
+# Combiroc
 
-CombiROC is a totally new music in multi-markers analysis: an R package for efficient and easy combinatorial selection of biomarkers and sensitivity/specificity-driven prioritization of features. 
+The combiroc package is a totally new music in multi-markers analysis: an R package for efficient and easy combinatorial selection of biomarkers and sensitivity/specificity-driven prioritization of features, now also on single-cell RNAseq datasets. 
 
 This is the development version of CombiROC package (combiroc), code in this repo is work in progress and it is uploaded here "as-is" with no warranties implied. Improvements and new features will be added on a regular basis, please check on this github page for new features and releases. 
 
-The CombiROC approach was first released as a Shiny Application with limited features. This version is still available at [combiroc.eu](http://combiroc.eu/), but it has limited features as well as low computational power and is __not further maintained__. If you need to cite the method or the web-app please refer to [**Mazzara et al.** Scientific Reports 2017](https://www.nature.com/articles/srep45477) and [**Bombaci & Rossi**, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16).
+The CombiROC approach was first released as a Shiny Application with limited features, which is still available at [combiroc.eu](http://combiroc.eu/), but it has limited features as well as low computational power and is __not further maintained__. If you need to cite the method or the web-app please refer to [**Mazzara et al.** Scientific Reports 2017](https://www.nature.com/articles/srep45477) and [**Bombaci & Rossi**, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16).
 
 For full capabilities, new and improved features and customized analyses we suggest to install the combiroc package, either the release from [CRAN](https://cloud.r-project.org/web/packages/combiroc/index.html) or the development version from this repo. If you are using the combiroc package in your research, please cite also our **bioRxiv preprint**: [**Ferrari et al.** *Combinatorial selection of biomarkers to optimize gene signatures in diagnostics and single cell applications*. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v1) 
 
@@ -80,14 +80,12 @@ distr$Density_summary
 distr$ROC
 head(distr$Coord, n=10)
 
-# combinatorial analysis
-tab <- combi(data, signalthr = 407, combithr = 1)
+# combinatorial analysis, indicatinf case class anf for combinations of up to 3 markers:
+tab <- combi(data, signalthr = 328, combithr = 1,
+             case_class = "A", max_length = 3)
 
-# SE & SP computation
-mks <- se_sp(data, tab)
-
-# ranked combinations
-rmks <- ranked_combs(data, mks, case_class = 'A', min_SE = 40, min_SP = 80)
+# ranked combinations              
+rmks <- ranked_combs(tab, min_SE = 40, min_SP = 80)
 
 # check ranked combinations
 rmks$table
