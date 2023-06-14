@@ -56,9 +56,6 @@ Suggests:
     knitr,
     markdown,
     rmarkdown,
-    covr,
-    cbmc.SeuratData,
-    pbmc3k.SeuratData,
     httr
 VignetteBuilder: knitr
 Depends: 

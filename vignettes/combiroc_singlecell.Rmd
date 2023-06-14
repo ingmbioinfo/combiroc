@@ -34,7 +34,6 @@ knitr::opts_knit$set(root.dir = "..")
 
 ```{r warning=FALSE,message=FALSE}
 library(devtools)
-load_all()
 library(combiroc)
 library(dplyr)
 library(Seurat)
@@ -115,7 +114,7 @@ FeaturePlot(atlas, nk_genes[1:4])
 ```
 
 ```{r echo=FALSE, fig.align = "center"}
-vmywd <- getwd()
+mywd <- getwd()
 knitr::include_graphics(paste0(mywd, "/vignettes/FeaturePlot1.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
 ```
 
@@ -326,7 +325,7 @@ We are going to invoke the cbmc dataset from the `SeuratData` package and prepro
 ```{r message=FALSE, warning=FALSE}
 if (!require("SeuratData", quietly = TRUE))
     devtools::install_github('satijalab/seurat-data')
-InstallData("cbmc")
+SeuratData::InstallData("cbmc")
 cbmc <- cbmc
 # process data with standard Seurat protocol
 cbmc <- NormalizeData(cbmc, verbose = F) %>% 
@@ -399,7 +398,7 @@ The dataset is immediately available as an already processed Seurat object named
 ```{r, message=FALSE, warning=FALSE}
 if (!require("SeuratData", quietly = TRUE))
      devtools::install_github('satijalab/seurat-data')
-InstallData("pbmc3k")
+SeuratData::InstallData("pbmc3k")
 pbmc3k.final <- pbmc3k.final
 pbmc3k.final[['ID']] <- Idents(pbmc3k.final)
 pbmc3k.final

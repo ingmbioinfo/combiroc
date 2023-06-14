@@ -29,7 +29,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r setup, include=FALSE}
 # library(combiroc)
 library(devtools)
-load_all()
 ```
 
 # Summary {#top}
