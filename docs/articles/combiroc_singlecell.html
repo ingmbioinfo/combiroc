@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">combiroc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@ signature at single cell resolution.</div></h3>
                         <h4 data-toc-skip class="author">Riccardo L.
 Rossi, Ivan Ferrari</h4>
             
-            <h4 data-toc-skip class="date">12 June 2023</h4>
+            <h4 data-toc-skip class="date">14 June 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_singlecell.Rmd" class="external-link"><code>vignettes/combiroc_singlecell.Rmd</code></a></small>
       <div class="d-none name"><code>combiroc_singlecell.Rmd</code></div>
@@ -92,7 +92,7 @@ Rossi, Ivan Ferrari</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ingmbioinfo/combiroc" class="external-link">combiroc</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ingmbioinfo.github.io/combiroc">combiroc</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat" class="external-link">Seurat</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
@@ -104,7 +104,7 @@ Rossi, Ivan Ferrari</h4>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://colorspace.R-Forge.R-project.org/" class="external-link">colorspace</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pheatmap</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/exaexa/scattermore" class="external-link">scattermore</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
@@ -535,12 +535,13 @@ combinations</strong></p>
 Stoeckius et al. 2017 <a href="https://www.nature.com/articles/nmeth.4380" class="external-link">[3]</a>. Further
 description can be found in the <a href="https://satijalab.org/seurat/articles/multimodal_vignette.html" class="external-link">Seurat
 multimodal vignette</a> or by calling the guide with
-<code><a href="https://rdrr.io/pkg/cbmc.SeuratData/man/cbmc.html" class="external-link">?cbmc</a></code>.</p>
+<code>?cbmc</code>.</p>
 <p>We are going to invoke the cbmc dataset from the
 <code>SeuratData</code> package and preprocess it as needed:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"cbmc.SeuratData"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"cbmc.SeuratData"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://www.satijalab.org/seurat" class="external-link">"SeuratData"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"satijalab/seurat-data"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://satijalab.org/seurat/reference/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"cbmc"</span><span class="op">)</span></span>
+<span><span class="va">cbmc</span> <span class="op">&lt;-</span> <span class="va">cbmc</span></span>
 <span><span class="co"># process data with standard Seurat protocol</span></span>
 <span><span class="va">cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/NormalizeData.html" class="external-link">NormalizeData</a></span><span class="op">(</span><span class="va">cbmc</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://satijalab.org/seurat/reference/FindVariableFeatures.html" class="external-link">FindVariableFeatures</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -652,8 +653,8 @@ be directly invoked from the <code>SeuratData</code> library. The
 dataset is immediately available as an already processed Seurat object
 named <code>pbmc3k.final</code>.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"pbmc3k.SeuratData"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pbmc3k.SeuratData"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"pbmc3k"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://www.satijalab.org/seurat" class="external-link">"SeuratData"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"satijalab/seurat-data"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://satijalab.org/seurat/reference/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"pbmc3k"</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span> <span class="op">&lt;-</span> <span class="va">pbmc3k.final</span></span>
 <span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">"ID"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">pbmc3k.final</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span></span>
@@ -954,11 +955,12 @@ pan-cancer enhancers orchestrated by YAP/TAZ.</li>
 </h2>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.2.1 (2022-06-23 ucrt)</span></span>
+<span><span class="co">#&gt; R version 4.3.0 (2023-04-21 ucrt)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
-<span><span class="co">#&gt; Running under: Windows 10 x64 (build 22000)</span></span>
+<span><span class="co">#&gt; Running under: Windows 11 x64 (build 22000)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; locale:</span></span>
 <span><span class="co">#&gt; [1] LC_COLLATE=English_United Kingdom.utf8 </span></span>
@@ -967,71 +969,69 @@ pan-cancer enhancers orchestrated by YAP/TAZ.</li>
 <span><span class="co">#&gt; [4] LC_NUMERIC=C                           </span></span>
 <span><span class="co">#&gt; [5] LC_TIME=English_United Kingdom.utf8    </span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; time zone: Europe/Rome</span></span>
+<span><span class="co">#&gt; tzcode source: internal</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; attached base packages:</span></span>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] scattermore_0.8               pheatmap_1.0.12              </span></span>
-<span><span class="co">#&gt;  [3] cowplot_1.1.1                 colorspace_2.0-3             </span></span>
-<span><span class="co">#&gt;  [5] RColorBrewer_1.1-3            ggpubr_0.6.0                 </span></span>
-<span><span class="co">#&gt;  [7] ggplot2_3.4.2                 tidyr_1.3.0                  </span></span>
-<span><span class="co">#&gt;  [9] pbmcMultiome.SeuratData_0.1.4 pbmc3k.SeuratData_3.1.4      </span></span>
-<span><span class="co">#&gt; [11] cbmc.SeuratData_3.1.4         bmcite.SeuratData_0.3.0      </span></span>
-<span><span class="co">#&gt; [13] SeuratData_0.2.2              patchwork_1.1.2              </span></span>
-<span><span class="co">#&gt; [15] SeuratObject_4.1.3            Seurat_4.3.0                 </span></span>
-<span><span class="co">#&gt; [17] dplyr_1.0.10                  combiroc_0.2.4               </span></span>
-<span><span class="co">#&gt; [19] testthat_3.1.7                devtools_2.4.5               </span></span>
-<span><span class="co">#&gt; [21] usethis_2.1.6                 knitr_1.42                   </span></span>
-<span><span class="co">#&gt; [23] httr_1.4.5                   </span></span>
+<span><span class="co">#&gt;  [1] cbmc.SeuratData_3.1.4   scattermore_1.2         pheatmap_1.0.12        </span></span>
+<span><span class="co">#&gt;  [4] cowplot_1.1.1           colorspace_2.1-0        RColorBrewer_1.1-3     </span></span>
+<span><span class="co">#&gt;  [7] ggpubr_0.6.0            ggplot2_3.4.2           tidyr_1.3.0            </span></span>
+<span><span class="co">#&gt; [10] pbmc3k.SeuratData_3.1.4 SeuratData_0.2.2        patchwork_1.1.2        </span></span>
+<span><span class="co">#&gt; [13] SeuratObject_4.1.3      Seurat_4.3.0            dplyr_1.1.2            </span></span>
+<span><span class="co">#&gt; [16] combiroc_0.3.0          testthat_3.1.8          devtools_2.4.5         </span></span>
+<span><span class="co">#&gt; [19] usethis_2.2.0           knitr_1.43              httr_1.4.6             </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;   [1] backports_1.4.1        systemfonts_1.0.4      plyr_1.8.8            </span></span>
-<span><span class="co">#&gt;   [4] igraph_1.4.1           lazyeval_0.2.2         sp_1.6-0              </span></span>
-<span><span class="co">#&gt;   [7] splines_4.2.1          listenv_0.9.0          digest_0.6.29         </span></span>
-<span><span class="co">#&gt;  [10] htmltools_0.5.5        fansi_1.0.3            magrittr_2.0.3        </span></span>
-<span><span class="co">#&gt;  [13] memoise_2.0.1          tensor_1.5             cluster_2.1.3         </span></span>
-<span><span class="co">#&gt;  [16] ROCR_1.0-11            remotes_2.4.2          globals_0.16.2        </span></span>
-<span><span class="co">#&gt;  [19] matrixStats_0.63.0     pkgdown_2.0.7          spatstat.sparse_3.0-1 </span></span>
-<span><span class="co">#&gt;  [22] prettyunits_1.1.1      rappdirs_0.3.3         ggrepel_0.9.3         </span></span>
-<span><span class="co">#&gt;  [25] textshaping_0.3.6      xfun_0.37              callr_3.7.3           </span></span>
-<span><span class="co">#&gt;  [28] crayon_1.5.2           jsonlite_1.8.4         progressr_0.13.0      </span></span>
-<span><span class="co">#&gt;  [31] spatstat.data_3.0-1    survival_3.3-1         zoo_1.8-11            </span></span>
-<span><span class="co">#&gt;  [34] glue_1.6.2             polyclip_1.10-4        gtable_0.3.1          </span></span>
-<span><span class="co">#&gt;  [37] leiden_0.4.3           car_3.1-1              pkgbuild_1.4.0        </span></span>
-<span><span class="co">#&gt;  [40] future.apply_1.10.0    abind_1.4-5            scales_1.2.1          </span></span>
-<span><span class="co">#&gt;  [43] DBI_1.1.3              rstatix_0.7.2          spatstat.random_3.1-4 </span></span>
-<span><span class="co">#&gt;  [46] miniUI_0.1.1.1         Rcpp_1.0.9             viridisLite_0.4.1     </span></span>
-<span><span class="co">#&gt;  [49] xtable_1.8-4           reticulate_1.28        bit_4.0.4             </span></span>
-<span><span class="co">#&gt;  [52] profvis_0.3.7          htmlwidgets_1.6.1      ellipsis_0.3.2        </span></span>
-<span><span class="co">#&gt;  [55] ica_1.0-3              farver_2.1.1           urlchecker_1.0.1      </span></span>
-<span><span class="co">#&gt;  [58] pkgconfig_2.0.3        uwot_0.1.14            deldir_1.0-6          </span></span>
-<span><span class="co">#&gt;  [61] sass_0.4.5             utf8_1.2.2             labeling_0.4.2        </span></span>
-<span><span class="co">#&gt;  [64] tidyselect_1.2.0       rlang_1.1.0            reshape2_1.4.4        </span></span>
-<span><span class="co">#&gt;  [67] later_1.3.0            munsell_0.5.0          tools_4.2.1           </span></span>
-<span><span class="co">#&gt;  [70] cachem_1.0.7           cli_3.4.1              generics_0.1.3        </span></span>
-<span><span class="co">#&gt;  [73] moments_0.14.1         broom_1.0.4            ggridges_0.5.4        </span></span>
-<span><span class="co">#&gt;  [76] evaluate_0.20          stringr_1.5.0          fastmap_1.1.1         </span></span>
-<span><span class="co">#&gt;  [79] goftest_1.2-3          yaml_2.3.7             ragg_1.2.5            </span></span>
-<span><span class="co">#&gt;  [82] bit64_4.0.5            processx_3.7.0         fs_1.5.2              </span></span>
-<span><span class="co">#&gt;  [85] fitdistrplus_1.1-8     purrr_1.0.1            RANN_2.6.1            </span></span>
-<span><span class="co">#&gt;  [88] nlme_3.1-157           pbapply_1.7-0          future_1.32.0         </span></span>
-<span><span class="co">#&gt;  [91] mime_0.12              formatR_1.14           brio_1.1.3            </span></span>
-<span><span class="co">#&gt;  [94] hdf5r_1.3.8            compiler_4.2.1         rstudioapi_0.14       </span></span>
-<span><span class="co">#&gt;  [97] plotly_4.10.1          png_0.1-8              ggsignif_0.6.4        </span></span>
-<span><span class="co">#&gt; [100] spatstat.utils_3.0-2   tibble_3.1.8           bslib_0.4.2           </span></span>
-<span><span class="co">#&gt; [103] stringi_1.7.8          highr_0.10             ps_1.7.1              </span></span>
-<span><span class="co">#&gt; [106] desc_1.4.2             lattice_0.20-45        Matrix_1.5-3          </span></span>
-<span><span class="co">#&gt; [109] SeuratDisk_0.0.0.9020  vctrs_0.6.0            pillar_1.8.1          </span></span>
-<span><span class="co">#&gt; [112] lifecycle_1.0.3        spatstat.geom_3.1-0    lmtest_0.9-40         </span></span>
-<span><span class="co">#&gt; [115] jquerylib_0.1.4        RcppAnnoy_0.0.20       data.table_1.14.8     </span></span>
-<span><span class="co">#&gt; [118] irlba_2.3.5.1          httpuv_1.6.6           R6_2.5.1              </span></span>
-<span><span class="co">#&gt; [121] promises_1.2.0.1       KernSmooth_2.23-20     gridExtra_2.3         </span></span>
-<span><span class="co">#&gt; [124] parallelly_1.34.0      sessioninfo_1.2.2      codetools_0.2-18      </span></span>
-<span><span class="co">#&gt; [127] MASS_7.3-57            gtools_3.9.4           pkgload_1.3.2         </span></span>
-<span><span class="co">#&gt; [130] rprojroot_2.0.3        withr_2.5.0            sctransform_0.3.5     </span></span>
-<span><span class="co">#&gt; [133] parallel_4.2.1         grid_4.2.1             rmarkdown_2.20        </span></span>
-<span><span class="co">#&gt; [136] carData_3.0-5          Rtsne_0.16             spatstat.explore_3.1-0</span></span>
-<span><span class="co">#&gt; [139] pROC_1.18.0            shiny_1.7.4</span></span></code></pre></div>
+<span><span class="co">#&gt;   [1] RcppAnnoy_0.0.20       splines_4.3.0          later_1.3.1           </span></span>
+<span><span class="co">#&gt;   [4] tibble_3.2.1           polyclip_1.10-4        pROC_1.18.2           </span></span>
+<span><span class="co">#&gt;   [7] lifecycle_1.0.3        rstatix_0.7.2          rprojroot_2.0.3       </span></span>
+<span><span class="co">#&gt;  [10] globals_0.16.2         processx_3.8.1         lattice_0.21-8        </span></span>
+<span><span class="co">#&gt;  [13] hdf5r_1.3.8            MASS_7.3-58.4          backports_1.4.1       </span></span>
+<span><span class="co">#&gt;  [16] magrittr_2.0.3         plotly_4.10.2          sass_0.4.6            </span></span>
+<span><span class="co">#&gt;  [19] rmarkdown_2.22         jquerylib_0.1.4        yaml_2.3.7            </span></span>
+<span><span class="co">#&gt;  [22] remotes_2.4.2          httpuv_1.6.11          sctransform_0.3.5     </span></span>
+<span><span class="co">#&gt;  [25] sp_1.6-1               sessioninfo_1.2.2      pkgbuild_1.4.0        </span></span>
+<span><span class="co">#&gt;  [28] spatstat.sparse_3.0-1  reticulate_1.30        pbapply_1.7-0         </span></span>
+<span><span class="co">#&gt;  [31] abind_1.4-5            pkgload_1.3.2          Rtsne_0.16            </span></span>
+<span><span class="co">#&gt;  [34] purrr_1.0.1            rappdirs_0.3.3         ggrepel_0.9.3         </span></span>
+<span><span class="co">#&gt;  [37] irlba_2.3.5.1          listenv_0.9.0          spatstat.utils_3.0-3  </span></span>
+<span><span class="co">#&gt;  [40] moments_0.14.1         goftest_1.2-3          spatstat.random_3.1-5 </span></span>
+<span><span class="co">#&gt;  [43] fitdistrplus_1.1-11    parallelly_1.36.0      pkgdown_2.0.7         </span></span>
+<span><span class="co">#&gt;  [46] leiden_0.4.3           codetools_0.2-19       tidyselect_1.2.0      </span></span>
+<span><span class="co">#&gt;  [49] farver_2.1.1           matrixStats_1.0.0      spatstat.explore_3.2-1</span></span>
+<span><span class="co">#&gt;  [52] jsonlite_1.8.5         ellipsis_0.3.2         progressr_0.13.0      </span></span>
+<span><span class="co">#&gt;  [55] ggridges_0.5.4         survival_3.5-5         systemfonts_1.0.4     </span></span>
+<span><span class="co">#&gt;  [58] tools_4.3.0            ragg_1.2.5             ica_1.0-3             </span></span>
+<span><span class="co">#&gt;  [61] Rcpp_1.0.10            glue_1.6.2             gridExtra_2.3         </span></span>
+<span><span class="co">#&gt;  [64] xfun_0.39              withr_2.5.0            formatR_1.14          </span></span>
+<span><span class="co">#&gt;  [67] fastmap_1.1.1          fansi_1.0.4            callr_3.7.3           </span></span>
+<span><span class="co">#&gt;  [70] digest_0.6.31          R6_2.5.1               mime_0.12             </span></span>
+<span><span class="co">#&gt;  [73] textshaping_0.3.6      gtools_3.9.4           tensor_1.5            </span></span>
+<span><span class="co">#&gt;  [76] spatstat.data_3.0-1    utf8_1.2.3             generics_0.1.3        </span></span>
+<span><span class="co">#&gt;  [79] data.table_1.14.8      prettyunits_1.1.1      htmlwidgets_1.6.2     </span></span>
+<span><span class="co">#&gt;  [82] uwot_0.1.14            pkgconfig_2.0.3        gtable_0.3.3          </span></span>
+<span><span class="co">#&gt;  [85] lmtest_0.9-40          brio_1.1.3             htmltools_0.5.5       </span></span>
+<span><span class="co">#&gt;  [88] carData_3.0-5          profvis_0.3.8          scales_1.2.1          </span></span>
+<span><span class="co">#&gt;  [91] png_0.1-8              rstudioapi_0.14        reshape2_1.4.4        </span></span>
+<span><span class="co">#&gt;  [94] nlme_3.1-162           cachem_1.0.8           zoo_1.8-12            </span></span>
+<span><span class="co">#&gt;  [97] stringr_1.5.0          KernSmooth_2.23-20     parallel_4.3.0        </span></span>
+<span><span class="co">#&gt; [100] miniUI_0.1.1.1         desc_1.4.2             pillar_1.9.0          </span></span>
+<span><span class="co">#&gt; [103] grid_4.3.0             vctrs_0.6.2            RANN_2.6.1            </span></span>
+<span><span class="co">#&gt; [106] urlchecker_1.0.1       promises_1.2.0.1       car_3.1-2             </span></span>
+<span><span class="co">#&gt; [109] xtable_1.8-4           cluster_2.1.4          SeuratDisk_0.0.0.9020 </span></span>
+<span><span class="co">#&gt; [112] evaluate_0.21          cli_3.6.1              compiler_4.3.0        </span></span>
+<span><span class="co">#&gt; [115] rlang_1.1.1            crayon_1.5.2           future.apply_1.11.0   </span></span>
+<span><span class="co">#&gt; [118] ggsignif_0.6.4         labeling_0.4.2         ps_1.7.5              </span></span>
+<span><span class="co">#&gt; [121] plyr_1.8.8             fs_1.6.2               stringi_1.7.12        </span></span>
+<span><span class="co">#&gt; [124] viridisLite_0.4.2      deldir_1.0-9           munsell_0.5.0         </span></span>
+<span><span class="co">#&gt; [127] lazyeval_0.2.2         spatstat.geom_3.2-1    Matrix_1.5-4          </span></span>
+<span><span class="co">#&gt; [130] bit64_4.0.5            future_1.32.0          shiny_1.7.4           </span></span>
+<span><span class="co">#&gt; [133] highr_0.10             ROCR_1.0-11            igraph_1.4.3          </span></span>
+<span><span class="co">#&gt; [136] broom_1.0.5            memoise_2.0.1          bslib_0.5.0           </span></span>
+<span><span class="co">#&gt; [139] bit_4.0.5</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

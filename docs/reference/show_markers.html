@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">combiroc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -254,12 +254,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 170  no AIH130     B     135     149     229     864     600</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">combs</span> <span class="op">&lt;-</span> <span class="fu"><a href="combi.html">combi</a></span><span class="op">(</span>data<span class="op">=</span> <span class="va">demo_data</span>, signalthr<span class="op">=</span><span class="fl">450</span>, combithr<span class="op">=</span><span class="fl">1</span>, case_class<span class="op">=</span><span class="st">'A'</span><span class="op">)</span>  <span class="co"># compute combinations</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in combi(data = demo_data, signalthr = 450, combithr = 1, case_class = "A"):</span> unused argument (case_class = "A")</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#  To show the composition of combinations of interest.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">show_markers</span><span class="op">(</span>markers_table <span class="op">=</span> <span class="va">combs</span>, selected_combinations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">11</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in show_markers(markers_table = combs, selected_combinations = c(1,     11)):</span> object 'combs' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Combination       Composing_markers</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Combination 1         Marker1-Marker2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Combination 11 Marker1-Marker2-Marker3</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">combiroc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -309,20 +309,19 @@ The use of the median allows to pick a threshold whose SE/SP are not too close t
 <span class="r-in"><span>                                       boxplot_lim <span class="op">=</span> <span class="fl">1500</span>, y_lim <span class="op">=</span> <span class="fl">0.001</span>,</span></span>
 <span class="r-in"><span>                                       x_lim <span class="op">=</span> <span class="fl">3000</span> , signalthr_prediction <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                                       case_class <span class="op">=</span> <span class="st">'A'</span>, min_SE <span class="op">=</span> <span class="fl">40</span>, min_SP <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>In $Coord object you will see only the signal threshold values at which SE&gt;=40 and SP&gt;=80 by default. If you want to change this limits, please set min_SE and min_SP</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">distributions</span><span class="op">$</span><span class="va">Density_plot</span> <span class="co"># density plot</span></span></span>
 <span class="r-plt img"><img src="markers_distribution-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">distributions</span><span class="op">$</span><span class="va">Density_summary</span> <span class="co"># summary statistics of density plot</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   # observations Min   Max Median     Mean 1st Q. 3rd Q.        SD</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A             40   0 13178    461 813.7600 233.25    825 1427.1854</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B            130   0  4114    106 206.0123  38.00    266  317.7782</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Class `# observations`   Min   Max Median  Mean `1st Q` `3rd Q`    SD</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> A                  200     0 <span style="text-decoration: underline;">13</span>178    461  814.    233.     825 <span style="text-decoration: underline;">1</span>427.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> B                  650     0  <span style="text-decoration: underline;">4</span>114    106  206.     38      266  318.</span>
 <span class="r-in"><span><span class="va">distributions</span><span class="op">$</span><span class="va">ROC</span> <span class="co"># ROC showing signal threshold range ensuring min SE and/or SP</span></span></span>
 <span class="r-plt img"><img src="markers_distribution-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">distributions</span><span class="op">$</span><span class="va">Coord</span> <span class="co"># ROC values</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     threshold specificity sensitivity    Youden</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 238     315.5          80          65 0.4453846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 239     317.5          80          65 0.4484615</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 240     319.5          80          65 0.4500000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 241     320.5          80          65 0.4515385</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 242     322.0          80          65 0.4530769</span>
@@ -428,8 +427,6 @@ The use of the median allows to pick a threshold whose SE/SP are not too close t
 <span class="r-out co"><span class="r-pr">#&gt;</span> 342     548.5          91          40 0.3188462</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 343     555.5          91          40 0.3138462</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 344     561.0          92          40 0.3169231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 345     564.5          92          40 0.3134615</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 346     567.0          92          40 0.3150000</span>
 <span class="r-in"><span><span class="va">distributions</span><span class="op">$</span><span class="va">Boxplot</span> <span class="co"># Boxplot</span></span></span>
 <span class="r-plt img"><img src="markers_distribution-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>

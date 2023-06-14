@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">combiroc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -261,19 +261,19 @@
 <span class="r-in"><span><span class="va">sms</span><span class="op">$</span><span class="va">Statistics</span> <span class="co"># to visualize the statistics of each single marker</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   Markers [5]</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Markers Class   Mean   Min   Max     Sd    CV First_…¹ Median Third…² Skewn…³</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Marker1 A     <span style="text-decoration: underline;">1</span>159.     52  <span style="text-decoration: underline;">8</span>584 <span style="text-decoration: underline;">1</span>672.  1.44     369.   569    <span style="text-decoration: underline;">1</span>047      3.18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Marker1 B      161.      0  <span style="text-decoration: underline;">1</span>223  162.  1.01      59.5  111     221      2.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Marker2 A      692.     41  <span style="text-decoration: underline;">3</span>704  783.  1.13     259    422.    774.     2.41</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Marker2 B      141.      0  <span style="text-decoration: underline;">2</span>142  205.  1.45      55.2  100.    168      7.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Marker3 A      767.      0 <span style="text-decoration: underline;">13</span>178 <span style="text-decoration: underline;">2</span>436.  3.18      73.2  189     396.     4.37</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Marker3 B       56.2     0   640   80.6 1.43      10.2   33.5    67.8    3.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Marker4 A      879.    105  <span style="text-decoration: underline;">3</span>390  713.  0.811    371    620.   <span style="text-decoration: underline;">1</span>256.     1.52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Marker4 B      467.      0  <span style="text-decoration: underline;">2</span>464  406.  0.869    232    361     594      2.33</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Marker5 A      571.      0  <span style="text-decoration: underline;">2</span>757  582.  1.02     152.   518     731.     2.17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Marker5 B      205.      0  <span style="text-decoration: underline;">4</span>114  413.  2.02      17.2   76     248      6.86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​First_Quart., ²​Third_Quart., ³​Skewness</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Markers Class   Mean   Min   Max     Sd    CV First_Quart. Median</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Marker1 A     <span style="text-decoration: underline;">1</span>159.     52  <span style="text-decoration: underline;">8</span>584 <span style="text-decoration: underline;">1</span>672.  1.44         369.   569  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Marker1 B      161.      0  <span style="text-decoration: underline;">1</span>223  162.  1.01          59.5  111  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Marker2 A      692.     41  <span style="text-decoration: underline;">3</span>704  783.  1.13         259    422. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Marker2 B      141.      0  <span style="text-decoration: underline;">2</span>142  205.  1.45          55.2  100. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Marker3 A      767.      0 <span style="text-decoration: underline;">13</span>178 <span style="text-decoration: underline;">2</span>436.  3.18          73.2  189  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Marker3 B       56.2     0   640   80.6 1.43          10.2   33.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Marker4 A      879.    105  <span style="text-decoration: underline;">3</span>390  713.  0.811        371    620. </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Marker4 B      467.      0  <span style="text-decoration: underline;">2</span>464  406.  0.869        232    361  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Marker5 A      571.      0  <span style="text-decoration: underline;">2</span>757  582.  1.02         152.   518  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Marker5 B      205.      0  <span style="text-decoration: underline;">4</span>114  413.  2.02          17.2   76  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: Third_Quart. &lt;dbl&gt;, Skewness &lt;dbl&gt;</span></span>
 <span class="r-in"><span><span class="va">sms</span><span class="op">$</span><span class="va">Plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># to visualize the scatterplot of the first marker</span></span></span>
 <span class="r-plt img"><img src="single_markers_statistics-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
