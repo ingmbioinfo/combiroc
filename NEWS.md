@@ -3,6 +3,7 @@
 This version of combiroc package enforces the full-fledge single cell RNAseq workflow. The scRNAseq workflow vignette has been thoroughly expanded and updated. This version is synchronized with the most updated version of the biorXiv preprint (the "less is more" version)
 
 * New functions were added for data interoperability between combiroc and Seurat single-cell package
+* se_sp() function was removed. SE and SP are directly calculated during combinatorial analysis
 * New Seurat-style demo data was added
 * Streamlined combi_score() function for model finding
 * Bugs and minor changes troughout the package
