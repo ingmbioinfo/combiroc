@@ -3,18 +3,18 @@ title: "Guide to CombiROC package - Standard workflow"
 author: "Ivan Ferrari, Riccardo L. Rossi"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
-  html_document:
-    toc: yes
-    df_print: paged
   pdf_document:
     toc: yes
     latex_engine: xelatex
     keep_tex: true
+  html_document:
+    toc: yes
+    df_print: paged
 subtitle: "| Selection and ranking of omics biomarkers combinations made easy.  \n"
 vignette: |
-  %\VignetteEngine{knitr::knitr}
   %\VignetteIndexEntry{Quick guide to CombiROC} 
   %\usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::knitr}
 ---
 
 ```{r, include = FALSE}

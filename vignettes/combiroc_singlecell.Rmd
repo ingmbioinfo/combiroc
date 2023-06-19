@@ -3,18 +3,18 @@ title: "Signature refining tutorial - scRNA-seq Workflow"
 author: "Riccardo L. Rossi, Ivan Ferrari"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
-  html_document:
-    toc: yes
-    df_print: paged
   pdf_document:
     toc: yes
     latex_engine: xelatex
     keep_tex: true
+  html_document:
+    toc: yes
+    df_print: paged
 subtitle: "| Combiroc-driven optimization of NK cells marker signature at single cell resolution.  \n"
 vignette: |
-  %\VignetteEngine{knitr::knitr} 
   %\VignetteIndexEntry{Single cell Combiroc tutorial} 
   %\usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::knitr} 
 editor_options: 
   markdown: 
     wrap: sentence
@@ -323,9 +323,6 @@ Further description can be found in the [Seurat multimodal vignette](https://sat
 We are going to invoke the cbmc dataset from the `SeuratData` package and preprocess it as needed:
 
 ```{r message=FALSE, warning=FALSE}
-if (!require("SeuratData", quietly = TRUE))
-    devtools::install_github('satijalab/seurat-data')
-SeuratData::InstallData("cbmc")
 cbmc <- cbmc
 # process data with standard Seurat protocol
 cbmc <- NormalizeData(cbmc, verbose = F) %>% 
@@ -396,9 +393,6 @@ The Peripheral blood mononuclear cells (PBMC3K) test dataset can also be directl
 The dataset is immediately available as an already processed Seurat object named `pbmc3k.final`.
 
 ```{r, message=FALSE, warning=FALSE}
-if (!require("SeuratData", quietly = TRUE))
-     devtools::install_github('satijalab/seurat-data')
-SeuratData::InstallData("pbmc3k")
 pbmc3k.final <- pbmc3k.final
 pbmc3k.final[['ID']] <- Idents(pbmc3k.final)
 pbmc3k.final
