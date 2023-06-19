@@ -43,7 +43,7 @@ Imports:
     devtools,
     RColorBrewer,
     Seurat, 
-    SeuratData, 
+    SeuratData,
     SeuratDisk, 
     colorspace,
     cowplot, 
