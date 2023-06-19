@@ -320,8 +320,9 @@ We are going to invoke the cbmc dataset from the `SeuratData` package and prepro
 if (!require("SeuratData", quietly = TRUE))
     devtools::install_github('satijalab/seurat-data')
 library(SeuratData)
-SeuratData::InstallData("cbmc")
-cbmc <- data(cbmc)
+InstallData("cbmc")
+data(cbmc)
+cbmc
 # process data with standard Seurat protocol
 cbmc <- NormalizeData(cbmc, verbose = F) %>% 
   FindVariableFeatures(verbose = F) %>% 
@@ -394,7 +395,6 @@ The dataset is immediately available as an already processed Seurat object named
 if (!require("SeuratData", quietly = TRUE))
     devtools::install_github('satijalab/seurat-data')
 library(SeuratData)
-SeuratData::InstallData("pbmc3k")
 pbmc3k.final <- pbmc3k.final
 pbmc3k.final[['ID']] <- Idents(pbmc3k.final)
 pbmc3k.final
