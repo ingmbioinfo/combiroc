@@ -13,17 +13,8 @@ vignette: |
   %\VignetteEngine{knitr::knitr}
 ---
 
-```{r, include = FALSE}
-library(httr)
-library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
-knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
-knitr::opts_chunk$set(echo = TRUE)
-#knitr::opts_knit$set(root.dir = "..")
-```
-
 ```{r setup, include=FALSE}
-# library(combiroc)
+library(combiroc)
 library(devtools)
 ```
 
