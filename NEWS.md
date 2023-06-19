@@ -1,3 +1,7 @@
+# combiroc 0.3.1 - June 19, 2023
+
+Minor changes for vignette knitting consistency and smaller bugs on dependencies.
+
 # combiroc 0.3.0 - June 12, 2023
 
 This version of combiroc package enforces the full-fledge single cell RNAseq workflow. The scRNAseq workflow vignette has been thoroughly expanded and updated. This version is synchronized with the most updated version of the biorXiv preprint (the "less is more" version)
