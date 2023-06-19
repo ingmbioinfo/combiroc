@@ -3,10 +3,6 @@ title: "Signature refining tutorial - scRNA-seq Workflow"
 author: "Riccardo L. Rossi, Ivan Ferrari"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
-  pdf_document:
-    toc: yes
-    latex_engine: xelatex
-    keep_tex: true
   html_document:
     toc: yes
     df_print: paged
