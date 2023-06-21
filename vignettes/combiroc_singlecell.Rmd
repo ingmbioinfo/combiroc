@@ -317,10 +317,10 @@ Further description can be found in the [Seurat multimodal vignette](https://sat
 We are going to invoke the cbmc dataset from the `SeuratData` package and preprocess it as needed:
 
 ```{r message=FALSE, warning=FALSE}
-if (!require("SeuratData", quietly = TRUE))
+if (!require("cbmc.SeuratData", quietly = TRUE))
     devtools::install_github('satijalab/seurat-data')
 library(SeuratData)
-InstallData("cbmc")
+InstallData("cbmc.SeuratData")
 data(cbmc)
 cbmc
 # process data with standard Seurat protocol
@@ -395,6 +395,8 @@ The dataset is immediately available as an already processed Seurat object named
 if (!require("SeuratData", quietly = TRUE))
     devtools::install_github('satijalab/seurat-data')
 library(SeuratData)
+InstallData("pbmc3k.SeuratData")
+data("pbmc3k.final")
 pbmc3k.final <- pbmc3k.final
 pbmc3k.final[['ID']] <- Idents(pbmc3k.final)
 pbmc3k.final
