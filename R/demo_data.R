@@ -13,4 +13,7 @@
 #'   \item{Marker4}{the signal intensity value of Marker4}
 #'   \item{Marker5}{the signal intensity value of Marker5}
 #' }
+#' @example R/examples/demo_data_example.R
+#' @export
+
 "demo_data"
