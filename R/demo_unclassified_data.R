@@ -1,7 +1,6 @@
-#' Combiroc built-in unclassified demo data
+#' A demo dataset with unlabeled proteomics markers
 #'
-#' A dataset containing signal intensity values of a 5-marker signatures for Autoimmune Hepatitis (AIH).
-#' This dataset has been obtained by randomly picking 20 samples from demo_data without their classification.
+#' Combiroc built-in unclassified demo dataA dataset containing signal intensity values of a 5-marker signatures for Autoimmune Hepatitis (AIH). This dataset has been obtained by randomly picking 20 samples from demo_data without their classification.
 #'
 #'
 #' @format A data frame with 20 rows and 7 variables:
@@ -12,6 +11,5 @@
 #'   \item{Marker3}{the signal intensity value of Marker3}
 #'   \item{Marker4}{the signal intensity value of Marker4}
 #'   \item{Marker5}{the signal intensity value of Marker5}
-
 #' }
 "demo_unclassified_data"
