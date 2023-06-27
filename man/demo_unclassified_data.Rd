@@ -3,7 +3,7 @@
 \docType{data}
 \name{demo_unclassified_data}
 \alias{demo_unclassified_data}
-\title{Combiroc built-in unclassified demo data}
+\title{A demo dataset with unlabeled proteomics markers}
 \format{
 A data frame with 20 rows and 7 variables:
 \describe{
@@ -19,7 +19,9 @@ A data frame with 20 rows and 7 variables:
 demo_unclassified_data
 }
 \description{
-A dataset containing signal intensity values of a 5-marker signatures for Autoimmune Hepatitis (AIH).
-This dataset has been obtained by randomly picking 20 samples from demo_data without their classification.
+Combiroc built-in unclassified demo dataA dataset containing signal intensity values of a 5-marker signatures for Autoimmune Hepatitis (AIH). This dataset has been obtained by randomly picking 20 samples from demo_data without their classification.
+}
+\examples{
+demo_unclassified_data # combiroc built-in unclassified demo data
 }
 \keyword{datasets}
