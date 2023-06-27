@@ -38,11 +38,11 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/combiroc_singlecell.html">Signature refining tutorial - scRNA-seq Workflow</a>
-    <a class="dropdown-item" href="../articles/combiroc_standard.html">Guide to CombiROC package - Standard workflow</a>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <a class="dropdown-item" href="../articles/combiroc_standard.html">Standard Workflow</a>
+    <a class="dropdown-item" href="../articles/combiroc_singlecell.html">SingleCell Workflow</a>
   </div>
 </li>
 <li class="nav-item">
@@ -80,8 +80,8 @@ Riccardo L. Rossi</h4>
             
             <h4 data-toc-skip class="date">27 June 2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_standard.Rmd"><code>vignettes/combiroc_standard.Rmd</code></a></small>
-      <div class="d-none name"><code>combiroc_standard.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_vignette_1.Rmd"><code>vignettes/combiroc_vignette_1.Rmd</code></a></small>
+      <div class="d-none name"><code>combiroc_vignette_1.Rmd</code></div>
     </div>
 
     
@@ -275,7 +275,7 @@ operator. Here we display the plot for Marker 1:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_m1</span> <span class="op">&lt;-</span> <span class="va">sms</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Marker1</span></span>
 <span><span class="va">plot_m1</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="combiroc_vignette_1_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>In the section <a href="#snipp">“Code snippets”</a> at the end of
 this vignette we suggest code snippets that can be used to <a href="#plot_int">customize the plots for individual markers</a> across
 all samples, as well as to <a href="#sum_stats">modify the summary
@@ -346,7 +346,7 @@ each one of them</p>
 values for both classes:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">Boxplot</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/boxplot-1.png" width="700"></p>
+<p><img src="combiroc_vignette_1_files/figure-html/boxplot-1.png" width="700"></p>
 </div>
 <div class="section level4">
 <h4 id="the-roc-curve-for-all-markers-and-its-coordinates">The ROC curve for all markers and its coordinates<a class="anchor" aria-label="anchor" href="#the-roc-curve-for-all-markers-and-its-coordinates"></a>
@@ -363,7 +363,7 @@ further discussed in the <strong>Combinatorial analyisis, sensitivity
 and specificity</strong> paragraph.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">ROC</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/ROC-1.png" width="700"></p>
+<p><img src="combiroc_vignette_1_files/figure-html/ROC-1.png" width="700"></p>
 <p>The <strong>Coord</strong> is a dataframe that contains the
 coordinates of the above described “ROC” (threshold, SP and SE) that
 have at least a minimun SE (min_SE) and a minimum SP (min_SP): this two
@@ -412,7 +412,7 @@ index.</p>
 further in the workflow.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">Density_plot</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/density-1.png" width="700"></p>
+<p><img src="combiroc_vignette_1_files/figure-html/density-1.png" width="700"></p>
 </div>
 <div class="section level4">
 <h4 id="the-density-summary">The density summary<a class="anchor" aria-label="anchor" href="#the-density-summary"></a>
@@ -597,7 +597,7 @@ not passing the SE and SP cutoffs as set in <code><a href="../reference/ranked_c
 bubbles).</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rmks</span><span class="op">$</span><span class="va">bubble_chart</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="combiroc_vignette_1_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="roc-curves">ROC curves<a class="anchor" aria-label="anchor" href="#roc-curves"></a>
@@ -640,7 +640,7 @@ classify the samples (the equation for each selected combination).</li>
 </ul>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p><img src="combiroc_vignette_1_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span></span></code></pre></div>
 <pre><code><span><span class="co">##                  AUC   SE    SP CutOff   ACC  TN TP FN FP   NPV   PPV</span></span>

@@ -38,11 +38,11 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/combiroc_singlecell.html">Signature refining tutorial - scRNA-seq Workflow</a>
-    <a class="dropdown-item" href="../articles/combiroc_standard.html">Guide to CombiROC package - Standard workflow</a>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
+    <a class="dropdown-item" href="../articles/combiroc_standard.html">Standard Workflow</a>
+    <a class="dropdown-item" href="../articles/combiroc_singlecell.html">SingleCell Workflow</a>
   </div>
 </li>
 <li class="nav-item">
@@ -80,8 +80,8 @@ Rossi, Ivan Ferrari</h4>
             
             <h4 data-toc-skip class="date">27 June 2023</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_singlecell.Rmd"><code>vignettes/combiroc_singlecell.Rmd</code></a></small>
-      <div class="d-none name"><code>combiroc_singlecell.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_vignette_2.Rmd"><code>vignettes/combiroc_vignette_2.Rmd</code></a></small>
+      <div class="d-none name"><code>combiroc_vignette_2.Rmd</code></div>
     </div>
 
     
@@ -336,7 +336,7 @@ drops to 174,436, which is computationally more manageable.</p>
 <span><span class="co">#&gt; 3         3    4060      4525</span></span>
 <span><span class="co">#&gt; 4         4   27405     31930</span></span>
 <span><span class="co">#&gt; 5         5  142506    174436</span></span></code></pre>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-13-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-13-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>The <code><a href="../reference/combi.html">combi()</a></code> function works on the <code>train</code>
 dataset computing the marker combinations and counting their
 corresponding positive samples in each class (once thresholds are
@@ -388,7 +388,7 @@ use the command arguments</em></p>
 <span>                              signalthr_prediction <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                              case_class <span class="op">=</span> <span class="st">"NK"</span><span class="op">)</span></span>
 <span><span class="va">distr</span><span class="op">$</span><span class="va">Density_plot</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
 <p>The suggested threshold is indicated by the vertical dashed line and
 its value is shown in overlay. The exact value can be retrieved from the
 <code>distr</code> object by <code>distr$Coord$threshold</code> (see the
@@ -472,12 +472,12 @@ to indicate the case class (NK):</p>
 <p>Let’s explore the results generated:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 <p>Zooming in to show the higher performance of the combinations:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rocplot</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">rocplot</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span></span>
 <span><span class="co">#&gt;                      AUC    SE    SP CutOff   ACC     TN    TP   FN    FP   NPV</span></span>
@@ -577,7 +577,7 @@ multimodal vignette</a> or by calling the guide with
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># visualize UMAP clusters</span></span>
 <span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, repel <span class="op">=</span> <span class="cn">T</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
 <p>Please note that the “NA” gray cells cluster is from mouse cells
 whose presence acts as negative control in the original
 experiment/dataset. Also, cluster annotations are just superimposed and
@@ -627,7 +627,7 @@ and the expression values of the 30 NK signature genes).</p>
 distributed across the cell clusters in the CBMC dataset:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-26-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-26-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>In this dataset, expressions of top individual NK markers is higher
 in the NK cluster, but also moderate in others: they are expressed in
 some CD8 T cells, CD34+ and CD16+ Mono cells, even if clusters have been
@@ -657,7 +657,7 @@ CBMC clusters:</p>
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_combi_score"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>The combi-score, which is the probability of belonging to NK cells,
 is highly specific for the clusters that are annotated with a “NK”
 label. pDCs cells do not show any signal and a very small number of
@@ -691,7 +691,7 @@ named <code>pbmc3k.final</code>.</p>
 <p>The original UMAP embedding of the PBMC3K datasets:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, reduction <span class="op">=</span> <span class="st">"umap"</span>, label <span class="op">=</span> <span class="cn">T</span>, repel <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-30-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-30-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>In the same way as previously done we are using now
 <code><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc()</a></code> to obtain the second combiroc test
 dataset (<code>test_pbmc3k</code>). Please note that this dataset does
@@ -736,7 +736,7 @@ dataset.</p>
 distributed in the PBMC-3K dataset:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-32-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-32-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>In this PBMC dataset, all top four markers have high expression
 values in NK cells and in CD8 T cells too, showing that individual
 markers mRNA level may be not sufficient to clearly identify the cells
@@ -764,7 +764,7 @@ PBMC-3K clusters:</p>
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-34-1.png" width="960" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-34-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>Here too, as seen for the previous dataset, the cell cluster labeled
 as “NK” is the only one displaying a very high combi-score, i.e. showing
 an actual probability of being NK cells. No other cell in any cluster
@@ -824,13 +824,13 @@ For the CBMC dataset:</p>
 <code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'c172173_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>And for the PBMC-3K dataset:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_signature_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>As expected, the gene-signature-score for both datasets correctly
 discriminates NK-cells from others, but while in CBMC cells the NK
 cluster is unequivocally selected, in PBMC-3K cells also cytotoxic CD8-T
@@ -856,13 +856,13 @@ datasets.</p>
 <code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'c172173_combi_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>Comparison in PBMC-3K cells:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>Remarkably, despite the 6 fold reduction in the number of considered
 features to build the gene score, for both the datasets, the signature
 score confirmed that the best combination is, at worst, as accurate as
@@ -895,12 +895,12 @@ a generalized higher background signal noise.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">'CBMC'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "CBMC"</span></span>
 <span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'random_30'</span>, <span class="st">'random_5'</span><span class="op">)</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-43-1.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-43-1.png" width="768" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">'PBMC3K'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "PBMC3K"</span></span>
 <span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'random_30'</span>, <span class="st">'random_5'</span><span class="op">)</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-43-2.png" width="768" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-43-2.png" width="768" style="display: block; margin: auto;"></p>
 <p>Beyond using scores of random combinations as negative control, they
 also show the magnitude of background noise associated to each random
 combination taken into consideration. In fact, random scores show quite
