@@ -1,13 +1,13 @@
-url: https://github.com/ingmbioinfo/combiroc
+url: https://ingmbioinfo.github.io/combiroc/
 template:
   bootstrap: 5
 navbar:
- components:
-   articles:
-    text: Vignettes
-    menu:
-    - text: Standard Workflow
-      href: articles/combiroc_vignette_1.html
-    - text: SingleCell Workflow
-      href: articles/combiroc_vignette_2.html
+  components:
+    articles:
+      text: Vignettes
+      menu:
+      - text: Standard Workflow
+        href: articles/combiroc_vignette_1.html
+      - text: SingleCell Workflow
+        href: articles/combiroc_vignette_2.html
 
