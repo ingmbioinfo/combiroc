@@ -6,7 +6,7 @@ navbar:
    articles:
     text: Vignettes
     menu:
-    - text: Standard Workflow
+    - text: Standard Workflow (main vignette)
       href: articles/combiroc_vignette_1.html
     - text: SingleCell Workflow
       href: articles/combiroc_vignette_2.html
