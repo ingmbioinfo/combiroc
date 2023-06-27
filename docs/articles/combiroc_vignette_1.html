@@ -38,11 +38,11 @@
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-vignettes">Vignettes</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
-    <a class="dropdown-item" href="../articles/combiroc_standard.html">Standard Workflow</a>
-    <a class="dropdown-item" href="../articles/combiroc_singlecell.html">SingleCell Workflow</a>
+    <a class="dropdown-item" href="../articles/combiroc_vignette_1.html">Standard Workflow</a>
+    <a class="dropdown-item" href="../articles/combiroc_vignette_2.html">SingleCell Workflow</a>
   </div>
 </li>
 <li class="nav-item">
@@ -201,7 +201,7 @@ Box plots are a nice option to observe the distribution of measurements
 in each sample. The user can plot the data as she/he wishes using the
 preferred function: since data for CombiROC are required to be in
 <em>wide</em> (<em>untidy</em>) format, they cannot be plotted directly
-with the widely used <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> function. Either the user is
+with the widely used <code>ggplot()</code> function. Either the user is
 free to make the data longer (<em>tidy</em>) for the sole purpose of
 plotting, or the package’s <code><a href="../reference/combiroc_long.html">combiroc_long()</a></code> function can be
 used for this purpose; this function wraps the
