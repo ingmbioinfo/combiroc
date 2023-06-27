@@ -4,7 +4,5 @@
 #'
 #'
 #' @format A subset of the PBMC3K SeuratObject (6 features)
-#' @example R/examples/seurat_data_example.R
-#' @export
-
-"seurat_demo"
+#' @example R/examples/demo_seurat_example.R
+"demo_seurat"

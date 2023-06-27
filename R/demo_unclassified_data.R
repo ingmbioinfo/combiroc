@@ -13,6 +13,4 @@
 #'   \item{Marker5}{the signal intensity value of Marker5}
 #' }
 #' @example R/examples/demo_unclassified_data_example.R
-#' @export
-
 "demo_unclassified_data"
