@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">combiroc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@ signature at single cell resolution.</div></h3>
                         <h4 data-toc-skip class="author">Riccardo L.
 Rossi, Ivan Ferrari</h4>
             
-            <h4 data-toc-skip class="date">14 June 2023</h4>
+            <h4 data-toc-skip class="date">27 June 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_singlecell.Rmd" class="external-link"><code>vignettes/combiroc_singlecell.Rmd</code></a></small>
       <div class="d-none name"><code>combiroc_singlecell.Rmd</code></div>
@@ -91,12 +91,10 @@ Rossi, Ivan Ferrari</h4>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ingmbioinfo.github.io/combiroc">combiroc</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat" class="external-link">Seurat</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.satijalab.org/seurat" class="external-link">SeuratData</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/" class="external-link">ggpubr</a></span><span class="op">)</span></span>
@@ -104,7 +102,8 @@ Rossi, Ivan Ferrari</h4>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://colorspace.R-Forge.R-project.org/" class="external-link">colorspace</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pheatmap</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.satijalab.org/seurat" class="external-link">SeuratData</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
@@ -196,8 +195,7 @@ were ordered by fold change: <span style="color: orange;">[Heavy-Code]</span></p
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Performing differential expression analysis</span></span>
 <span><span class="va">nk.de.markers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FindMarkers.html" class="external-link">FindMarkers</a></span><span class="op">(</span><span class="va">atlas</span>, ident.1 <span class="op">=</span> <span class="st">"NK"</span>, ident.2 <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="va">nk.de.markers</span> <span class="op">&lt;-</span> <span class="va">nk.de.markers</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">nk.de.markers</span><span class="op">$</span><span class="va">avg_log2FC</span><span class="op">)</span>,</span>
-<span>    <span class="op">]</span></span>
+<span><span class="va">nk.de.markers</span> <span class="op">&lt;-</span> <span class="va">nk.de.markers</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">nk.de.markers</span><span class="op">$</span><span class="va">avg_log2FC</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="va">nk_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">nk.de.markers</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span><span class="op">]</span></span></code></pre></div>
 <p>By visualising the expression values of the top 4 markers of NK cells
 cluster it is evident that the majority of them is also higly expressed
@@ -211,7 +209,7 @@ differential expression analysis above can read the pre-computed object
 containing the gene signature of the <strong>top 30 DEGs</strong>
 (overexpressed in NK cells vs all others):</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nk.de.markers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"inst/precomp/nk_degs"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">nk.de.markers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">'inst/precomp/nk_degs'</span><span class="op">)</span></span>
 <span><span class="va">nk_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">nk.de.markers</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span><span class="op">]</span></span>
 <span><span class="va">nk_genes</span></span>
 <span><span class="co">#&gt;  [1] "GNLY"    "NKG7"    "GZMB"    "PRF1"    "FGFBP2"  "GZMA"    "KLRD1"  </span></span>
@@ -242,9 +240,13 @@ combinations and models, with combiroc’s functions. Such a
 <code>train</code> object can be obtained with the
 <code><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc()</a></code> function: <span style="color: orange;">[Heavy-Code]</span></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">train</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc</a></span><span class="op">(</span>SeuratObject <span class="op">=</span> <span class="va">atlas</span>, gene_list <span class="op">=</span> <span class="va">nk_genes</span>,</span>
-<span>    assay <span class="op">=</span> <span class="st">"SCT"</span>, labelled_data <span class="op">=</span> <span class="cn">T</span>, case_class <span class="op">=</span> <span class="st">"NK"</span>, case_label <span class="op">=</span> <span class="st">"NK"</span>,</span>
-<span>    control_label <span class="op">=</span> <span class="st">"Other"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">train</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc</a></span><span class="op">(</span>SeuratObject <span class="op">=</span> <span class="va">atlas</span>, </span>
+<span>                            gene_list <span class="op">=</span> <span class="va">nk_genes</span>, </span>
+<span>                            assay <span class="op">=</span> <span class="st">'SCT'</span>, </span>
+<span>                            labelled_data <span class="op">=</span> <span class="cn">T</span>, </span>
+<span>                            case_class <span class="op">=</span> <span class="st">'NK'</span>, </span>
+<span>                            case_label <span class="op">=</span> <span class="st">'NK'</span>, </span>
+<span>                            control_label <span class="op">=</span>  <span class="st">'Other'</span><span class="op">)</span></span></code></pre></div>
 <p>The pre-computed <code>train</code> object obtained with the code
 above can be directly read here:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -343,7 +345,7 @@ A sample, to be considered positive for a given combination, must have a
 value higher than a given signal threshold (<strong>signalthr</strong>)
 for at least a given number of markers composing that combination
 (<strong>combithr</strong>).</p>
-<p>As described in the <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.htm">combiroc’s
+<p>As described in the <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html">combiroc’s
 vignette for the standard workflow</a>, the argument
 <strong>signalthr</strong> in the <code><a href="../reference/combi.html">combi()</a></code> function should
 be set according to the guidelines and characteristics of the
@@ -382,8 +384,9 @@ two classes:</p>
 naturally triggers a few warnings in which the user is reminded how to
 use the command arguments</em></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">distr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/markers_distribution.html">markers_distribution</a></span><span class="op">(</span><span class="va">train_long</span>, signalthr_prediction <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>    case_class <span class="op">=</span> <span class="st">"NK"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">distr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/markers_distribution.html">markers_distribution</a></span><span class="op">(</span><span class="va">train_long</span>,</span>
+<span>                              signalthr_prediction <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                              case_class <span class="op">=</span> <span class="st">"NK"</span><span class="op">)</span></span>
 <span><span class="va">distr</span><span class="op">$</span><span class="va">Density_plot</span></span></code></pre></div>
 <p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
 <p>The suggested threshold is indicated by the vertical dashed line and
@@ -392,29 +395,31 @@ its value is shown in overlay. The exact value can be retrieved from the
 <a href="https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_standard.html#dens" class="external-link">Standard
 workflow</a> for further details):</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">autoThreshold</span> <span class="op">&lt;-</span> <span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>,</span>
-<span>    <span class="st">"threshold"</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>, <span class="op">]</span>  <span class="co"># optimal threshold</span></span>
+<code class="sourceCode R"><span><span class="va">autoThreshold</span> <span class="op">&lt;-</span> <span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>, <span class="st">'threshold'</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>,<span class="op">]</span> <span class="co"># optimal threshold</span></span>
 <span><span class="co">#&gt;   threshold specificity sensitivity    Youden</span></span>
 <span><span class="co">#&gt; 3 0.8958797          86          79 0.6461265</span></span></code></pre></div>
 <p>Let’s apply now the <code><a href="../reference/combi.html">combi()</a></code> function on the training
 dataset <code>train</code> with the suggested threshold. The results is
 a table (the <code>train_tab</code> dataframe) of all the combinations
 with 1 (= the individual markers) to 5 genes in them.</p>
-<p>In this dataframe are also shown sensitivity (SE) and specificity
-(SP) for each combination:</p>
+<p>In this dataframe are also shown sensitivity (<strong>SE</strong>)
+and specificity (<strong>SP</strong>) for each combination:</p>
 <ul>
-<li>SE as the percentage of positive cells for a ‘NK’ class</li>
-<li>SP as the percentage of negative cells for ‘Other’ class</li>
+<li>
+<strong>SE</strong> as the percentage of positive cells for a ‘NK’
+class</li>
+<li>
+<strong>SP</strong> as the percentage of negative cells for ‘Other’
+class</li>
 </ul>
 <p><span style="color: orange;">[Heavy-Code]</span> <em>(use the
 pre-computed below)</em></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">train_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi.html">combi</a></span><span class="op">(</span><span class="va">train</span>, signalthr <span class="op">=</span> <span class="va">autoThreshold</span>, combithr <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>    max_length <span class="op">=</span> <span class="fl">5</span>, case_class <span class="op">=</span> <span class="st">"NK"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">train_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi.html">combi</a></span><span class="op">(</span><span class="va">train</span>, signalthr <span class="op">=</span> <span class="va">autoThreshold</span>, combithr <span class="op">=</span> <span class="fl">2</span>, max_length <span class="op">=</span> <span class="fl">5</span>, case_class <span class="op">=</span> <span class="st">'NK'</span><span class="op">)</span></span></code></pre></div>
 <p>Read the precomputed object:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">train_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">"inst/precomp/train_tab"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">train_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">'inst/precomp/train_tab'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">train_tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                        Markers X.Positives.Other X.Positives.NK</span></span>
 <span><span class="co">#&gt; Combination 174401 MYOM2-NKG7-PRF1-SPON2-SYNE2             20313          18220</span></span>
@@ -436,7 +441,9 @@ demonstration purposes only, others may be also good): what we are using
 to rank is the Youden index and the number of genes in the combination,
 where combinations with fewer genes are considered better ones.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">rmks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ranked_combs.html">ranked_combs</a></span><span class="op">(</span>combo_table <span class="op">=</span> <span class="va">train_tab</span>, min_SE <span class="op">=</span> <span class="fl">95</span>, min_SP <span class="op">=</span> <span class="fl">95</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">rmks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ranked_combs.html">ranked_combs</a></span><span class="op">(</span>combo_table <span class="op">=</span> <span class="va">train_tab</span>, </span>
+<span>                     min_SE <span class="op">=</span> <span class="fl">95</span>, </span>
+<span>                     min_SP <span class="op">=</span> <span class="fl">95</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rmks</span><span class="op">$</span><span class="va">table</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                                           Markers X.Positives.Other</span></span>
 <span><span class="co">#&gt; Combination 169807    GNLY-IL2RB-KLRF1-SPON2-TRDC              6914</span></span>
@@ -457,8 +464,11 @@ the top four combinations (we need to explicitly indicate their number
 IDs in the <code>selected_combinations</code> argument). Also, we need
 to indicate the case class (NK):</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">reports</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/roc_reports.html">roc_reports</a></span><span class="op">(</span><span class="va">train</span>, markers_table <span class="op">=</span> <span class="va">train_tab</span>, selected_combinations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">169807</span>,</span>
-<span>    <span class="fl">172173</span>, <span class="fl">163878</span>, <span class="fl">137550</span><span class="op">)</span>, case_class <span class="op">=</span> <span class="st">"NK"</span>, single_markers <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">reports</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/roc_reports.html">roc_reports</a></span><span class="op">(</span><span class="va">train</span>, </span>
+<span>                      markers_table <span class="op">=</span> <span class="va">train_tab</span>, </span>
+<span>                      selected_combinations <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">169807</span>,<span class="fl">172173</span>,<span class="fl">163878</span>, <span class="fl">137550</span><span class="op">)</span>,                      </span>
+<span>                      case_class <span class="op">=</span> <span class="st">'NK'</span>,</span>
+<span>                      single_markers<span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s explore the results generated:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span></span></code></pre></div>
@@ -495,7 +505,7 @@ similar with each other.</p>
 the <code><a href="../reference/show_markers.html">show_markers()</a></code> function. For combinations 169807 and
 172173, use:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_markers.html">show_markers</a></span><span class="op">(</span>selected_combinations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">169807</span>, <span class="fl">172713</span><span class="op">)</span>, markers_table <span class="op">=</span> <span class="va">train_tab</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_markers.html">show_markers</a></span><span class="op">(</span>selected_combinations <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">169807</span>,<span class="fl">172713</span><span class="op">)</span>, markers_table <span class="op">=</span> <span class="va">train_tab</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          Combination           Composing_markers</span></span>
 <span><span class="co">#&gt; 1 Combination 169807 GNLY-IL2RB-KLRF1-SPON2-TRDC</span></span>
 <span><span class="co">#&gt; 2 Combination 172713 GZMH-HOPX-KLRB1-KLRF1-MYOM2</span></span></code></pre></div>
@@ -519,43 +529,55 @@ al. 2015 <a href="https://www.nature.com/articles/nbt.3192" class="external-lin
 </ul>
 <p><strong>Please note</strong>: the main reason we choose the above
 datasets is because <strong>they are well annotated</strong>. While the
-cell clusters annotation of the first (training) dataset was indeed used
-in the computations by combiroc (we needed to distinguish NK cells from
-all other cells), the cells annotation of the other two validation
-datasets is stripped away from the data, and <strong>it will be only
-used <em>ex-post</em> as a ground truth to check the expression of maker
-combinations</strong></p>
-<p>For each dataset, first we prepare the</p>
+cell clusters annotation of the first (training) dataset was used in the
+computations by combiroc to distinguish NK cells from all other cells,
+the cells annotations of the other two validation datasets are taken
+away from the data, and <strong>they will be only used <em>ex-post</em>
+as a ground truth to check the expression of marker
+combinations</strong>.</p>
 <div class="section level3">
 <h3 id="testing-marker-combinations-on-cbmc-dataset">Testing marker combinations on CBMC dataset<a class="anchor" aria-label="anchor" href="#testing-marker-combinations-on-cbmc-dataset"></a>
 </h3>
-<p>The CBMC test dataset, made of 8617 cord blood mononuclear cells
-(CBMCs), produced with CITE-seq was directly loaded from the
-<code>SeuratData</code> package. The dataset has been generated by
-Stoeckius et al. 2017 <a href="https://www.nature.com/articles/nmeth.4380" class="external-link">[3]</a>. Further
+<p>The <strong>CBMC test dataset</strong>, made of 8617 cord blood
+mononuclear cells (CBMCs), produced with CITE-seq was directly loaded
+from the <code>SeuratData</code> package. The dataset has been generated
+by Stoeckius et al. 2017 <a href="https://www.nature.com/articles/nmeth.4380" class="external-link">[3]</a>. Further
 description can be found in the <a href="https://satijalab.org/seurat/articles/multimodal_vignette.html" class="external-link">Seurat
 multimodal vignette</a> or by calling the guide with
 <code>?cbmc</code>.</p>
 <p>We are going to invoke the cbmc dataset from the
 <code>SeuratData</code> package and preprocess it as needed:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://www.satijalab.org/seurat" class="external-link">"SeuratData"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"satijalab/seurat-data"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://satijalab.org/seurat/reference/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"cbmc"</span><span class="op">)</span></span>
-<span><span class="va">cbmc</span> <span class="op">&lt;-</span> <span class="va">cbmc</span></span>
+<code class="sourceCode R"><span><span class="co"># retrieve cbmc data from SeuratData package</span></span>
+<span><span class="co"># if (!require("SeuratData", quietly = TRUE))</span></span>
+<span><span class="co">#     devtools::install_github('satijalab/seurat-data')</span></span>
+<span><span class="co"># library(SeuratData)</span></span>
+<span><span class="fu"><a href="https://satijalab.org/seurat/reference/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"cbmc.SeuratData"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># process data with standard Seurat protocol</span></span>
-<span><span class="va">cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/NormalizeData.html" class="external-link">NormalizeData</a></span><span class="op">(</span><span class="va">cbmc</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://satijalab.org/seurat/reference/FindVariableFeatures.html" class="external-link">FindVariableFeatures</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://satijalab.org/seurat/reference/ScaleData.html" class="external-link">ScaleData</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://satijalab.org/seurat/reference/RunPCA.html" class="external-link">RunPCA</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat" class="external-link">Seurat</a></span><span class="op">)</span></span>
+<span><span class="va">cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/NormalizeData.html" class="external-link">NormalizeData</a></span><span class="op">(</span><span class="va">cbmc</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://satijalab.org/seurat/reference/FindVariableFeatures.html" class="external-link">FindVariableFeatures</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://satijalab.org/seurat/reference/ScaleData.html" class="external-link">ScaleData</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://satijalab.org/seurat/reference/RunPCA.html" class="external-link">RunPCA</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FindNeighbors.html" class="external-link">FindNeighbors</a></span><span class="op">(</span><span class="va">cbmc</span>, dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FindClusters.html" class="external-link">FindClusters</a></span><span class="op">(</span><span class="va">cbmc</span>, resolution <span class="op">=</span> <span class="fl">0.8</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/RunUMAP.html" class="external-link">RunUMAP</a></span><span class="op">(</span><span class="va">cbmc</span>, dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># add cell annotations from CITE seq to identities</span></span>
 <span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">cbmc</span><span class="op">@</span><span class="va">meta.data</span><span class="op">$</span><span class="va">protein_annotations</span></span>
-<span><span class="va">cbmc</span><span class="op">[[</span><span class="st">"ID"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span></span>
-<span><span class="co"># visualize UMAP clusters</span></span>
+<span><span class="va">cbmc</span><span class="op">[[</span><span class="st">'ID'</span><span class="op">]</span><span class="op">]</span><span class="op">&lt;-</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span></span>
+<span><span class="va">cbmc</span></span>
+<span><span class="co">#&gt; An object of class Seurat </span></span>
+<span><span class="co">#&gt; 20511 features across 8617 samples within 2 assays </span></span>
+<span><span class="co">#&gt; Active assay: RNA (20501 features, 2000 variable features)</span></span>
+<span><span class="co">#&gt;  1 other assay present: ADT</span></span>
+<span><span class="co">#&gt;  2 dimensional reductions calculated: pca, umap</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># visualize UMAP clusters</span></span>
 <span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, repel <span class="op">=</span> <span class="cn">T</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
 <p>Please note that the “NA” gray cells cluster is from mouse cells
 whose presence acts as negative control in the original
 experiment/dataset. Also, cluster annotations are just superimposed and
@@ -565,9 +587,10 @@ the combiroc procedure.</p>
 combiroc test dataset using <code><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc()</a></code> function.
 The <code>test_cbmc</code> object contains cell barcodes as sample IDs
 and the expression values of the 30 NK signature genes).</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">test_cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc</a></span><span class="op">(</span>SeuratObject <span class="op">=</span> <span class="va">cbmc</span>, gene_list <span class="op">=</span> <span class="va">nk_genes</span>,</span>
-<span>    assay <span class="op">=</span> <span class="st">"RNA"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc</a></span><span class="op">(</span>SeuratObject <span class="op">=</span> <span class="va">cbmc</span>, </span>
+<span>                                gene_list <span class="op">=</span> <span class="va">nk_genes</span>, </span>
+<span>                                assay <span class="op">=</span> <span class="st">'RNA'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">test_cbmc</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                 ID ABHD17A     ARL4C      CCL5     CD247       CD7     CLIC3</span></span>
 <span><span class="co">#&gt; 1 CTGTTTACACCGCTAG       0 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span></span>
@@ -602,10 +625,9 @@ and the expression values of the 30 NK signature genes).</p>
 </h4>
 <p>Let’s have a look at how the top four single NK-markers expression is
 distributed across the cell clusters in the CBMC dataset:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>    ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-25-1.png" width="700" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-26-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>In this dataset, expressions of top individual NK markers is higher
 in the NK cluster, but also moderate in others: they are expressed in
 some CD8 T cells, CD34+ and CD16+ Mono cells, even if clusters have been
@@ -625,19 +647,17 @@ with combiroc using the combi-score, which is calculated here for the
 top <em>Combination 172173</em> (made by genes GZMB, IL2RB, KLRF1, SPON2
 and TRDC), which has the highest accuracy. This score expresses the
 probability of being NK cells.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># adding combi score for combination 172173</span></span>
-<span><span class="va">cs_cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">test_cbmc</span>, Models <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>, Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>,</span>
-<span>    Positive_class <span class="op">=</span> <span class="st">"NK"</span>, Negative_class <span class="op">=</span> <span class="st">"Other"</span><span class="op">)</span></span>
-<span><span class="va">cbmc</span><span class="op">[[</span><span class="st">"c172173_combi_score"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">cs_cbmc</span><span class="op">$</span><span class="va">`Combination 172173`</span></span></code></pre></div>
+<span><span class="va">cs_cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">test_cbmc</span>, Models <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>, Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>, Positive_class <span class="op">=</span> <span class="st">'NK'</span>, Negative_class <span class="op">=</span> <span class="st">'Other'</span><span class="op">)</span></span>
+<span><span class="va">cbmc</span><span class="op">[[</span><span class="st">'c172173_combi_score'</span><span class="op">]</span><span class="op">]</span><span class="op">&lt;-</span> <span class="va">cs_cbmc</span><span class="op">$</span><span class="va">`Combination 172173`</span>  </span></code></pre></div>
 <p>Let’s plot the combi-score for <em>Combination 172173</em> across
 CBMC clusters:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_combi_score"</span><span class="op">)</span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span>    pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>The combi-score, which is the probability of belonging to NK cells,
 is highly specific for the clusters that are annotated with a “NK”
 label. pDCs cells do not show any signal and a very small number of
@@ -652,29 +672,34 @@ relevance to the combi-score as seen in the violin plots (right).</p>
 be directly invoked from the <code>SeuratData</code> library. The
 dataset is immediately available as an already processed Seurat object
 named <code>pbmc3k.final</code>.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://www.satijalab.org/seurat" class="external-link">"SeuratData"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"satijalab/seurat-data"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://satijalab.org/seurat/reference/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"pbmc3k"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># retrieve pbmc3k dataset from SeuratData package</span></span>
+<span><span class="co"># if (!require("SeuratData", quietly = TRUE))</span></span>
+<span><span class="co">#     devtools::install_github('satijalab/seurat-data')</span></span>
+<span><span class="co"># library(SeuratData)</span></span>
+<span><span class="fu"><a href="https://satijalab.org/seurat/reference/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"pbmc3k.SeuratData"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"pbmc3k.final"</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span> <span class="op">&lt;-</span> <span class="va">pbmc3k.final</span></span>
-<span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">"ID"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">pbmc3k.final</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># add cell annotations to identities</span></span>
+<span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">'ID'</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">pbmc3k.final</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span></span>
 <span><span class="co">#&gt; An object of class Seurat </span></span>
 <span><span class="co">#&gt; 13714 features across 2638 samples within 1 assay </span></span>
 <span><span class="co">#&gt; Active assay: RNA (13714 features, 2000 variable features)</span></span>
 <span><span class="co">#&gt;  2 dimensional reductions calculated: pca, umap</span></span></code></pre></div>
 <p>The original UMAP embedding of the PBMC3K datasets:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, reduction <span class="op">=</span> <span class="st">"umap"</span>, label <span class="op">=</span> <span class="cn">T</span>, repel <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-29-1.png" width="700" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-30-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>In the same way as previously done we are using now
 <code><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc()</a></code> to obtain the second combiroc test
 dataset (<code>test_pbmc3k</code>). Please note that this dataset does
 not contain TRDC expression values since this gene (which contributes to
 the top selected combinations) is not present in the original PBMC3K
 dataset.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">test_pbmc3k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc</a></span><span class="op">(</span>SeuratObject <span class="op">=</span> <span class="va">pbmc3k.final</span>,</span>
-<span>    gene_list <span class="op">=</span> <span class="va">nk_genes</span>, assay <span class="op">=</span> <span class="st">"RNA"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_pbmc3k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc</a></span><span class="op">(</span>SeuratObject <span class="op">=</span> <span class="va">pbmc3k.final</span>, gene_list <span class="op">=</span> <span class="va">nk_genes</span>, assay <span class="op">=</span> <span class="st">'RNA'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">test_pbmc3k</span><span class="op">)</span></span>
 <span><span class="co">#&gt;               ID ABHD17A    ARL4C     CCL5    CD247      CD7    CLIC3 CMC1</span></span>
 <span><span class="co">#&gt; 1 AAACATACAACCAC       0 0.000000 4.322952 0.000000 2.226555 1.635873    0</span></span>
@@ -709,10 +734,9 @@ dataset.</p>
 </h4>
 <p>Let’s have a look how the top four single NK-markers expression is
 distributed in the PBMC-3K dataset:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span>    pt.size <span class="op">=</span> <span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-31-1.png" width="700" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-32-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>In this PBMC dataset, all top four markers have high expression
 values in NK cells and in CD8 T cells too, showing that individual
 markers mRNA level may be not sufficient to clearly identify the cells
@@ -727,21 +751,20 @@ top <em>Combination 137550</em> (made by genes CLIC3, FCGR3A, IL2RB,
 KLRD1 and KLRF1), the highest accuracy combination without TRDC gene
 (which is not expressed in the this dataset). This score also expresses
 the probability of being NK cells.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span></span>
 <span><span class="va">sub</span><span class="op">$</span><span class="va">`Combination 169807`</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="va">sub</span><span class="op">$</span><span class="va">`Combination 172173`</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
-<span><span class="va">cs_pbmc3k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">test_pbmc3k</span>, Models <span class="op">=</span> <span class="va">sub</span>, Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>,</span>
-<span>    Positive_class <span class="op">=</span> <span class="st">"NK"</span>, Negative_class <span class="op">=</span> <span class="st">"Other"</span><span class="op">)</span></span>
+<span><span class="va">cs_pbmc3k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">test_pbmc3k</span>, Models <span class="op">=</span> <span class="va">sub</span>,</span>
+<span>    Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>, Positive_class <span class="op">=</span> <span class="st">"NK"</span>, Negative_class <span class="op">=</span> <span class="st">"Other"</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">"c137550_combi_score"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">cs_pbmc3k</span><span class="op">$</span><span class="va">`Combination 137550`</span>  <span class="co"># to add combi score of combination 137550</span></span></code></pre></div>
 <p>Let’s plot the combi-score for <em>Combination 137550</em> across
 PBMC-3K clusters:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span><span class="op">)</span></span>
-<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span>,</span>
-<span>    group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-33-1.png" width="960" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-34-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>Here too, as seen for the previous dataset, the cell cluster labeled
 as “NK” is the only one displaying a very high combi-score, i.e. showing
 an actual probability of being NK cells. No other cell in any cluster
@@ -766,20 +789,19 @@ the sum of their level of expression.</p>
 whole signature and computed on the combiroc-selected combinations. To
 do so, we reproduced the gene-signature-score computation in the custom
 R function <code>signature_score.R</code>:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"inst/external_code/signature_score.R"</span><span class="op">)</span></span></code></pre></div>
 <p>First, we compute the “gene-signature-score” for the <strong>whole 30
 DEGs signature</strong> that we assume as reference. Being this a whole
 signature (30 genes) we expect it to be very specific. We are doing this
 on both test datasets previously used.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># computing whole signature gene-signature-score for CBMC</span></span>
-<span><span class="va">NK_sig_cbmc</span> <span class="op">&lt;-</span> <span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
+<span><span class="va">NK_sig_cbmc</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span><span class="op">$</span><span class="va">NK_signature_score</span> <span class="op">&lt;-</span> <span class="va">NK_sig_cbmc</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
 <span></span>
-<span><span class="co"># computing whole signature gene-signature-score for</span></span>
-<span><span class="co"># PBMC-3K</span></span>
-<span><span class="va">NK_sig_pbmc3k</span> <span class="op">&lt;-</span> <span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">pbmc3k.final</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
+<span><span class="co"># computing whole signature gene-signature-score for PBMC-3K</span></span>
+<span><span class="va">NK_sig_pbmc3k</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">pbmc3k.final</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span><span class="op">$</span><span class="va">NK_signature_score</span> <span class="op">&lt;-</span> <span class="va">NK_sig_pbmc3k</span><span class="op">$</span><span class="va">scaled_combined_score</span></span></code></pre></div>
 <p>Then, we compute the “gene-signature-score” <strong>limited to the
 combinations of five genes previously used</strong>: - <em>Combination
@@ -787,36 +809,28 @@ combinations of five genes previously used</strong>: - <em>Combination
 dataset. - <em>Combination 137550</em> (made by genes CLIC3, FCGR3A,
 IL2RB, KLRD1 and KLRF1) in PBMC3K dataset These combinations are going
 to be our “optimized-signatures”.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># computing gene-signature-score of combination 172173 for</span></span>
-<span><span class="co"># CBMC</span></span>
-<span><span class="va">comb_cbmc</span> <span class="op">&lt;-</span> <span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GZMB"</span>,</span>
-<span>    <span class="st">"IL2RB"</span>, <span class="st">"KLRF1"</span>, <span class="st">"SPON2"</span>, <span class="st">"TRDC"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">cbmc</span><span class="op">[[</span><span class="st">"c172173_signature_score"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">comb_cbmc</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># computing gene-signature-score of combination 172173 for CBMC</span></span>
+<span><span class="va">comb_cbmc</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'GZMB'</span>,<span class="st">'IL2RB'</span>,<span class="st">'KLRF1'</span>,<span class="st">'SPON2'</span>,<span class="st">'TRDC'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">cbmc</span><span class="op">[[</span><span class="st">'c172173_signature_score'</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">comb_cbmc</span><span class="op">$</span><span class="va">scaled_combined_score</span>  </span>
 <span></span>
-<span><span class="co"># computing gene-signature-score of combination 137550 for</span></span>
-<span><span class="co"># PBMC-3K</span></span>
-<span><span class="va">comb_pbmc3k</span> <span class="op">&lt;-</span> <span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">pbmc3k.final</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CLIC3"</span>,</span>
-<span>    <span class="st">"FCGR3A"</span>, <span class="st">"IL2RB"</span>, <span class="st">"KLRD1"</span>, <span class="st">"KLRF1"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">"c137550_signature_score"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">comb_pbmc3k</span><span class="op">$</span><span class="va">scaled_combined_score</span></span></code></pre></div>
+<span><span class="co"># computing gene-signature-score of combination 137550 for PBMC-3K</span></span>
+<span><span class="va">comb_pbmc3k</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">pbmc3k.final</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'CLIC3'</span>, <span class="st">'FCGR3A'</span>, <span class="st">'IL2RB'</span>,<span class="st">'KLRD1'</span>,<span class="st">'KLRF1'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">'c137550_signature_score'</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">comb_pbmc3k</span><span class="op">$</span><span class="va">scaled_combined_score</span> </span></code></pre></div>
 <p>We are now plotting side by side the gene-signature-scores from the
 whole-signature (30 genes) and the combinations (5 genes).<br>
 For the CBMC dataset:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"NK_signature_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span>    pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_signature_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span>    pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">v1</span> <span class="op">|</span> <span class="va">v2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-37-1.png" width="960" style="display: block; margin: auto;"></p>
-<p>And for the PBMC-3K dataset:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"NK_signature_score"</span>,</span>
-<span>    group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_signature_score"</span>,</span>
-<span>    group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">v1</span> <span class="op">|</span> <span class="va">v2</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'c172173_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
 <p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;"></p>
+<p>And for the PBMC-3K dataset:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_signature_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>As expected, the gene-signature-score for both datasets correctly
 discriminates NK-cells from others, but while in CBMC cells the NK
 cluster is unequivocally selected, in PBMC-3K cells also cytotoxic CD8-T
@@ -838,21 +852,17 @@ they are extracted from.</p>
 with the combiroc’s NK combi-score to see how they perform in both test
 datasets.</p>
 <p>Comparison in CBMC cells:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"NK_signature_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span>    pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span>    pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">v1</span> <span class="op">|</span> <span class="va">v2</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;"></p>
-<p>Comparison in PBMC-3K cells:</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"NK_signature_score"</span>,</span>
-<span>    group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span>,</span>
-<span>    group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="va">v1</span> <span class="op">|</span> <span class="va">v2</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'c172173_combi_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
 <p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;"></p>
+<p>Comparison in PBMC-3K cells:</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;"></p>
 <p>Remarkably, despite the 6 fold reduction in the number of considered
 features to build the gene score, for both the datasets, the signature
 score confirmed that the best combination is, at worst, as accurate as
@@ -868,31 +878,29 @@ combination models in suggesting the identity of a cluster with a modest
 amount of genes.</p>
 <p>As a mean of control, we check the effect of a set of random
 combinations on the test datasets</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">combs_length</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">random_combs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1492</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">combs_length</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">random_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span>, <span class="va">i</span><span class="op">)</span></span>
-<span>    <span class="va">dfc</span> <span class="op">&lt;-</span> <span class="fu">signature_score</span><span class="op">(</span><span class="va">cbmc</span>, <span class="va">random_list</span><span class="op">)</span></span>
-<span>    <span class="va">cbmc</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"random_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">dfc</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
-<span>    <span class="va">dfp</span> <span class="op">&lt;-</span> <span class="fu">signature_score</span><span class="op">(</span><span class="va">pbmc3k.final</span>, <span class="va">random_list</span><span class="op">)</span></span>
-<span>    <span class="va">pbmc3k.final</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"random_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">dfp</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
+<span>      <span class="va">random_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span>, <span class="va">i</span><span class="op">)</span></span>
+<span>      <span class="va">dfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span><span class="va">cbmc</span>, <span class="va">random_list</span><span class="op">)</span></span>
+<span>      <span class="va">cbmc</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"random_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">dfc</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
+<span>      <span class="va">dfp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, <span class="va">random_list</span><span class="op">)</span></span>
+<span>      <span class="va">pbmc3k.final</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"random_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">dfp</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Here random combinations do not have a preferential cluster and show
 a generalized higher background signal noise.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"CBMC"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "CBMC"</span></span>
-<span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"random_30"</span>, <span class="st">"random_5"</span><span class="op">)</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>,</span>
-<span>    pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-42-1.png" width="768" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"PBMC3K"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">'CBMC'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "CBMC"</span></span>
+<span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'random_30'</span>, <span class="st">'random_5'</span><span class="op">)</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-43-1.png" width="768" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">'PBMC3K'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "PBMC3K"</span></span>
-<span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"random_30"</span>, <span class="st">"random_5"</span><span class="op">)</span>,</span>
-<span>    group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-42-2.png" width="768" style="display: block; margin: auto;"></p>
+<span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'random_30'</span>, <span class="st">'random_5'</span><span class="op">)</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<p><img src="combiroc_singlecell_files/figure-html/unnamed-chunk-43-2.png" width="768" style="display: block; margin: auto;"></p>
 <p>Beyond using scores of random combinations as negative control, they
 also show the magnitude of background noise associated to each random
 combination taken into consideration. In fact, random scores show quite
@@ -953,9 +961,9 @@ pan-cancer enhancers orchestrated by YAP/TAZ.</li>
 <div class="section level2">
 <h2 id="session-info">Session Info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.3.0 (2023-04-21 ucrt)</span></span>
+<span><span class="co">#&gt; R version 4.3.1 (2023-06-16 ucrt)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
 <span><span class="co">#&gt; Running under: Windows 11 x64 (build 22000)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -976,62 +984,60 @@ pan-cancer enhancers orchestrated by YAP/TAZ.</li>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt;  [1] cbmc.SeuratData_3.1.4   scattermore_1.2         pheatmap_1.0.12        </span></span>
-<span><span class="co">#&gt;  [4] cowplot_1.1.1           colorspace_2.1-0        RColorBrewer_1.1-3     </span></span>
-<span><span class="co">#&gt;  [7] ggpubr_0.6.0            ggplot2_3.4.2           tidyr_1.3.0            </span></span>
-<span><span class="co">#&gt; [10] pbmc3k.SeuratData_3.1.4 SeuratData_0.2.2        patchwork_1.1.2        </span></span>
+<span><span class="co">#&gt;  [1] pbmc3k.SeuratData_3.1.4 cbmc.SeuratData_3.1.4   SeuratData_0.2.2       </span></span>
+<span><span class="co">#&gt;  [4] scattermore_1.2         pheatmap_1.0.12         cowplot_1.1.1          </span></span>
+<span><span class="co">#&gt;  [7] colorspace_2.1-0        RColorBrewer_1.1-3      ggpubr_0.6.0           </span></span>
+<span><span class="co">#&gt; [10] ggplot2_3.4.2           tidyr_1.3.0             patchwork_1.1.2        </span></span>
 <span><span class="co">#&gt; [13] SeuratObject_4.1.3      Seurat_4.3.0            dplyr_1.1.2            </span></span>
-<span><span class="co">#&gt; [16] combiroc_0.3.0          testthat_3.1.8          devtools_2.4.5         </span></span>
-<span><span class="co">#&gt; [19] usethis_2.2.0           knitr_1.43              httr_1.4.6             </span></span>
+<span><span class="co">#&gt; [16] combiroc_0.3.1          devtools_2.4.5          usethis_2.2.0          </span></span>
+<span><span class="co">#&gt; [19] knitr_1.43              httr_1.4.6             </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;   [1] RcppAnnoy_0.0.20       splines_4.3.0          later_1.3.1           </span></span>
-<span><span class="co">#&gt;   [4] tibble_3.2.1           polyclip_1.10-4        pROC_1.18.2           </span></span>
-<span><span class="co">#&gt;   [7] lifecycle_1.0.3        rstatix_0.7.2          rprojroot_2.0.3       </span></span>
-<span><span class="co">#&gt;  [10] globals_0.16.2         processx_3.8.1         lattice_0.21-8        </span></span>
-<span><span class="co">#&gt;  [13] hdf5r_1.3.8            MASS_7.3-58.4          backports_1.4.1       </span></span>
-<span><span class="co">#&gt;  [16] magrittr_2.0.3         plotly_4.10.2          sass_0.4.6            </span></span>
-<span><span class="co">#&gt;  [19] rmarkdown_2.22         jquerylib_0.1.4        yaml_2.3.7            </span></span>
-<span><span class="co">#&gt;  [22] remotes_2.4.2          httpuv_1.6.11          sctransform_0.3.5     </span></span>
-<span><span class="co">#&gt;  [25] sp_1.6-1               sessioninfo_1.2.2      pkgbuild_1.4.0        </span></span>
-<span><span class="co">#&gt;  [28] spatstat.sparse_3.0-1  reticulate_1.30        pbapply_1.7-0         </span></span>
-<span><span class="co">#&gt;  [31] abind_1.4-5            pkgload_1.3.2          Rtsne_0.16            </span></span>
-<span><span class="co">#&gt;  [34] purrr_1.0.1            rappdirs_0.3.3         ggrepel_0.9.3         </span></span>
-<span><span class="co">#&gt;  [37] irlba_2.3.5.1          listenv_0.9.0          spatstat.utils_3.0-3  </span></span>
-<span><span class="co">#&gt;  [40] moments_0.14.1         goftest_1.2-3          spatstat.random_3.1-5 </span></span>
-<span><span class="co">#&gt;  [43] fitdistrplus_1.1-11    parallelly_1.36.0      pkgdown_2.0.7         </span></span>
-<span><span class="co">#&gt;  [46] leiden_0.4.3           codetools_0.2-19       tidyselect_1.2.0      </span></span>
-<span><span class="co">#&gt;  [49] farver_2.1.1           matrixStats_1.0.0      spatstat.explore_3.2-1</span></span>
-<span><span class="co">#&gt;  [52] jsonlite_1.8.5         ellipsis_0.3.2         progressr_0.13.0      </span></span>
-<span><span class="co">#&gt;  [55] ggridges_0.5.4         survival_3.5-5         systemfonts_1.0.4     </span></span>
-<span><span class="co">#&gt;  [58] tools_4.3.0            ragg_1.2.5             ica_1.0-3             </span></span>
-<span><span class="co">#&gt;  [61] Rcpp_1.0.10            glue_1.6.2             gridExtra_2.3         </span></span>
-<span><span class="co">#&gt;  [64] xfun_0.39              withr_2.5.0            formatR_1.14          </span></span>
-<span><span class="co">#&gt;  [67] fastmap_1.1.1          fansi_1.0.4            callr_3.7.3           </span></span>
-<span><span class="co">#&gt;  [70] digest_0.6.31          R6_2.5.1               mime_0.12             </span></span>
-<span><span class="co">#&gt;  [73] textshaping_0.3.6      gtools_3.9.4           tensor_1.5            </span></span>
-<span><span class="co">#&gt;  [76] spatstat.data_3.0-1    utf8_1.2.3             generics_0.1.3        </span></span>
-<span><span class="co">#&gt;  [79] data.table_1.14.8      prettyunits_1.1.1      htmlwidgets_1.6.2     </span></span>
-<span><span class="co">#&gt;  [82] uwot_0.1.14            pkgconfig_2.0.3        gtable_0.3.3          </span></span>
-<span><span class="co">#&gt;  [85] lmtest_0.9-40          brio_1.1.3             htmltools_0.5.5       </span></span>
-<span><span class="co">#&gt;  [88] carData_3.0-5          profvis_0.3.8          scales_1.2.1          </span></span>
-<span><span class="co">#&gt;  [91] png_0.1-8              rstudioapi_0.14        reshape2_1.4.4        </span></span>
-<span><span class="co">#&gt;  [94] nlme_3.1-162           cachem_1.0.8           zoo_1.8-12            </span></span>
-<span><span class="co">#&gt;  [97] stringr_1.5.0          KernSmooth_2.23-20     parallel_4.3.0        </span></span>
-<span><span class="co">#&gt; [100] miniUI_0.1.1.1         desc_1.4.2             pillar_1.9.0          </span></span>
-<span><span class="co">#&gt; [103] grid_4.3.0             vctrs_0.6.2            RANN_2.6.1            </span></span>
-<span><span class="co">#&gt; [106] urlchecker_1.0.1       promises_1.2.0.1       car_3.1-2             </span></span>
-<span><span class="co">#&gt; [109] xtable_1.8-4           cluster_2.1.4          SeuratDisk_0.0.0.9020 </span></span>
-<span><span class="co">#&gt; [112] evaluate_0.21          cli_3.6.1              compiler_4.3.0        </span></span>
-<span><span class="co">#&gt; [115] rlang_1.1.1            crayon_1.5.2           future.apply_1.11.0   </span></span>
-<span><span class="co">#&gt; [118] ggsignif_0.6.4         labeling_0.4.2         ps_1.7.5              </span></span>
-<span><span class="co">#&gt; [121] plyr_1.8.8             fs_1.6.2               stringi_1.7.12        </span></span>
-<span><span class="co">#&gt; [124] viridisLite_0.4.2      deldir_1.0-9           munsell_0.5.0         </span></span>
-<span><span class="co">#&gt; [127] lazyeval_0.2.2         spatstat.geom_3.2-1    Matrix_1.5-4          </span></span>
-<span><span class="co">#&gt; [130] bit64_4.0.5            future_1.32.0          shiny_1.7.4           </span></span>
-<span><span class="co">#&gt; [133] highr_0.10             ROCR_1.0-11            igraph_1.4.3          </span></span>
-<span><span class="co">#&gt; [136] broom_1.0.5            memoise_2.0.1          bslib_0.5.0           </span></span>
-<span><span class="co">#&gt; [139] bit_4.0.5</span></span></code></pre></div>
+<span><span class="co">#&gt;   [1] rstudioapi_0.14        jsonlite_1.8.5         magrittr_2.0.3        </span></span>
+<span><span class="co">#&gt;   [4] spatstat.utils_3.0-3   farver_2.1.1           rmarkdown_2.22        </span></span>
+<span><span class="co">#&gt;   [7] fs_1.6.2               ragg_1.2.5             vctrs_0.6.2           </span></span>
+<span><span class="co">#&gt;  [10] ROCR_1.0-11            memoise_2.0.1          spatstat.explore_3.2-1</span></span>
+<span><span class="co">#&gt;  [13] rstatix_0.7.2          htmltools_0.5.5        broom_1.0.5           </span></span>
+<span><span class="co">#&gt;  [16] pROC_1.18.2            sass_0.4.6             sctransform_0.3.5     </span></span>
+<span><span class="co">#&gt;  [19] parallelly_1.36.0      KernSmooth_2.23-21     bslib_0.5.0           </span></span>
+<span><span class="co">#&gt;  [22] htmlwidgets_1.6.2      desc_1.4.2             ica_1.0-3             </span></span>
+<span><span class="co">#&gt;  [25] plyr_1.8.8             plotly_4.10.2          zoo_1.8-12            </span></span>
+<span><span class="co">#&gt;  [28] cachem_1.0.8           igraph_1.5.0           mime_0.12             </span></span>
+<span><span class="co">#&gt;  [31] lifecycle_1.0.3        pkgconfig_2.0.3        Matrix_1.5-4.1        </span></span>
+<span><span class="co">#&gt;  [34] R6_2.5.1               fastmap_1.1.1          fitdistrplus_1.1-11   </span></span>
+<span><span class="co">#&gt;  [37] future_1.32.0          shiny_1.7.4            digest_0.6.31         </span></span>
+<span><span class="co">#&gt;  [40] ps_1.7.5               rprojroot_2.0.3        tensor_1.5            </span></span>
+<span><span class="co">#&gt;  [43] irlba_2.3.5.1          pkgload_1.3.2          textshaping_0.3.6     </span></span>
+<span><span class="co">#&gt;  [46] labeling_0.4.2         progressr_0.13.0       fansi_1.0.4           </span></span>
+<span><span class="co">#&gt;  [49] spatstat.sparse_3.0-1  polyclip_1.10-4        abind_1.4-5           </span></span>
+<span><span class="co">#&gt;  [52] compiler_4.3.1         remotes_2.4.2          withr_2.5.0           </span></span>
+<span><span class="co">#&gt;  [55] backports_1.4.1        carData_3.0-5          highr_0.10            </span></span>
+<span><span class="co">#&gt;  [58] pkgbuild_1.4.1         ggsignif_0.6.4         MASS_7.3-60           </span></span>
+<span><span class="co">#&gt;  [61] rappdirs_0.3.3         sessioninfo_1.2.2      gtools_3.9.4          </span></span>
+<span><span class="co">#&gt;  [64] tools_4.3.1            lmtest_0.9-40          httpuv_1.6.11         </span></span>
+<span><span class="co">#&gt;  [67] future.apply_1.11.0    goftest_1.2-3          glue_1.6.2            </span></span>
+<span><span class="co">#&gt;  [70] callr_3.7.3            nlme_3.1-162           promises_1.2.0.1      </span></span>
+<span><span class="co">#&gt;  [73] grid_4.3.1             Rtsne_0.16             cluster_2.1.4         </span></span>
+<span><span class="co">#&gt;  [76] reshape2_1.4.4         generics_0.1.3         gtable_0.3.3          </span></span>
+<span><span class="co">#&gt;  [79] spatstat.data_3.0-1    data.table_1.14.8      car_3.1-2             </span></span>
+<span><span class="co">#&gt;  [82] sp_2.0-0               utf8_1.2.3             spatstat.geom_3.2-1   </span></span>
+<span><span class="co">#&gt;  [85] RcppAnnoy_0.0.20       ggrepel_0.9.3          RANN_2.6.1            </span></span>
+<span><span class="co">#&gt;  [88] pillar_1.9.0           stringr_1.5.0          later_1.3.1           </span></span>
+<span><span class="co">#&gt;  [91] splines_4.3.1          moments_0.14.1         lattice_0.21-8        </span></span>
+<span><span class="co">#&gt;  [94] deldir_1.0-9           survival_3.5-5         tidyselect_1.2.0      </span></span>
+<span><span class="co">#&gt;  [97] miniUI_0.1.1.1         pbapply_1.7-2          gridExtra_2.3         </span></span>
+<span><span class="co">#&gt; [100] xfun_0.39              matrixStats_1.0.0      stringi_1.7.12        </span></span>
+<span><span class="co">#&gt; [103] lazyeval_0.2.2         yaml_2.3.7             evaluate_0.21         </span></span>
+<span><span class="co">#&gt; [106] codetools_0.2-19       tibble_3.2.1           cli_3.6.1             </span></span>
+<span><span class="co">#&gt; [109] uwot_0.1.14            xtable_1.8-4           reticulate_1.30       </span></span>
+<span><span class="co">#&gt; [112] systemfonts_1.0.4      munsell_0.5.0          processx_3.8.1        </span></span>
+<span><span class="co">#&gt; [115] jquerylib_0.1.4        Rcpp_1.0.10            spatstat.random_3.1-5 </span></span>
+<span><span class="co">#&gt; [118] globals_0.16.2         png_0.1-8              parallel_4.3.1        </span></span>
+<span><span class="co">#&gt; [121] ellipsis_0.3.2         pkgdown_2.0.7          prettyunits_1.1.1     </span></span>
+<span><span class="co">#&gt; [124] profvis_0.3.8          urlchecker_1.0.1       listenv_0.9.0         </span></span>
+<span><span class="co">#&gt; [127] viridisLite_0.4.2      scales_1.2.1           ggridges_0.5.4        </span></span>
+<span><span class="co">#&gt; [130] leiden_0.4.3           purrr_1.0.1            crayon_1.5.2          </span></span>
+<span><span class="co">#&gt; [133] rlang_1.1.1</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

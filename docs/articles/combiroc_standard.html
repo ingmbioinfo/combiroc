@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">combiroc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@ combinations made easy.</div></h3>
                         <h4 data-toc-skip class="author">Ivan Ferrari,
 Riccardo L. Rossi</h4>
             
-            <h4 data-toc-skip class="date">14 June 2023</h4>
+            <h4 data-toc-skip class="date">27 June 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_standard.Rmd" class="external-link"><code>vignettes/combiroc_standard.Rmd</code></a></small>
       <div class="d-none name"><code>combiroc_standard.Rmd</code></div>
@@ -177,14 +177,14 @@ in CombiROC package and can be directly called as
 <code>demo_data</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">demo_data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Patient.ID Class Marker1 Marker2 Marker3 Marker4 Marker5</span></span>
-<span><span class="co">#&gt; 1       AIH1     A     438     187     197     298     139</span></span>
-<span><span class="co">#&gt; 2       AIH2     A     345     293     134     523     335</span></span>
-<span><span class="co">#&gt; 3       AIH3     A     903     392     300    1253       0</span></span>
-<span><span class="co">#&gt; 4       AIH4     A     552     267     296     666      22</span></span>
-<span><span class="co">#&gt; 5       AIH5     A    1451     760     498     884     684</span></span>
-<span><span class="co">#&gt; 6       AIH6     A     497     260     175     640     572</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   Patient.ID Class Marker1 Marker2 Marker3 Marker4 Marker5</span></span>
+<span><span class="co">## 1       AIH1     A     438     187     197     298     139</span></span>
+<span><span class="co">## 2       AIH2     A     345     293     134     523     335</span></span>
+<span><span class="co">## 3       AIH3     A     903     392     300    1253       0</span></span>
+<span><span class="co">## 4       AIH4     A     552     267     296     666      22</span></span>
+<span><span class="co">## 5       AIH5     A    1451     760     498     884     684</span></span>
+<span><span class="co">## 6       AIH6     A     497     260     175     640     572</span></span></code></pre>
 <p>NB: combiroc is able to deal with missing values both by removing the
 samples with NA values or imputing the values given the median signal of
 the class (see ?roc_reports() deal_NA parameter). combiroc is not meant
@@ -212,23 +212,23 @@ package and for any other Tidyverse-oriented applications.</p>
 <p>The <strong>data</strong> object in the original wide format can be
 thus transformed into the reshaped long format
 <strong>data_long</strong> object, and further used.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combiroc_long.html">combiroc_long</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="va">data_long</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 850 × 4</span></span></span>
-<span><span class="co">#&gt;    Patient.ID Class Markers Values</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> AIH1       A     Marker1    438</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> AIH1       A     Marker2    187</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> AIH1       A     Marker3    197</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> AIH1       A     Marker4    298</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> AIH1       A     Marker5    139</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> AIH2       A     Marker1    345</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> AIH2       A     Marker2    293</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> AIH2       A     Marker3    134</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> AIH2       A     Marker4    523</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> AIH2       A     Marker5    335</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 840 more rows</span></span></span></code></pre></div>
+<span><span class="va">data_long</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 850 × 4</span></span></span>
+<span><span class="co">##    Patient.ID Class Markers Values</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> AIH1       A     Marker1    438</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> AIH1       A     Marker2    187</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> AIH1       A     Marker3    197</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> AIH1       A     Marker4    298</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> AIH1       A     Marker5    139</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> AIH2       A     Marker1    345</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> AIH2       A     Marker2    293</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> AIH2       A     Marker3    134</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> AIH2       A     Marker4    523</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> AIH2       A     Marker5    335</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 840 more rows</span></span></span></code></pre>
 <div class="section level4">
 <h4 id="checking-the-individual-markers">Checking the individual markers<a class="anchor" aria-label="anchor" href="#checking-the-individual-markers"></a>
 </h4>
@@ -237,7 +237,7 @@ statistics and all individual scatter plots. To do so, the function
 <code><a href="../reference/single_markers_statistics.html">single_markers_statistics()</a></code> can be used ingesting the
 dataframe <code>data_long</code> in long format returned by
 <code><a href="../reference/combiroc_long.html">combiroc_long()</a></code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/single_markers_statistics.html">single_markers_statistics</a></span><span class="op">(</span><span class="va">data_long</span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="../reference/single_markers_statistics.html">single_markers_statistics()</a></code> function returns a list
 on length 2, whose first element (<code>sms[[1]]</code>) is a table with
@@ -250,32 +250,32 @@ are:</p>
 <li>coefficient of variation</li>
 <li>first quartile limit, median, third quartile limit</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s_table</span> <span class="op">&lt;-</span> <span class="va">sms</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">s_table</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 11</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   Markers [5]</span></span></span>
-<span><span class="co">#&gt;    Markers Class   Mean   Min   Max     Sd    CV First_Quart. Median</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Marker1 A     <span style="text-decoration: underline;">1</span>159.     52  <span style="text-decoration: underline;">8</span>584 <span style="text-decoration: underline;">1</span>672.  1.44         369.   569  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Marker1 B      161.      0  <span style="text-decoration: underline;">1</span>223  162.  1.01          59.5  111  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Marker2 A      692.     41  <span style="text-decoration: underline;">3</span>704  783.  1.13         259    422. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Marker2 B      141.      0  <span style="text-decoration: underline;">2</span>142  205.  1.45          55.2  100. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Marker3 A      767.      0 <span style="text-decoration: underline;">13</span>178 <span style="text-decoration: underline;">2</span>436.  3.18          73.2  189  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Marker3 B       56.2     0   640   80.6 1.43          10.2   33.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Marker4 A      879.    105  <span style="text-decoration: underline;">3</span>390  713.  0.811        371    620. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Marker4 B      467.      0  <span style="text-decoration: underline;">2</span>464  406.  0.869        232    361  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Marker5 A      571.      0  <span style="text-decoration: underline;">2</span>757  582.  1.02         152.   518  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Marker5 B      205.      0  <span style="text-decoration: underline;">4</span>114  413.  2.02          17.2   76  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: Third_Quart. &lt;dbl&gt;, Skewness &lt;dbl&gt;</span></span></span></code></pre></div>
+<span><span class="va">s_table</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 10 × 11</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># Groups:   Markers [5]</span></span></span>
+<span><span class="co">##    Markers Class   Mean   Min   Max     Sd    CV First_Quart. Median</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Marker1 A     <span style="text-decoration: underline;">1</span>159.     52  <span style="text-decoration: underline;">8</span>584 <span style="text-decoration: underline;">1</span>672.  1.44         369.   569  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Marker1 B      161.      0  <span style="text-decoration: underline;">1</span>223  162.  1.01          59.5  111  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> Marker2 A      692.     41  <span style="text-decoration: underline;">3</span>704  783.  1.13         259    422. </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Marker2 B      141.      0  <span style="text-decoration: underline;">2</span>142  205.  1.45          55.2  100. </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Marker3 A      767.      0 <span style="text-decoration: underline;">13</span>178 <span style="text-decoration: underline;">2</span>436.  3.18          73.2  189  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Marker3 B       56.2     0   640   80.6 1.43          10.2   33.5</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Marker4 A      879.    105  <span style="text-decoration: underline;">3</span>390  713.  0.811        371    620. </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Marker4 B      467.      0  <span style="text-decoration: underline;">2</span>464  406.  0.869        232    361  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Marker5 A      571.      0  <span style="text-decoration: underline;">2</span>757  582.  1.02         152.   518  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> Marker5 B      205.      0  <span style="text-decoration: underline;">4</span>114  413.  2.02          17.2   76  </span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 2 more variables: Third_Quart. &lt;dbl&gt;, Skewness &lt;dbl&gt;</span></span></span></code></pre>
 <p>While the second element is another list, containing dot plots, one
 for each marker. The individual plots can be called from the second
 element (<code>sms[[2]]</code>) of the list with the <code>$</code>
 operator. Here we display the plot for Marker 1:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">plot_m1</span> <span class="op">&lt;-</span> <span class="va">sms</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Marker1</span></span>
 <span><span class="va">plot_m1</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>In the section <a href="#snipp">“Code snippets”</a> at the end of
 this vignette we suggest code snippets that can be used to <a href="#plot_int">customize the plots for individual markers</a> across
 all samples, as well as to <a href="#sum_stats">modify the summary
@@ -310,17 +310,19 @@ argument of <code>markers_distributions()</code> function is
 warnings are triggered with this command remembering the users the
 default threshold parameters that are in place during the
 computation.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">distr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/markers_distribution.html">markers_distribution</a></span><span class="op">(</span><span class="va">data_long</span>, case_class <span class="op">=</span> <span class="st">"A"</span>, y_lim <span class="op">=</span> <span class="fl">0.0015</span>,</span>
-<span>    x_lim <span class="op">=</span> <span class="fl">3000</span>, signalthr_prediction <span class="op">=</span> <span class="cn">TRUE</span>, min_SE <span class="op">=</span> <span class="fl">40</span>, min_SP <span class="op">=</span> <span class="fl">80</span>,</span>
-<span>    boxplot_lim <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in markers_distribution(data_long, case_class = "A", y_lim = 0.0015, :</span></span>
-<span><span class="co">#&gt; The suggested signal threshold in $Plot_density is the threshold with the</span></span>
-<span><span class="co">#&gt; highest Youden index of the signal thresholds at which SE&gt;=min_SE and</span></span>
-<span><span class="co">#&gt; SP&gt;=min_SP. This is ONLY a suggestion. Please check if signal threshold is</span></span>
-<span><span class="co">#&gt; suggested by your analysis kit guidelines instead, and remember to check</span></span>
-<span><span class="co">#&gt; $Plot_density to better judge our suggested threshold by inspecting the 2</span></span>
-<span><span class="co">#&gt; distributions.</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">distr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/markers_distribution.html">markers_distribution</a></span><span class="op">(</span><span class="va">data_long</span>, case_class <span class="op">=</span> <span class="st">'A'</span>, </span>
+<span>                              y_lim <span class="op">=</span> <span class="fl">0.0015</span>, x_lim <span class="op">=</span> <span class="fl">3000</span>, </span>
+<span>                              signalthr_prediction <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                              min_SE <span class="op">=</span> <span class="fl">40</span>, min_SP <span class="op">=</span> <span class="fl">80</span>, </span>
+<span>                              boxplot_lim <span class="op">=</span> <span class="fl">2000</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in markers_distribution(data_long, case_class = "A", y_lim = 0.0015, :</span></span>
+<span><span class="co">## The suggested signal threshold in $Plot_density is the threshold with the</span></span>
+<span><span class="co">## highest Youden index of the signal thresholds at which SE&gt;=min_SE and</span></span>
+<span><span class="co">## SP&gt;=min_SP. This is ONLY a suggestion. Please check if signal threshold is</span></span>
+<span><span class="co">## suggested by your analysis kit guidelines instead, and remember to check</span></span>
+<span><span class="co">## $Plot_density to better judge our suggested threshold by inspecting the 2</span></span>
+<span><span class="co">## distributions.</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="the-distr-object">The <strong>distr</strong> object<a class="anchor" aria-label="anchor" href="#the-distr-object"></a>
@@ -342,7 +344,7 @@ each one of them</p>
 </h4>
 <p>The <strong>Boxplot</strong> shows the distribution of each marker
 values for both classes:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">Boxplot</span></span></code></pre></div>
 <p><img src="combiroc_standard_files/figure-html/boxplot-1.png" width="700"></p>
 </div>
@@ -359,7 +361,7 @@ SP are refereed to the signal intensity threshold considering
 of a single marker/combination computed by the ’combi()` function
 further discussed in the <strong>Combinatorial analyisis, sensitivity
 and specificity</strong> paragraph.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">ROC</span></span></code></pre></div>
 <p><img src="combiroc_standard_files/figure-html/ROC-1.png" width="700"></p>
 <p>The <strong>Coord</strong> is a dataframe that contains the
@@ -371,19 +373,19 @@ different values as shown in the example. The Youden index is also
 computed: this is the Youden’s J statistic capturing the performance of
 a dichotomous diagnostic test, with higher values for better performance
 ( <span class="math inline">\(J = SE + SP -1\)</span>).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     threshold specificity sensitivity    Youden</span></span>
-<span><span class="co">#&gt; 240     319.5          80          65 0.4500000</span></span>
-<span><span class="co">#&gt; 241     320.5          80          65 0.4515385</span></span>
-<span><span class="co">#&gt; 242     322.0          80          65 0.4530769</span></span>
-<span><span class="co">#&gt; 243     325.0          80          65 0.4546154</span></span>
-<span><span class="co">#&gt; 244     327.5          81          65 0.4561538</span></span>
-<span><span class="co">#&gt; 245     328.5          81          65 0.4576923</span></span>
-<span><span class="co">#&gt; 246     329.5          81          64 0.4526923</span></span>
-<span><span class="co">#&gt; 247     331.0          81          64 0.4426923</span></span>
-<span><span class="co">#&gt; 248     332.5          81          64 0.4488462</span></span>
-<span><span class="co">#&gt; 249     334.0          82          64 0.4503846</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span>, n<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##     threshold specificity sensitivity    Youden</span></span>
+<span><span class="co">## 240     319.5          80          65 0.4500000</span></span>
+<span><span class="co">## 241     320.5          80          65 0.4515385</span></span>
+<span><span class="co">## 242     322.0          80          65 0.4530769</span></span>
+<span><span class="co">## 243     325.0          80          65 0.4546154</span></span>
+<span><span class="co">## 244     327.5          81          65 0.4561538</span></span>
+<span><span class="co">## 245     328.5          81          65 0.4576923</span></span>
+<span><span class="co">## 246     329.5          81          64 0.4526923</span></span>
+<span><span class="co">## 247     331.0          81          64 0.4426923</span></span>
+<span><span class="co">## 248     332.5          81          64 0.4488462</span></span>
+<span><span class="co">## 249     334.0          82          64 0.4503846</span></span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="dens">The density plot and suggested signal threshold<a class="anchor" aria-label="anchor" href="#dens"></a>
@@ -408,7 +410,7 @@ index.</p>
 <p>This suggested signal threshold can be used as
 <strong>signalthr</strong> argument of the <code><a href="../reference/combi.html">combi()</a></code> function
 further in the workflow.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">Density_plot</span></span></code></pre></div>
 <p><img src="combiroc_standard_files/figure-html/density-1.png" width="700"></p>
 </div>
@@ -417,13 +419,13 @@ further in the workflow.</p>
 </h4>
 <p>Finally, the <strong>Density_summary</strong> displays a few summary
 statistics of the density plot.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">Density_summary</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
-<span><span class="co">#&gt;   Class `# observations`   Min   Max Median  Mean `1st Q` `3rd Q`    SD</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> A                  200     0 <span style="text-decoration: underline;">13</span>178    461  814.    233.     825 <span style="text-decoration: underline;">1</span>427.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> B                  650     0  <span style="text-decoration: underline;">4</span>114    106  206.     38      266  318.</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">Density_summary</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
+<span><span class="co">##   Class `# observations`   Min   Max Median  Mean `1st Q` `3rd Q`    SD</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> A                  200     0 <span style="text-decoration: underline;">13</span>178    461  814.    233.     825 <span style="text-decoration: underline;">1</span>427.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> B                  650     0  <span style="text-decoration: underline;">4</span>114    106  206.     38      266  318.</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -478,52 +480,51 @@ diagnostic point of view).</p>
 <p>The obtained <strong>tab</strong> object is a dataframe of all the
 combinations obtained with the chosen parameters, the obtained value of
 SE, SP and number of markers.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi.html">combi</a></span><span class="op">(</span><span class="va">data</span>, signalthr <span class="op">=</span> <span class="fl">450</span>, combithr <span class="op">=</span> <span class="fl">1</span>, case_class <span class="op">=</span> <span class="st">"A"</span>,</span>
-<span>    max_length <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tab</span>, n <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                Markers #Positives A #Positives B   SE       SP</span></span>
-<span><span class="co">#&gt; Marker1                        Marker1           26            6 65.0 95.38462</span></span>
-<span><span class="co">#&gt; Marker2                        Marker2           19            2 47.5 98.46154</span></span>
-<span><span class="co">#&gt; Marker3                        Marker3            8            1 20.0 99.23077</span></span>
-<span><span class="co">#&gt; Marker4                        Marker4           26           48 65.0 63.07692</span></span>
-<span><span class="co">#&gt; Marker5                        Marker5           23           15 57.5 88.46154</span></span>
-<span><span class="co">#&gt; Combination 1          Marker1-Marker2           29            6 72.5 95.38462</span></span>
-<span><span class="co">#&gt; Combination 2          Marker1-Marker3           29            6 72.5 95.38462</span></span>
-<span><span class="co">#&gt; Combination 3          Marker1-Marker4           31           52 77.5 60.00000</span></span>
-<span><span class="co">#&gt; Combination 4          Marker1-Marker5           30           21 75.0 83.84615</span></span>
-<span><span class="co">#&gt; Combination 5          Marker2-Marker3           21            2 52.5 98.46154</span></span>
-<span><span class="co">#&gt; Combination 6          Marker2-Marker4           32           50 80.0 61.53846</span></span>
-<span><span class="co">#&gt; Combination 7          Marker2-Marker5           28           17 70.0 86.92308</span></span>
-<span><span class="co">#&gt; Combination 8          Marker3-Marker4           29           49 72.5 62.30769</span></span>
-<span><span class="co">#&gt; Combination 9          Marker3-Marker5           27           16 67.5 87.69231</span></span>
-<span><span class="co">#&gt; Combination 10         Marker4-Marker5           31           53 77.5 59.23077</span></span>
-<span><span class="co">#&gt; Combination 11 Marker1-Marker2-Marker3           31            6 77.5 95.38462</span></span>
-<span><span class="co">#&gt; Combination 12 Marker1-Marker2-Marker4           34           52 85.0 60.00000</span></span>
-<span><span class="co">#&gt; Combination 13 Marker1-Marker2-Marker5           33           21 82.5 83.84615</span></span>
-<span><span class="co">#&gt; Combination 14 Marker1-Marker3-Marker4           34           52 85.0 60.00000</span></span>
-<span><span class="co">#&gt; Combination 15 Marker1-Marker3-Marker5           33           21 82.5 83.84615</span></span>
-<span><span class="co">#&gt;                n_markers</span></span>
-<span><span class="co">#&gt; Marker1                1</span></span>
-<span><span class="co">#&gt; Marker2                1</span></span>
-<span><span class="co">#&gt; Marker3                1</span></span>
-<span><span class="co">#&gt; Marker4                1</span></span>
-<span><span class="co">#&gt; Marker5                1</span></span>
-<span><span class="co">#&gt; Combination 1          2</span></span>
-<span><span class="co">#&gt; Combination 2          2</span></span>
-<span><span class="co">#&gt; Combination 3          2</span></span>
-<span><span class="co">#&gt; Combination 4          2</span></span>
-<span><span class="co">#&gt; Combination 5          2</span></span>
-<span><span class="co">#&gt; Combination 6          2</span></span>
-<span><span class="co">#&gt; Combination 7          2</span></span>
-<span><span class="co">#&gt; Combination 8          2</span></span>
-<span><span class="co">#&gt; Combination 9          2</span></span>
-<span><span class="co">#&gt; Combination 10         2</span></span>
-<span><span class="co">#&gt; Combination 11         3</span></span>
-<span><span class="co">#&gt; Combination 12         3</span></span>
-<span><span class="co">#&gt; Combination 13         3</span></span>
-<span><span class="co">#&gt; Combination 14         3</span></span>
-<span><span class="co">#&gt; Combination 15         3</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi.html">combi</a></span><span class="op">(</span><span class="va">data</span>, signalthr <span class="op">=</span> <span class="fl">450</span>, combithr <span class="op">=</span> <span class="fl">1</span>, case_class<span class="op">=</span><span class="st">'A'</span>, max_length <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tab</span>, n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##                                Markers #Positives A #Positives B   SE       SP</span></span>
+<span><span class="co">## Marker1                        Marker1           26            6 65.0 95.38462</span></span>
+<span><span class="co">## Marker2                        Marker2           19            2 47.5 98.46154</span></span>
+<span><span class="co">## Marker3                        Marker3            8            1 20.0 99.23077</span></span>
+<span><span class="co">## Marker4                        Marker4           26           48 65.0 63.07692</span></span>
+<span><span class="co">## Marker5                        Marker5           23           15 57.5 88.46154</span></span>
+<span><span class="co">## Combination 1          Marker1-Marker2           29            6 72.5 95.38462</span></span>
+<span><span class="co">## Combination 2          Marker1-Marker3           29            6 72.5 95.38462</span></span>
+<span><span class="co">## Combination 3          Marker1-Marker4           31           52 77.5 60.00000</span></span>
+<span><span class="co">## Combination 4          Marker1-Marker5           30           21 75.0 83.84615</span></span>
+<span><span class="co">## Combination 5          Marker2-Marker3           21            2 52.5 98.46154</span></span>
+<span><span class="co">## Combination 6          Marker2-Marker4           32           50 80.0 61.53846</span></span>
+<span><span class="co">## Combination 7          Marker2-Marker5           28           17 70.0 86.92308</span></span>
+<span><span class="co">## Combination 8          Marker3-Marker4           29           49 72.5 62.30769</span></span>
+<span><span class="co">## Combination 9          Marker3-Marker5           27           16 67.5 87.69231</span></span>
+<span><span class="co">## Combination 10         Marker4-Marker5           31           53 77.5 59.23077</span></span>
+<span><span class="co">## Combination 11 Marker1-Marker2-Marker3           31            6 77.5 95.38462</span></span>
+<span><span class="co">## Combination 12 Marker1-Marker2-Marker4           34           52 85.0 60.00000</span></span>
+<span><span class="co">## Combination 13 Marker1-Marker2-Marker5           33           21 82.5 83.84615</span></span>
+<span><span class="co">## Combination 14 Marker1-Marker3-Marker4           34           52 85.0 60.00000</span></span>
+<span><span class="co">## Combination 15 Marker1-Marker3-Marker5           33           21 82.5 83.84615</span></span>
+<span><span class="co">##                n_markers</span></span>
+<span><span class="co">## Marker1                1</span></span>
+<span><span class="co">## Marker2                1</span></span>
+<span><span class="co">## Marker3                1</span></span>
+<span><span class="co">## Marker4                1</span></span>
+<span><span class="co">## Marker5                1</span></span>
+<span><span class="co">## Combination 1          2</span></span>
+<span><span class="co">## Combination 2          2</span></span>
+<span><span class="co">## Combination 3          2</span></span>
+<span><span class="co">## Combination 4          2</span></span>
+<span><span class="co">## Combination 5          2</span></span>
+<span><span class="co">## Combination 6          2</span></span>
+<span><span class="co">## Combination 7          2</span></span>
+<span><span class="co">## Combination 8          2</span></span>
+<span><span class="co">## Combination 9          2</span></span>
+<span><span class="co">## Combination 10         2</span></span>
+<span><span class="co">## Combination 11         3</span></span>
+<span><span class="co">## Combination 12         3</span></span>
+<span><span class="co">## Combination 13         3</span></span>
+<span><span class="co">## Combination 14         3</span></span>
+<span><span class="co">## Combination 15         3</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="selection-of-combinations">Selection of combinations<a class="anchor" aria-label="anchor" href="#selection-of-combinations"></a>
@@ -557,46 +558,46 @@ Youden index, are stored in the “ranked markers” <code>rmks</code>
 object containing the <code>table</code> dataframe and the
 <code>bubble_chart</code> plot that can be accessed individually with
 the <code>$</code> operator.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rmks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ranked_combs.html">ranked_combs</a></span><span class="op">(</span><span class="va">tab</span>, min_SE <span class="op">=</span> <span class="fl">40</span>, min_SP <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></span>
-<span><span class="va">rmks</span><span class="op">$</span><span class="va">table</span></span>
-<span><span class="co">#&gt;                                Markers #Positives A #Positives B   SE       SP</span></span>
-<span><span class="co">#&gt; Combination 11 Marker1-Marker2-Marker3           31            6 77.5 95.38462</span></span>
-<span><span class="co">#&gt; Combination 1          Marker1-Marker2           29            6 72.5 95.38462</span></span>
-<span><span class="co">#&gt; Combination 2          Marker1-Marker3           29            6 72.5 95.38462</span></span>
-<span><span class="co">#&gt; Combination 13 Marker1-Marker2-Marker5           33           21 82.5 83.84615</span></span>
-<span><span class="co">#&gt; Combination 15 Marker1-Marker3-Marker5           33           21 82.5 83.84615</span></span>
-<span><span class="co">#&gt; Combination 18 Marker2-Marker3-Marker5           30           17 75.0 86.92308</span></span>
-<span><span class="co">#&gt; Marker1                        Marker1           26            6 65.0 95.38462</span></span>
-<span><span class="co">#&gt; Combination 4          Marker1-Marker5           30           21 75.0 83.84615</span></span>
-<span><span class="co">#&gt; Combination 7          Marker2-Marker5           28           17 70.0 86.92308</span></span>
-<span><span class="co">#&gt; Combination 9          Marker3-Marker5           27           16 67.5 87.69231</span></span>
-<span><span class="co">#&gt; Combination 5          Marker2-Marker3           21            2 52.5 98.46154</span></span>
-<span><span class="co">#&gt; Marker2                        Marker2           19            2 47.5 98.46154</span></span>
-<span><span class="co">#&gt; Marker5                        Marker5           23           15 57.5 88.46154</span></span>
-<span><span class="co">#&gt;                n_markers    Youden</span></span>
-<span><span class="co">#&gt; Combination 11         3 0.7288462</span></span>
-<span><span class="co">#&gt; Combination 1          2 0.6788462</span></span>
-<span><span class="co">#&gt; Combination 2          2 0.6788462</span></span>
-<span><span class="co">#&gt; Combination 13         3 0.6634615</span></span>
-<span><span class="co">#&gt; Combination 15         3 0.6634615</span></span>
-<span><span class="co">#&gt; Combination 18         3 0.6192308</span></span>
-<span><span class="co">#&gt; Marker1                1 0.6038462</span></span>
-<span><span class="co">#&gt; Combination 4          2 0.5884615</span></span>
-<span><span class="co">#&gt; Combination 7          2 0.5692308</span></span>
-<span><span class="co">#&gt; Combination 9          2 0.5519231</span></span>
-<span><span class="co">#&gt; Combination 5          2 0.5096154</span></span>
-<span><span class="co">#&gt; Marker2                1 0.4596154</span></span>
-<span><span class="co">#&gt; Marker5                1 0.4596154</span></span></code></pre></div>
+<span><span class="va">rmks</span><span class="op">$</span><span class="va">table</span></span></code></pre></div>
+<pre><code><span><span class="co">##                                Markers #Positives A #Positives B   SE       SP</span></span>
+<span><span class="co">## Combination 11 Marker1-Marker2-Marker3           31            6 77.5 95.38462</span></span>
+<span><span class="co">## Combination 1          Marker1-Marker2           29            6 72.5 95.38462</span></span>
+<span><span class="co">## Combination 2          Marker1-Marker3           29            6 72.5 95.38462</span></span>
+<span><span class="co">## Combination 13 Marker1-Marker2-Marker5           33           21 82.5 83.84615</span></span>
+<span><span class="co">## Combination 15 Marker1-Marker3-Marker5           33           21 82.5 83.84615</span></span>
+<span><span class="co">## Combination 18 Marker2-Marker3-Marker5           30           17 75.0 86.92308</span></span>
+<span><span class="co">## Marker1                        Marker1           26            6 65.0 95.38462</span></span>
+<span><span class="co">## Combination 4          Marker1-Marker5           30           21 75.0 83.84615</span></span>
+<span><span class="co">## Combination 7          Marker2-Marker5           28           17 70.0 86.92308</span></span>
+<span><span class="co">## Combination 9          Marker3-Marker5           27           16 67.5 87.69231</span></span>
+<span><span class="co">## Combination 5          Marker2-Marker3           21            2 52.5 98.46154</span></span>
+<span><span class="co">## Marker2                        Marker2           19            2 47.5 98.46154</span></span>
+<span><span class="co">## Marker5                        Marker5           23           15 57.5 88.46154</span></span>
+<span><span class="co">##                n_markers    Youden</span></span>
+<span><span class="co">## Combination 11         3 0.7288462</span></span>
+<span><span class="co">## Combination 1          2 0.6788462</span></span>
+<span><span class="co">## Combination 2          2 0.6788462</span></span>
+<span><span class="co">## Combination 13         3 0.6634615</span></span>
+<span><span class="co">## Combination 15         3 0.6634615</span></span>
+<span><span class="co">## Combination 18         3 0.6192308</span></span>
+<span><span class="co">## Marker1                1 0.6038462</span></span>
+<span><span class="co">## Combination 4          2 0.5884615</span></span>
+<span><span class="co">## Combination 7          2 0.5692308</span></span>
+<span><span class="co">## Combination 9          2 0.5519231</span></span>
+<span><span class="co">## Combination 5          2 0.5096154</span></span>
+<span><span class="co">## Marker2                1 0.4596154</span></span>
+<span><span class="co">## Marker5                1 0.4596154</span></span></code></pre>
 <p>as mentioned, the <code>rmks</code> object also has a slot for the
 <code>bubble_chart</code> plot, that can be recalled with the usual
 <code>$</code> operator. This plot discriminates between combinations
 not passing the SE and SP cutoffs as set in <code><a href="../reference/ranked_combs.html">ranked_combs()</a></code>
 (blue bubbles) and <em>“gold” combinations</em> passing them (yellow
 bubbles).</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rmks</span><span class="op">$</span><span class="va">bubble_chart</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="roc-curves">ROC curves<a class="anchor" aria-label="anchor" href="#roc-curves"></a>
@@ -622,10 +623,11 @@ the specific function’s arguments.<br>
 In the example below a single marker ( <strong>Marker1</strong> ) and
 two combinations (combinations number <strong>11</strong> and
 <strong>15</strong> ) were choosen.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">reports</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/roc_reports.html">roc_reports</a></span><span class="op">(</span><span class="va">data</span>, markers_table <span class="op">=</span> <span class="va">tab</span>, case_class <span class="op">=</span> <span class="st">"A"</span>,</span>
-<span>    single_markers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Marker1"</span><span class="op">)</span>, selected_combinations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span>,</span>
-<span>        <span class="fl">15</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">reports</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/roc_reports.html">roc_reports</a></span><span class="op">(</span><span class="va">data</span>, markers_table <span class="op">=</span> <span class="va">tab</span>, </span>
+<span>                      case_class <span class="op">=</span> <span class="st">'A'</span>,</span>
+<span>                      single_markers <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Marker1'</span><span class="op">)</span>, </span>
+<span>                      selected_combinations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The obtained <strong>reports</strong> object contains 3 items that
 can be accessed using the <code>$</code> operator:</p>
 <ul>
@@ -636,51 +638,52 @@ cutoff, etc …);</li>
 <li>Models: The list of models that have been computed and then used to
 classify the samples (the equation for each selected combination).</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span></span></code></pre></div>
-<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span></span>
-<span><span class="co">#&gt;                  AUC   SE    SP CutOff   ACC  TN TP FN FP   NPV   PPV</span></span>
-<span><span class="co">#&gt; Marker1        0.910 0.90 0.808  0.219 0.829 105 36  4 25 0.963 0.590</span></span>
-<span><span class="co">#&gt; Combination 11 0.942 0.95 0.869  0.216 0.888 113 38  2 17 0.983 0.691</span></span>
-<span><span class="co">#&gt; Combination 15 0.935 0.90 0.854  0.248 0.865 111 36  4 19 0.965 0.655</span></span>
-<span><span class="va">reports</span><span class="op">$</span><span class="va">Models</span></span>
-<span><span class="co">#&gt; $Marker1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Call:  glm(formula = fla, family = "binomial", data = data)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Coefficients:</span></span>
-<span><span class="co">#&gt;      (Intercept)  log(Marker1 + 1)  </span></span>
-<span><span class="co">#&gt;          -13.775             2.246  </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Degrees of Freedom: 169 Total (i.e. Null);  168 Residual</span></span>
-<span><span class="co">#&gt; Null Deviance:       185.5 </span></span>
-<span><span class="co">#&gt; Residual Deviance: 101.7     AIC: 105.7</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`Combination 11`</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Call:  glm(formula = fla, family = "binomial", data = data)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Coefficients:</span></span>
-<span><span class="co">#&gt;      (Intercept)  log(Marker1 + 1)  log(Marker2 + 1)  log(Marker3 + 1)  </span></span>
-<span><span class="co">#&gt;         -17.0128            1.5378            0.9176            0.5706  </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Degrees of Freedom: 169 Total (i.e. Null);  166 Residual</span></span>
-<span><span class="co">#&gt; Null Deviance:       185.5 </span></span>
-<span><span class="co">#&gt; Residual Deviance: 87.49     AIC: 95.49</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $`Combination 15`</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Call:  glm(formula = fla, family = "binomial", data = data)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Coefficients:</span></span>
-<span><span class="co">#&gt;      (Intercept)  log(Marker1 + 1)  log(Marker3 + 1)  log(Marker5 + 1)  </span></span>
-<span><span class="co">#&gt;         -16.0554            1.9595            0.6032            0.2805  </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Degrees of Freedom: 169 Total (i.e. Null);  166 Residual</span></span>
-<span><span class="co">#&gt; Null Deviance:       185.5 </span></span>
-<span><span class="co">#&gt; Residual Deviance: 87.95     AIC: 95.95</span></span></code></pre></div>
+<p><img src="combiroc_standard_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span></span></code></pre></div>
+<pre><code><span><span class="co">##                  AUC   SE    SP CutOff   ACC  TN TP FN FP   NPV   PPV</span></span>
+<span><span class="co">## Marker1        0.910 0.90 0.808  0.219 0.829 105 36  4 25 0.963 0.590</span></span>
+<span><span class="co">## Combination 11 0.942 0.95 0.869  0.216 0.888 113 38  2 17 0.983 0.691</span></span>
+<span><span class="co">## Combination 15 0.935 0.90 0.854  0.248 0.865 111 36  4 19 0.965 0.655</span></span></code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Models</span></span></code></pre></div>
+<pre><code><span><span class="co">## $Marker1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Call:  glm(formula = fla, family = "binomial", data = data)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">##      (Intercept)  log(Marker1 + 1)  </span></span>
+<span><span class="co">##          -13.775             2.246  </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Degrees of Freedom: 169 Total (i.e. Null);  168 Residual</span></span>
+<span><span class="co">## Null Deviance:       185.5 </span></span>
+<span><span class="co">## Residual Deviance: 101.7     AIC: 105.7</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $`Combination 11`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Call:  glm(formula = fla, family = "binomial", data = data)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">##      (Intercept)  log(Marker1 + 1)  log(Marker2 + 1)  log(Marker3 + 1)  </span></span>
+<span><span class="co">##         -17.0128            1.5378            0.9176            0.5706  </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Degrees of Freedom: 169 Total (i.e. Null);  166 Residual</span></span>
+<span><span class="co">## Null Deviance:       185.5 </span></span>
+<span><span class="co">## Residual Deviance: 87.49     AIC: 95.49</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $`Combination 15`</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Call:  glm(formula = fla, family = "binomial", data = data)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Coefficients:</span></span>
+<span><span class="co">##      (Intercept)  log(Marker1 + 1)  log(Marker3 + 1)  log(Marker5 + 1)  </span></span>
+<span><span class="co">##         -16.0554            1.9595            0.6032            0.2805  </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Degrees of Freedom: 169 Total (i.e. Null);  166 Residual</span></span>
+<span><span class="co">## Null Deviance:       185.5 </span></span>
+<span><span class="co">## Residual Deviance: 87.95     AIC: 95.95</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="hood">Under the hood<a class="anchor" aria-label="anchor" href="#hood"></a>
@@ -717,18 +720,18 @@ f(x)=    -17.0128  +  1.5378 *log(Marker1 + 1)  +  0.9176 *log(Marker2 +
 are produced on the scale of the additive predictors. Predictions (<span class="math inline">\(f(x)\)</span> values) of Combination 11 can be
 visualized using the commmand <code>glm::predict</code> with argument
 <code>type = "link"</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">reports</span><span class="op">$</span><span class="va">Models</span><span class="op">$</span><span class="va">`Combination 11`</span>, type <span class="op">=</span> <span class="st">"link"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># link = f(x)</span></span>
-<span><span class="co">#&gt;            1            2            3            4            5            6 </span></span>
-<span><span class="co">#&gt;  0.166224681 -0.008125528  2.192603482  1.077910194  3.816098810  0.593971602</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">reports</span><span class="op">$</span><span class="va">Models</span><span class="op">$</span><span class="va">`Combination 11`</span>, type<span class="op">=</span><span class="st">'link'</span><span class="op">)</span><span class="op">)</span> <span class="co"># link = f(x)</span></span></code></pre></div>
+<pre><code><span><span class="co">##            1            2            3            4            5            6 </span></span>
+<span><span class="co">##  0.166224681 -0.008125528  2.192603482  1.077910194  3.816098810  0.593971602</span></span></code></pre>
 <p>Prediction probabilities (<span class="math inline">\(p(x)\)</span>
 values, i.e. predictions on the scale of the response) of Combination 11
 can be instead visualized using argument
 <code>type = "response"</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">reports</span><span class="op">$</span><span class="va">Models</span><span class="op">$</span><span class="va">`Combination 11`</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># response = p(x)</span></span>
-<span><span class="co">#&gt;         1         2         3         4         5         6 </span></span>
-<span><span class="co">#&gt; 0.5414607 0.4979686 0.8995833 0.7460983 0.9784606 0.6442759</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">reports</span><span class="op">$</span><span class="va">Models</span><span class="op">$</span><span class="va">`Combination 11`</span>, type<span class="op">=</span><span class="st">'response'</span><span class="op">)</span><span class="op">)</span> <span class="co"># response = p(x)</span></span></code></pre></div>
+<pre><code><span><span class="co">##         1         2         3         4         5         6 </span></span>
+<span><span class="co">## 0.5414607 0.4979686 0.8995833 0.7460983 0.9784606 0.6442759</span></span></code></pre>
 <p>Finally, the comparison between the prediction probability and the
 optimal cutoff (here 0.216, see the <strong>CutOff</strong> column for
 Classification 11 in <code>reports$Metrics</code>) determines the
@@ -784,21 +787,20 @@ class <strong>but sample names here are not used in the workflow and
 have labeling purposes to check the prediction outcomes</strong> (a “no”
 prefix identifies healthy/normal subjects while the absence of the
 prefix identifies affected/abnormal subjects).</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">unc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_data.html">load_data</a></span><span class="op">(</span>data <span class="op">=</span> <span class="st">"./data/demo_unclassified_data.csv"</span>,</span>
-<span>    sep <span class="op">=</span> <span class="st">","</span>, labelled_data <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">unc_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/load_data.html">load_data</a></span><span class="op">(</span>data <span class="op">=</span> <span class="st">'./data/demo_unclassified_data.csv'</span>, sep <span class="op">=</span> <span class="st">','</span>, labelled_data <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p>This very same dataset has been included in CombiROC package as an
 unclassified demo dataset, which can be directly called typing
 <code>demo_unclassified_data</code>.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">demo_unclassified_data</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Patient.ID Marker1 Marker2 Marker3 Marker4 Marker5</span></span>
-<span><span class="co">#&gt; 1      AIH33    1964     875     404    1883    1021</span></span>
-<span><span class="co">#&gt; 2  no AIH126     381     303       4     266     376</span></span>
-<span><span class="co">#&gt; 3      AIH12     261     153     528     449     237</span></span>
-<span><span class="co">#&gt; 4  no AIH112     144     155      25     600       0</span></span>
-<span><span class="co">#&gt; 5   no AIH41       0     193      50     382     135</span></span>
-<span><span class="co">#&gt; 6   no AIH38      46      51      24     342      74</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">demo_unclassified_data</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   Patient.ID Marker1 Marker2 Marker3 Marker4 Marker5</span></span>
+<span><span class="co">## 1      AIH33    1964     875     404    1883    1021</span></span>
+<span><span class="co">## 2  no AIH126     381     303       4     266     376</span></span>
+<span><span class="co">## 3      AIH12     261     153     528     449     237</span></span>
+<span><span class="co">## 4  no AIH112     144     155      25     600       0</span></span>
+<span><span class="co">## 5   no AIH41       0     193      50     382     135</span></span>
+<span><span class="co">## 6   no AIH38      46      51      24     342      74</span></span></code></pre>
 <p>The prediction of the class can be achieved with
 <code><a href="../reference/combi_score.html">combi_score()</a></code>: by setting <code>classify</code>=TRUE, this
 function applies the models previously calculated on a classified data
@@ -829,81 +831,90 @@ sample according to the models used (originally in
 <code>reports$Models</code>); here we are still using
 <strong>Marker1</strong>, <strong>Combination 11</strong> and
 <strong>Combination 15</strong>.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">unc_data</span> <span class="op">&lt;-</span> <span class="va">demo_unclassified_data</span></span>
-<span><span class="va">cl_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">unc_data</span>, Models <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>, Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>,</span>
-<span>    Positive_class <span class="op">=</span> <span class="st">"abnormal"</span>, Negative_class <span class="op">=</span> <span class="st">"normal"</span>, classify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">cl_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">unc_data</span>, </span>
+<span>                       Models <span class="op">=</span>  <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>, </span>
+<span>                       Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>, </span>
+<span>                       Positive_class <span class="op">=</span> <span class="st">"abnormal"</span>, </span>
+<span>                       Negative_class <span class="op">=</span> <span class="st">"normal"</span>,</span>
+<span>                       classify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>As can be observed comparing the outcome in the dataframe with the
 tag on samples’ names, the single marker <strong>Marker1</strong> is not
 100% efficient in correctly predicting the class (see mismatch in second
 row, where the <em>normal</em> sample “no AIH126” is classified as
 <em>abnormal</em> by Marker1); instead, both Combination 11 and 15
 correctly assign it to the right class.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cl_data</span></span>
-<span><span class="co">#&gt;           ID  Marker1 Combination 11 Combination 15</span></span>
-<span><span class="co">#&gt; 1      AIH33 abnormal       abnormal       abnormal</span></span>
-<span><span class="co">#&gt; 2  no AIH126 abnormal         normal         normal</span></span>
-<span><span class="co">#&gt; 3      AIH12 abnormal       abnormal       abnormal</span></span>
-<span><span class="co">#&gt; 4  no AIH112   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 5   no AIH41   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 6   no AIH38   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 7       AIH4 abnormal       abnormal       abnormal</span></span>
-<span><span class="co">#&gt; 8   no AIH32   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 9      AIH20 abnormal       abnormal       abnormal</span></span>
-<span><span class="co">#&gt; 10  no AIH13   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 11  no AIH11   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 12 no AIH114   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 13 no AIH121   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 14     AIH17 abnormal       abnormal       abnormal</span></span>
-<span><span class="co">#&gt; 15     AIH14 abnormal       abnormal       abnormal</span></span>
-<span><span class="co">#&gt; 16 no AIH106   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 17  no AIH67   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 18      AIH9 abnormal       abnormal       abnormal</span></span>
-<span><span class="co">#&gt; 19  no AIH74   normal         normal         normal</span></span>
-<span><span class="co">#&gt; 20     AIH16 abnormal       abnormal       abnormal</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cl_data</span></span></code></pre></div>
+<pre><code><span><span class="co">##           ID  Marker1 Combination 11 Combination 15</span></span>
+<span><span class="co">## 1      AIH33 abnormal       abnormal       abnormal</span></span>
+<span><span class="co">## 2  no AIH126 abnormal         normal         normal</span></span>
+<span><span class="co">## 3      AIH12 abnormal       abnormal       abnormal</span></span>
+<span><span class="co">## 4  no AIH112   normal         normal         normal</span></span>
+<span><span class="co">## 5   no AIH41   normal         normal         normal</span></span>
+<span><span class="co">## 6   no AIH38   normal         normal         normal</span></span>
+<span><span class="co">## 7       AIH4 abnormal       abnormal       abnormal</span></span>
+<span><span class="co">## 8   no AIH32   normal         normal         normal</span></span>
+<span><span class="co">## 9      AIH20 abnormal       abnormal       abnormal</span></span>
+<span><span class="co">## 10  no AIH13   normal         normal         normal</span></span>
+<span><span class="co">## 11  no AIH11   normal         normal         normal</span></span>
+<span><span class="co">## 12 no AIH114   normal         normal         normal</span></span>
+<span><span class="co">## 13 no AIH121   normal         normal         normal</span></span>
+<span><span class="co">## 14     AIH17 abnormal       abnormal       abnormal</span></span>
+<span><span class="co">## 15     AIH14 abnormal       abnormal       abnormal</span></span>
+<span><span class="co">## 16 no AIH106   normal         normal         normal</span></span>
+<span><span class="co">## 17  no AIH67   normal         normal         normal</span></span>
+<span><span class="co">## 18      AIH9 abnormal       abnormal       abnormal</span></span>
+<span><span class="co">## 19  no AIH74   normal         normal         normal</span></span>
+<span><span class="co">## 20     AIH16 abnormal       abnormal       abnormal</span></span></code></pre>
 <p>Thus, each column of the prediction dataframe contains the prediction
 outcome of a given model and, along with the samples names (in the
 <em>index</em> column), can be accessed with the $ operator as
 usual:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cl_data</span><span class="op">$</span><span class="va">index</span></span>
-<span><span class="co">#&gt; NULL</span></span>
-<span><span class="va">cl_data</span><span class="op">$</span><span class="va">`Combination 11`</span></span>
-<span><span class="co">#&gt;  [1] "abnormal" "normal"   "abnormal" "normal"   "normal"   "normal"  </span></span>
-<span><span class="co">#&gt;  [7] "abnormal" "normal"   "abnormal" "normal"   "normal"   "normal"  </span></span>
-<span><span class="co">#&gt; [13] "normal"   "abnormal" "abnormal" "normal"   "normal"   "abnormal"</span></span>
-<span><span class="co">#&gt; [19] "normal"   "abnormal"</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cl_data</span><span class="op">$</span><span class="va">index</span></span></code></pre></div>
+<pre><code><span><span class="co">## NULL</span></span></code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cl_data</span><span class="op">$</span><span class="va">`Combination 11`</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] "abnormal" "normal"   "abnormal" "normal"   "normal"   "normal"  </span></span>
+<span><span class="co">##  [7] "abnormal" "normal"   "abnormal" "normal"   "normal"   "normal"  </span></span>
+<span><span class="co">## [13] "normal"   "abnormal" "abnormal" "normal"   "normal"   "abnormal"</span></span>
+<span><span class="co">## [19] "normal"   "abnormal"</span></span></code></pre>
 <p>In addition, by setting <code>classify</code>=FALSE,
 <code><a href="../reference/combi_score.html">combi_score()</a></code> can be exploited to easily retrieve the
 predicted probabilities of each combination (p(x) a.k.a ‘combi score’)
 in unclassified datasets.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">unc_data</span> <span class="op">&lt;-</span> <span class="va">demo_unclassified_data</span></span>
-<span><span class="va">cs_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">unc_data</span>, Models <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>, Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>,</span>
-<span>    Positive_class <span class="op">=</span> <span class="st">"abnormal"</span>, Negative_class <span class="op">=</span> <span class="st">"normal"</span>, classify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">cs_data</span></span>
-<span><span class="co">#&gt;           ID      Marker1 Combination 11 Combination 15</span></span>
-<span><span class="co">#&gt; 1      AIH33 9.629030e-01   9.864991e-01   9.875017e-01</span></span>
-<span><span class="co">#&gt; 2  no AIH126 3.960193e-01   1.537155e-01   1.455281e-01</span></span>
-<span><span class="co">#&gt; 3      AIH12 2.194324e-01   4.378589e-01   5.432861e-01</span></span>
-<span><span class="co">#&gt; 4  no AIH112 6.928584e-02   5.381403e-02   1.289242e-02</span></span>
-<span><span class="co">#&gt; 5   no AIH41 1.041071e-06   4.840652e-05   4.525821e-06</span></span>
-<span><span class="co">#&gt; 6   no AIH38 5.893585e-03   3.576392e-03   4.687486e-03</span></span>
-<span><span class="co">#&gt; 7       AIH4 6.007967e-01   7.460983e-01   6.533166e-01</span></span>
-<span><span class="co">#&gt; 8   no AIH32 2.799238e-02   9.912527e-03   1.635574e-02</span></span>
-<span><span class="co">#&gt; 9      AIH20 4.661915e-01   5.588462e-01   6.067799e-01</span></span>
-<span><span class="co">#&gt; 10  no AIH13 1.041071e-06   4.087306e-08   2.534146e-07</span></span>
-<span><span class="co">#&gt; 11  no AIH11 1.041071e-06   3.153259e-06   3.309952e-07</span></span>
-<span><span class="co">#&gt; 12 no AIH114 1.664621e-01   8.160105e-02   9.545823e-02</span></span>
-<span><span class="co">#&gt; 13 no AIH121 2.799238e-02   9.247089e-02   3.612256e-02</span></span>
-<span><span class="co">#&gt; 14     AIH17 9.985976e-01   9.999299e-01   9.999348e-01</span></span>
-<span><span class="co">#&gt; 15     AIH14 5.455001e-01   6.805223e-01   7.390291e-01</span></span>
-<span><span class="co">#&gt; 16 no AIH106 4.001370e-02   1.099469e-02   1.870649e-02</span></span>
-<span><span class="co">#&gt; 17  no AIH67 1.616676e-02   6.082032e-04   1.604146e-03</span></span>
-<span><span class="co">#&gt; 18      AIH9 5.869070e-01   8.034081e-01   8.027712e-01</span></span>
-<span><span class="co">#&gt; 19  no AIH74 1.041071e-06   1.425832e-06   1.064701e-07</span></span>
-<span><span class="co">#&gt; 20     AIH16 9.973708e-01   9.999000e-01   9.998317e-01</span></span></code></pre></div>
+<span><span class="va">cs_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">unc_data</span>, </span>
+<span>                       Models <span class="op">=</span>  <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>, </span>
+<span>                       Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>, </span>
+<span>                       Positive_class <span class="op">=</span> <span class="st">"abnormal"</span>, </span>
+<span>                       Negative_class <span class="op">=</span> <span class="st">"normal"</span>,</span>
+<span>                       classify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">cs_data</span></span></code></pre></div>
+<pre><code><span><span class="co">##           ID      Marker1 Combination 11 Combination 15</span></span>
+<span><span class="co">## 1      AIH33 9.629030e-01   9.864991e-01   9.875017e-01</span></span>
+<span><span class="co">## 2  no AIH126 3.960193e-01   1.537155e-01   1.455281e-01</span></span>
+<span><span class="co">## 3      AIH12 2.194324e-01   4.378589e-01   5.432861e-01</span></span>
+<span><span class="co">## 4  no AIH112 6.928584e-02   5.381403e-02   1.289242e-02</span></span>
+<span><span class="co">## 5   no AIH41 1.041071e-06   4.840652e-05   4.525821e-06</span></span>
+<span><span class="co">## 6   no AIH38 5.893585e-03   3.576392e-03   4.687486e-03</span></span>
+<span><span class="co">## 7       AIH4 6.007967e-01   7.460983e-01   6.533166e-01</span></span>
+<span><span class="co">## 8   no AIH32 2.799238e-02   9.912527e-03   1.635574e-02</span></span>
+<span><span class="co">## 9      AIH20 4.661915e-01   5.588462e-01   6.067799e-01</span></span>
+<span><span class="co">## 10  no AIH13 1.041071e-06   4.087306e-08   2.534146e-07</span></span>
+<span><span class="co">## 11  no AIH11 1.041071e-06   3.153259e-06   3.309952e-07</span></span>
+<span><span class="co">## 12 no AIH114 1.664621e-01   8.160105e-02   9.545823e-02</span></span>
+<span><span class="co">## 13 no AIH121 2.799238e-02   9.247089e-02   3.612256e-02</span></span>
+<span><span class="co">## 14     AIH17 9.985976e-01   9.999299e-01   9.999348e-01</span></span>
+<span><span class="co">## 15     AIH14 5.455001e-01   6.805223e-01   7.390291e-01</span></span>
+<span><span class="co">## 16 no AIH106 4.001370e-02   1.099469e-02   1.870649e-02</span></span>
+<span><span class="co">## 17  no AIH67 1.616676e-02   6.082032e-04   1.604146e-03</span></span>
+<span><span class="co">## 18      AIH9 5.869070e-01   8.034081e-01   8.027712e-01</span></span>
+<span><span class="co">## 19  no AIH74 1.041071e-06   1.425832e-06   1.064701e-07</span></span>
+<span><span class="co">## 20     AIH16 9.973708e-01   9.999000e-01   9.998317e-01</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="ancill">Ancillary functions<a class="anchor" aria-label="anchor" href="#ancill"></a>
@@ -916,11 +927,11 @@ composition of each combination of interest. It requires as input one or
 more combinations (only their numbers), and the table with combinations
 and corresponding positive samples counts (<em>“tab”</em>, obtained with
 <code><a href="../reference/combi.html">combi()</a></code>).</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_markers.html">show_markers</a></span><span class="op">(</span>selected_combinations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">15</span><span class="op">)</span>, markers_table <span class="op">=</span> <span class="va">tab</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      Combination       Composing_markers</span></span>
-<span><span class="co">#&gt; 1 Combination 11 Marker1-Marker2-Marker3</span></span>
-<span><span class="co">#&gt; 2 Combination 15 Marker1-Marker3-Marker5</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_markers.html">show_markers</a></span><span class="op">(</span>selected_combinations <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span>,<span class="fl">15</span><span class="op">)</span>, markers_table <span class="op">=</span> <span class="va">tab</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##      Combination       Composing_markers</span></span>
+<span><span class="co">## 1 Combination 11 Marker1-Marker2-Marker3</span></span>
+<span><span class="co">## 2 Combination 15 Marker1-Marker3-Marker5</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="retrieving-combinations-containing-markers-of-interest">Retrieving combinations containing markers of interest<a class="anchor" aria-label="anchor" href="#retrieving-combinations-containing-markers-of-interest"></a>
@@ -931,93 +942,62 @@ the table with combinations and corresponding positive samples counts
 (<em>“tab”</em>, obtained with <code><a href="../reference/combi.html">combi()</a></code>). The list with the
 combinations containing all the markers is assigned to
 <em>“combs_list”</em> object.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">combs_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combs_with.html">combs_with</a></span><span class="op">(</span>markers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Marker1"</span>, <span class="st">"Marker3"</span><span class="op">)</span>, markers_table <span class="op">=</span> <span class="va">tab</span><span class="op">)</span></span>
-<span><span class="co">#&gt; The combinations in which you can find ALL the selected markers have been computed</span></span>
-<span><span class="va">combs_list</span></span>
-<span><span class="co">#&gt; [1]  2 11 14 15</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">combs_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combs_with.html">combs_with</a></span><span class="op">(</span>markers<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Marker1'</span>, <span class="st">'Marker3'</span><span class="op">)</span>, markers_table <span class="op">=</span> <span class="va">tab</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## The combinations in which you can find ALL the selected markers have been computed</span></span></code></pre>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">combs_list</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1]  2 11 14 15</span></span></code></pre>
 <p>Back to the <a href="#top">top</a> of this doc</p>
 <p>Go to <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_singlecell.html">Signature
 refining tutorial</a></p>
 <p>Session Info for this vignette:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; R version 4.3.0 (2023-04-21 ucrt)</span></span>
-<span><span class="co">#&gt; Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
-<span><span class="co">#&gt; Running under: Windows 11 x64 (build 22000)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Matrix products: default</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; locale:</span></span>
-<span><span class="co">#&gt; [1] LC_COLLATE=English_United Kingdom.utf8 </span></span>
-<span><span class="co">#&gt; [2] LC_CTYPE=English_United Kingdom.utf8   </span></span>
-<span><span class="co">#&gt; [3] LC_MONETARY=English_United Kingdom.utf8</span></span>
-<span><span class="co">#&gt; [4] LC_NUMERIC=C                           </span></span>
-<span><span class="co">#&gt; [5] LC_TIME=English_United Kingdom.utf8    </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; time zone: Europe/Rome</span></span>
-<span><span class="co">#&gt; tzcode source: internal</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; attached base packages:</span></span>
-<span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] combiroc_0.3.0 testthat_3.1.8 devtools_2.4.5 usethis_2.2.0  knitr_1.43    </span></span>
-<span><span class="co">#&gt; [6] httr_1.4.6    </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;   [1] RcppAnnoy_0.0.20       splines_4.3.0          later_1.3.1           </span></span>
-<span><span class="co">#&gt;   [4] tibble_3.2.1           polyclip_1.10-4        pROC_1.18.2           </span></span>
-<span><span class="co">#&gt;   [7] lifecycle_1.0.3        rstatix_0.7.2          rprojroot_2.0.3       </span></span>
-<span><span class="co">#&gt;  [10] globals_0.16.2         processx_3.8.1         lattice_0.21-8        </span></span>
-<span><span class="co">#&gt;  [13] hdf5r_1.3.8            MASS_7.3-58.4          backports_1.4.1       </span></span>
-<span><span class="co">#&gt;  [16] magrittr_2.0.3         plotly_4.10.2          sass_0.4.6            </span></span>
-<span><span class="co">#&gt;  [19] rmarkdown_2.22         jquerylib_0.1.4        yaml_2.3.7            </span></span>
-<span><span class="co">#&gt;  [22] remotes_2.4.2          httpuv_1.6.11          Seurat_4.3.0          </span></span>
-<span><span class="co">#&gt;  [25] sctransform_0.3.5      sp_1.6-1               sessioninfo_1.2.2     </span></span>
-<span><span class="co">#&gt;  [28] pkgbuild_1.4.0         spatstat.sparse_3.0-1  reticulate_1.30       </span></span>
-<span><span class="co">#&gt;  [31] cowplot_1.1.1          pbapply_1.7-0          RColorBrewer_1.1-3    </span></span>
-<span><span class="co">#&gt;  [34] abind_1.4-5            pkgload_1.3.2          Rtsne_0.16            </span></span>
-<span><span class="co">#&gt;  [37] purrr_1.0.1            rappdirs_0.3.3         ggrepel_0.9.3         </span></span>
-<span><span class="co">#&gt;  [40] irlba_2.3.5.1          listenv_0.9.0          spatstat.utils_3.0-3  </span></span>
-<span><span class="co">#&gt;  [43] moments_0.14.1         pheatmap_1.0.12        goftest_1.2-3         </span></span>
-<span><span class="co">#&gt;  [46] spatstat.random_3.1-5  fitdistrplus_1.1-11    parallelly_1.36.0     </span></span>
-<span><span class="co">#&gt;  [49] pkgdown_2.0.7          leiden_0.4.3           codetools_0.2-19      </span></span>
-<span><span class="co">#&gt;  [52] tidyselect_1.2.0       farver_2.1.1           matrixStats_1.0.0     </span></span>
-<span><span class="co">#&gt;  [55] spatstat.explore_3.2-1 jsonlite_1.8.5         ellipsis_0.3.2        </span></span>
-<span><span class="co">#&gt;  [58] progressr_0.13.0       ggridges_0.5.4         survival_3.5-5        </span></span>
-<span><span class="co">#&gt;  [61] systemfonts_1.0.4      tools_4.3.0            ragg_1.2.5            </span></span>
-<span><span class="co">#&gt;  [64] ica_1.0-3              Rcpp_1.0.10            glue_1.6.2            </span></span>
-<span><span class="co">#&gt;  [67] gridExtra_2.3          xfun_0.39              dplyr_1.1.2           </span></span>
-<span><span class="co">#&gt;  [70] withr_2.5.0            formatR_1.14           fastmap_1.1.1         </span></span>
-<span><span class="co">#&gt;  [73] fansi_1.0.4            callr_3.7.3            digest_0.6.31         </span></span>
-<span><span class="co">#&gt;  [76] R6_2.5.1               mime_0.12              textshaping_0.3.6     </span></span>
-<span><span class="co">#&gt;  [79] colorspace_2.1-0       scattermore_1.2        gtools_3.9.4          </span></span>
-<span><span class="co">#&gt;  [82] tensor_1.5             spatstat.data_3.0-1    utf8_1.2.3            </span></span>
-<span><span class="co">#&gt;  [85] tidyr_1.3.0            generics_0.1.3         data.table_1.14.8     </span></span>
-<span><span class="co">#&gt;  [88] prettyunits_1.1.1      htmlwidgets_1.6.2      uwot_0.1.14           </span></span>
-<span><span class="co">#&gt;  [91] pkgconfig_2.0.3        gtable_0.3.3           lmtest_0.9-40         </span></span>
-<span><span class="co">#&gt;  [94] brio_1.1.3             htmltools_0.5.5        carData_3.0-5         </span></span>
-<span><span class="co">#&gt;  [97] profvis_0.3.8          SeuratObject_4.1.3     scales_1.2.1          </span></span>
-<span><span class="co">#&gt; [100] SeuratData_0.2.2       png_0.1-8              rstudioapi_0.14       </span></span>
-<span><span class="co">#&gt; [103] reshape2_1.4.4         nlme_3.1-162           cachem_1.0.8          </span></span>
-<span><span class="co">#&gt; [106] zoo_1.8-12             stringr_1.5.0          KernSmooth_2.23-20    </span></span>
-<span><span class="co">#&gt; [109] parallel_4.3.0         miniUI_0.1.1.1         desc_1.4.2            </span></span>
-<span><span class="co">#&gt; [112] pillar_1.9.0           grid_4.3.0             vctrs_0.6.2           </span></span>
-<span><span class="co">#&gt; [115] RANN_2.6.1             urlchecker_1.0.1       promises_1.2.0.1      </span></span>
-<span><span class="co">#&gt; [118] ggpubr_0.6.0           car_3.1-2              xtable_1.8-4          </span></span>
-<span><span class="co">#&gt; [121] cluster_2.1.4          SeuratDisk_0.0.0.9020  evaluate_0.21         </span></span>
-<span><span class="co">#&gt; [124] cli_3.6.1              compiler_4.3.0         rlang_1.1.1           </span></span>
-<span><span class="co">#&gt; [127] crayon_1.5.2           future.apply_1.11.0    ggsignif_0.6.4        </span></span>
-<span><span class="co">#&gt; [130] labeling_0.4.2         ps_1.7.5               plyr_1.8.8            </span></span>
-<span><span class="co">#&gt; [133] fs_1.6.2               stringi_1.7.12         viridisLite_0.4.2     </span></span>
-<span><span class="co">#&gt; [136] deldir_1.0-9           munsell_0.5.0          lazyeval_0.2.2        </span></span>
-<span><span class="co">#&gt; [139] spatstat.geom_3.2-1    Matrix_1.5-4           patchwork_1.1.2       </span></span>
-<span><span class="co">#&gt; [142] bit64_4.0.5            future_1.32.0          ggplot2_3.4.2         </span></span>
-<span><span class="co">#&gt; [145] shiny_1.7.4            highr_0.10             ROCR_1.0-11           </span></span>
-<span><span class="co">#&gt; [148] igraph_1.4.3           broom_1.0.5            memoise_2.0.1         </span></span>
-<span><span class="co">#&gt; [151] bslib_0.5.0            bit_4.0.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## R version 4.3.1 (2023-06-16 ucrt)</span></span>
+<span><span class="co">## Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
+<span><span class="co">## Running under: Windows 11 x64 (build 22000)</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Matrix products: default</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## locale:</span></span>
+<span><span class="co">## [1] LC_COLLATE=English_United Kingdom.utf8 </span></span>
+<span><span class="co">## [2] LC_CTYPE=English_United Kingdom.utf8   </span></span>
+<span><span class="co">## [3] LC_MONETARY=English_United Kingdom.utf8</span></span>
+<span><span class="co">## [4] LC_NUMERIC=C                           </span></span>
+<span><span class="co">## [5] LC_TIME=English_United Kingdom.utf8    </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## time zone: Europe/Rome</span></span>
+<span><span class="co">## tzcode source: internal</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## attached base packages:</span></span>
+<span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## other attached packages:</span></span>
+<span><span class="co">## [1] devtools_2.4.5 usethis_2.2.0  combiroc_0.3.1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## loaded via a namespace (and not attached):</span></span>
+<span><span class="co">##  [1] gtable_0.3.3      xfun_0.39         bslib_0.5.0       ggplot2_3.4.2    </span></span>
+<span><span class="co">##  [5] remotes_2.4.2     htmlwidgets_1.6.2 processx_3.8.1    callr_3.7.3      </span></span>
+<span><span class="co">##  [9] vctrs_0.6.2       tools_4.3.1       ps_1.7.5          generics_0.1.3   </span></span>
+<span><span class="co">## [13] tibble_3.2.1      fansi_1.0.4       highr_0.10        pkgconfig_2.0.3  </span></span>
+<span><span class="co">## [17] desc_1.4.2        lifecycle_1.0.3   farver_2.1.1      compiler_4.3.1   </span></span>
+<span><span class="co">## [21] stringr_1.5.0     textshaping_0.3.6 munsell_0.5.0     httpuv_1.6.11    </span></span>
+<span><span class="co">## [25] htmltools_0.5.5   sass_0.4.6        yaml_2.3.7        urlchecker_1.0.1 </span></span>
+<span><span class="co">## [29] pillar_1.9.0      pkgdown_2.0.7     later_1.3.1       crayon_1.5.2     </span></span>
+<span><span class="co">## [33] jquerylib_0.1.4   tidyr_1.3.0       ellipsis_0.3.2    cachem_1.0.8     </span></span>
+<span><span class="co">## [37] sessioninfo_1.2.2 mime_0.12         gtools_3.9.4      tidyselect_1.2.0 </span></span>
+<span><span class="co">## [41] digest_0.6.31     stringi_1.7.12    dplyr_1.1.2       purrr_1.0.1      </span></span>
+<span><span class="co">## [45] labeling_0.4.2    rprojroot_2.0.3   fastmap_1.1.1     grid_4.3.1       </span></span>
+<span><span class="co">## [49] colorspace_2.1-0  cli_3.6.1         magrittr_2.0.3    pkgbuild_1.4.1   </span></span>
+<span><span class="co">## [53] utf8_1.2.3        withr_2.5.0       prettyunits_1.1.1 scales_1.2.1     </span></span>
+<span><span class="co">## [57] promises_1.2.0.1  rmarkdown_2.22    moments_0.14.1    ragg_1.2.5       </span></span>
+<span><span class="co">## [61] memoise_2.0.1     shiny_1.7.4       evaluate_0.21     knitr_1.43       </span></span>
+<span><span class="co">## [65] miniUI_0.1.1.1    profvis_0.3.8     rlang_1.1.1       Rcpp_1.0.10      </span></span>
+<span><span class="co">## [69] xtable_1.8-4      glue_1.6.2        pROC_1.18.2       pkgload_1.3.2    </span></span>
+<span><span class="co">## [73] rstudioapi_0.14   jsonlite_1.8.5    R6_2.5.1          plyr_1.8.8       </span></span>
+<span><span class="co">## [77] systemfonts_1.0.4 fs_1.6.2</span></span></code></pre>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

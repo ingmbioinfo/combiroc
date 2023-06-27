@@ -19,6 +19,9 @@
     <loc>https://ingmbioinfo.github.io/combiroc/index.html</loc>
   </url>
   <url>
+    <loc>https://ingmbioinfo.github.io/combiroc/LICENCE.html</loc>
+  </url>
+  <url>
     <loc>https://ingmbioinfo.github.io/combiroc/LICENSE-text.html</loc>
   </url>
   <url>
@@ -68,6 +71,9 @@
   </url>
   <url>
     <loc>https://ingmbioinfo.github.io/combiroc/reference/show_markers.html</loc>
+  </url>
+  <url>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/signature_score.html</loc>
   </url>
   <url>
     <loc>https://ingmbioinfo.github.io/combiroc/reference/single_markers_statistics.html</loc>
