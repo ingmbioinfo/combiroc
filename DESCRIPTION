@@ -30,6 +30,11 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Depends: 
+    R (>= 3.5.0)
+Remotes:
+    github::satijalab/seurat-data,
+    github::mojaveazure/seurat-disk
 Imports:
     tidyr,
     dplyr,
@@ -43,14 +48,15 @@ Imports:
     devtools,
     RColorBrewer,
     Seurat, 
-    SeuratData,
-    SeuratDisk, 
     colorspace,
     cowplot, 
     ggpubr, 
     patchwork, 
     pheatmap,
-    scattermore
+    scattermore,
+    SeuratObject,
+    SeuratData,
+    SeuratDisk
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
@@ -59,8 +65,6 @@ Suggests:
     httr,
     sf
 VignetteBuilder: knitr
-Depends: 
-    R (>= 3.5.0)
 URL: https://ingmbioinfo.github.io/combiroc,
     https://github.com/ingmbioinfo/combiroc,
 BugReports: https://github.com/ingmbioinfo/combiroc/issues
