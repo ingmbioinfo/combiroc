@@ -65,7 +65,6 @@ Suggests:
     httr,
     sf
 VignetteBuilder: knitr
-URL: https://ingmbioinfo.github.io/combiroc,
-    https://github.com/ingmbioinfo/combiroc,
+URL: https://github.com/ingmbioinfo/combiroc
 BugReports: https://github.com/ingmbioinfo/combiroc/issues
 Config/testthat/edition: 3
