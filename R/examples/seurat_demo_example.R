@@ -1,1 +1,0 @@
-seurat_demo # combiroc built-in seurat-object demo data
