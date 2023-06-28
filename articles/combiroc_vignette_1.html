@@ -78,7 +78,7 @@ combinations made easy.</div></h3>
                         <h4 data-toc-skip class="author">Ivan Ferrari,
 Riccardo L. Rossi</h4>
             
-            <h4 data-toc-skip class="date">27 June 2023</h4>
+            <h4 data-toc-skip class="date">28 June 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_vignette_1.Rmd" class="external-link"><code>vignettes/combiroc_vignette_1.Rmd</code></a></small>
       <div class="d-none name"><code>combiroc_vignette_1.Rmd</code></div>
@@ -201,7 +201,7 @@ Box plots are a nice option to observe the distribution of measurements
 in each sample. The user can plot the data as she/he wishes using the
 preferred function: since data for CombiROC are required to be in
 <em>wide</em> (<em>untidy</em>) format, they cannot be plotted directly
-with the widely used <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> function. Either the user is
+with the widely used <code>ggplot()</code> function. Either the user is
 free to make the data longer (<em>tidy</em>) for the sole purpose of
 plotting, or the package’s <code><a href="../reference/combiroc_long.html">combiroc_long()</a></code> function can be
 used for this purpose; this function wraps the
@@ -215,7 +215,7 @@ thus transformed into the reshaped long format
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combiroc_long.html">combiroc_long</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="va">data_long</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 850 × 4</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 850 × 4</span></span>m</span>
 <span><span class="co">##    Patient.ID Class Markers Values</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 1</span> AIH1       A     Marker1    438</span></span>
@@ -228,7 +228,7 @@ thus transformed into the reshaped long format
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> AIH2       A     Marker3    134</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> AIH2       A     Marker4    523</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> AIH2       A     Marker5    335</span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 840 more rows</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 840 more rows</span></span>9m</span></code></pre>
 <div class="section level4">
 <h4 id="checking-the-individual-markers">Checking the individual markers<a class="anchor" aria-label="anchor" href="#checking-the-individual-markers"></a>
 </h4>
@@ -253,7 +253,7 @@ are:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s_table</span> <span class="op">&lt;-</span> <span class="va">sms</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">s_table</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 10 × 11</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 10 × 11</span></span>m</span>
 <span><span class="co">## <span style="color: #949494;"># Groups:   Markers [5]</span></span></span>
 <span><span class="co">##    Markers Class   Mean   Min   Max     Sd    CV First_Quart. Median</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -267,7 +267,7 @@ are:</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Marker4 B      467.      0  <span style="text-decoration: underline;">2</span>464  406.  0.869        232    361  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Marker5 A      571.      0  <span style="text-decoration: underline;">2</span>757  582.  1.02         152.   518  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Marker5 B      205.      0  <span style="text-decoration: underline;">4</span>114  413.  2.02          17.2   76  </span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 2 more variables: Third_Quart. &lt;dbl&gt;, Skewness &lt;dbl&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 2 more variables: Third_Quart. &lt;dbl&gt;, Skewness &lt;dbl&gt;</span></span>9m</span></code></pre>
 <p>While the second element is another list, containing dot plots, one
 for each marker. The individual plots can be called from the second
 element (<code>sms[[2]]</code>) of the list with the <code>$</code>
@@ -421,7 +421,7 @@ further in the workflow.</p>
 statistics of the density plot.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">Density_summary</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 9</span></span>m</span>
 <span><span class="co">##   Class `# observations`   Min   Max Median  Mean `1st Q` `3rd Q`    SD</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> A                  200     0 <span style="text-decoration: underline;">13</span>178    461  814.    233.     825 <span style="text-decoration: underline;">1</span>427.</span></span>
