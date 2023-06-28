@@ -87,27 +87,7 @@ Rossi, Ivan Ferrari</h4>
     
     
 <div class="section level2">
-<h2 id="top">Libraries needed<a class="anchor" aria-label="anchor" href="#top"></a>
-</h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ingmbioinfo/combiroc" class="external-link">combiroc</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
-<span><span class="co"># for plotting purposes:</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/" class="external-link">ggpubr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://colorspace.R-Forge.R-project.org/" class="external-link">colorspace</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span></span></code></pre></div>
-<p>and also needed to load and process external scRNAseq datasets:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat" class="external-link">Seurat</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SeuratData</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+<h2 id="top">Introduction<a class="anchor" aria-label="anchor" href="#top"></a>
 </h2>
 <p>Single-cell transcriptomics is a rapidly growing field which is
 essential to improve our understanding of complex tissues and organisms
@@ -136,6 +116,29 @@ datasets showed in <a href="https://satijalab.org/seurat/" class="external-link"
 vignettes. All of them have been deeply characterized and scrupulously
 labelled, so they are accepted and used as reference by the scientific
 community.</p>
+</div>
+<div class="section level2">
+<h2 id="libraries-needed">Libraries needed<a class="anchor" aria-label="anchor" href="#libraries-needed"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># main libraries:</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ingmbioinfo/combiroc" class="external-link">combiroc</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># for plotting purposes:</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/" class="external-link">ggpubr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://colorspace.R-Forge.R-project.org/" class="external-link">colorspace</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span></span></code></pre></div>
+<p>and also needed for this specific scRNAseq workflow:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span> <span class="co"># used to install devel-level packages</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat" class="external-link">Seurat</a></span><span class="op">)</span> <span class="co"># used to process scRNAseq data</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SeuratData</span><span class="op">)</span> <span class="co"># used to install and load scRNAseq datasets</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SeuratDisk</span><span class="op">)</span> <span class="co"># used to read h5seurat files</span></span></code></pre></div>
 <p><strong>A note on executing this vignette</strong></p>
 <p>The code described in this vignette was originally run on a
 jupyter-based R-kernel notebook backed by a high-performance computing
@@ -170,9 +173,7 @@ This dataset can be downloaded as an h5 Seurat data (h5s) from the <a href="http
 atlas page</a> (exact download link: <a href="https://atlas.fredhutch.org/data/nygc/multimodal/pbmc_multimodal.h5seurat" class="external-link">here</a>)
 <span style="color: orange;">[Heavy-Code]</span></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># load the SeuratDisk library to read h5seurat</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">SeuratDisk</span><span class="op">)</span></span>
-<span><span class="co"># read the downloaded h5seurat dataset file</span></span>
+<code class="sourceCode R"><span><span class="co"># read the downloaded h5seurat dataset file (using SeuratDisk functions)</span></span>
 <span><span class="va">atlas</span> <span class="op">&lt;-</span> <span class="fu">LoadH5Seurat</span><span class="op">(</span><span class="st">"pbmc_multimodal.h5seurat"</span><span class="op">)</span></span>
 <span><span class="co"># activate the level-1 annotations</span></span>
 <span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">atlas</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">atlas</span><span class="op">@</span><span class="va">meta.data</span><span class="op">$</span><span class="va">celltype.l1</span></span>
@@ -731,11 +732,11 @@ signature (30 genes) we expect it to be very specific. We are doing this
 on both test datasets previously used.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># computing whole signature gene-signature-score for CBMC</span></span>
-<span><span class="va">NK_sig_cbmc</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
+<span><span class="va">NK_sig_cbmc</span><span class="op">&lt;-</span><span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span><span class="op">$</span><span class="va">NK_signature_score</span> <span class="op">&lt;-</span> <span class="va">NK_sig_cbmc</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
 <span></span>
 <span><span class="co"># computing whole signature gene-signature-score for PBMC-3K</span></span>
-<span><span class="va">NK_sig_pbmc3k</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">pbmc3k.final</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
+<span><span class="va">NK_sig_pbmc3k</span><span class="op">&lt;-</span><span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">pbmc3k.final</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span><span class="op">$</span><span class="va">NK_signature_score</span> <span class="op">&lt;-</span> <span class="va">NK_sig_pbmc3k</span><span class="op">$</span><span class="va">scaled_combined_score</span></span></code></pre></div>
 <p>Then, we compute the “gene-signature-score” <strong>limited to the
 combinations of five genes previously used</strong>: - <em>Combination
@@ -745,11 +746,11 @@ IL2RB, KLRD1 and KLRF1) in PBMC3K dataset These combinations are going
 to be our “optimized-signatures”.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># computing gene-signature-score of combination 172173 for CBMC</span></span>
-<span><span class="va">comb_cbmc</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'GZMB'</span>,<span class="st">'IL2RB'</span>,<span class="st">'KLRF1'</span>,<span class="st">'SPON2'</span>,<span class="st">'TRDC'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">comb_cbmc</span><span class="op">&lt;-</span><span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'GZMB'</span>,<span class="st">'IL2RB'</span>,<span class="st">'KLRF1'</span>,<span class="st">'SPON2'</span>,<span class="st">'TRDC'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span><span class="op">[[</span><span class="st">'c172173_signature_score'</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">comb_cbmc</span><span class="op">$</span><span class="va">scaled_combined_score</span>  </span>
 <span></span>
 <span><span class="co"># computing gene-signature-score of combination 137550 for PBMC-3K</span></span>
-<span><span class="va">comb_pbmc3k</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">pbmc3k.final</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'CLIC3'</span>, <span class="st">'FCGR3A'</span>, <span class="st">'IL2RB'</span>,<span class="st">'KLRD1'</span>,<span class="st">'KLRF1'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">comb_pbmc3k</span><span class="op">&lt;-</span><span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">pbmc3k.final</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'CLIC3'</span>, <span class="st">'FCGR3A'</span>, <span class="st">'IL2RB'</span>,<span class="st">'KLRD1'</span>,<span class="st">'KLRF1'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">'c137550_signature_score'</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">comb_pbmc3k</span><span class="op">$</span><span class="va">scaled_combined_score</span> </span></code></pre></div>
 <p>We are now plotting side by side the gene-signature-scores from the
 whole-signature (30 genes) and the combinations (5 genes).<br>
@@ -818,9 +819,9 @@ combinations on the test datasets</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1492</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="va">combs_length</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">random_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span>, <span class="va">i</span><span class="op">)</span></span>
-<span>      <span class="va">dfc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span><span class="va">cbmc</span>, <span class="va">random_list</span><span class="op">)</span></span>
+<span>      <span class="va">dfc</span> <span class="op">&lt;-</span> <span class="fu">signature_score</span><span class="op">(</span><span class="va">cbmc</span>, <span class="va">random_list</span><span class="op">)</span></span>
 <span>      <span class="va">cbmc</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"random_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">dfc</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
-<span>      <span class="va">dfp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/signature_score.html">signature_score</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, <span class="va">random_list</span><span class="op">)</span></span>
+<span>      <span class="va">dfp</span> <span class="op">&lt;-</span> <span class="fu">signature_score</span><span class="op">(</span><span class="va">pbmc3k.final</span>, <span class="va">random_list</span><span class="op">)</span></span>
 <span>      <span class="va">pbmc3k.final</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"random_"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">dfp</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Here random combinations do not have a preferential cluster and show
