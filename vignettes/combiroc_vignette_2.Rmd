@@ -23,30 +23,7 @@ knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir = "..")
 ```
-
-# Libraries needed {#top}
-
-```{r warning=FALSE,message=FALSE}
-library(combiroc)
-library(dplyr)
-library(tidyr)
-# for plotting purposes:
-library(ggplot2)
-library(ggpubr)
-library(patchwork)
-library(RColorBrewer)
-library(colorspace)
-library(cowplot)
-```
-
-and also needed to load and process external scRNAseq datasets:
-```{r eval=FALSE}
-library(devtools)
-library(Seurat)
-library(SeuratData)
-```
-
-# Introduction
+# Introduction {#top}
 
 Single-cell transcriptomics is a rapidly growing field which is essential to improve our understanding of complex tissues and organisms at an unprecedented resolution.
 The manual annotation of cell identity, which is the gold standard procedure to determine cell populations, remains a major limitation in most scRNA-seq analysis [[1]](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1795-z); more recently, a growing number of resources are being published offering the scientific community many cell type specific gene signature as a reference.
@@ -56,6 +33,31 @@ Combiroc is specialized in finding specific combinations, thus its use may allow
 
 Here we show the complete workflow of combiroc-mediated signature refinement at single-cell resolution in which we used 3 PBMC public datasets showed in [Seurat](https://satijalab.org/seurat/) vignettes.
 All of them have been deeply characterized and scrupulously labelled, so they are accepted and used as reference by the scientific community.
+
+# Libraries needed 
+
+```{r warning=FALSE,message=FALSE}
+# main libraries:
+library(combiroc)
+library(dplyr)
+library(tidyr)
+
+# for plotting purposes:
+library(ggplot2)
+library(ggpubr)
+library(patchwork)
+library(RColorBrewer)
+library(colorspace)
+library(cowplot)
+```
+
+and also needed for this specific scRNAseq workflow:
+```{r eval=FALSE}
+library(devtools) # used to install devel-level packages
+library(Seurat) # used to process scRNAseq data
+library(SeuratData) # used to install and load scRNAseq datasets
+library(SeuratDisk) # used to read h5seurat files
+```
 
 **A note on executing this vignette**
 
@@ -74,17 +76,13 @@ As combiroc training dataset we are using the [PBMC CITE-seq atlas](https://sati
 This dataset can be downloaded as an h5 Seurat data (h5s) from the [FredHutch-NYCG atlas page](https://atlas.fredhutch.org/nygc/multimodal-pbmc/) (exact download link: [here](https://atlas.fredhutch.org/data/nygc/multimodal/pbmc_multimodal.h5seurat)) [[Heavy-Code]]{style="color: orange;"}
 
 ```{r eval=FALSE}
-# load the SeuratDisk library to read h5seurat
-library(SeuratDisk)
-# read the downloaded h5seurat dataset file
+# read the downloaded h5seurat dataset file (using SeuratDisk functions)
 atlas <- LoadH5Seurat("pbmc_multimodal.h5seurat")
 # activate the level-1 annotations
 Idents(atlas) <- atlas@meta.data$celltype.l1
 # overview annotated cell clusters with UMAP
 DimPlot(atlas, label = T, repel = T)
 ```
-
-
 ```{r echo=FALSE, fig.align = "center"}
 mywd <- getwd()
 knitr::include_graphics(paste0(mywd, "/vignettes/atlas_dimplot.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
@@ -109,7 +107,6 @@ By visualising the expression values of the top 4 markers of NK cells cluster it
 ```{r eval= FALSE, fig.height = 10, fig.width = 8, fig.align = "center"}
 FeaturePlot(atlas, nk_genes[1:4])
 ```
-
 ```{r echo=FALSE, fig.align = "center"}
 mywd <- getwd()
 knitr::include_graphics(paste0(mywd, "/vignettes/FeaturePlot1.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
