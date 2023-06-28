@@ -4,6 +4,12 @@
     <loc>https://ingmbioinfo.github.io/combiroc/404.html</loc>
   </url>
   <url>
+    <loc>https://ingmbioinfo.github.io/combiroc/LICENCE.html</loc>
+  </url>
+  <url>
+    <loc>https://ingmbioinfo.github.io/combiroc/LICENSE-text.html</loc>
+  </url>
+  <url>
     <loc>https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html</loc>
   </url>
   <url>
@@ -19,22 +25,16 @@
     <loc>https://ingmbioinfo.github.io/combiroc/index.html</loc>
   </url>
   <url>
-    <loc>https://ingmbioinfo.github.io/combiroc/LICENCE.html</loc>
-  </url>
-  <url>
-    <loc>https://ingmbioinfo.github.io/combiroc/LICENSE-text.html</loc>
-  </url>
-  <url>
     <loc>https://ingmbioinfo.github.io/combiroc/news/index.html</loc>
   </url>
   <url>
     <loc>https://ingmbioinfo.github.io/combiroc/reference/combi.html</loc>
   </url>
   <url>
-    <loc>https://ingmbioinfo.github.io/combiroc/reference/combiroc_long.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/combi_score.html</loc>
   </url>
   <url>
-    <loc>https://ingmbioinfo.github.io/combiroc/reference/combi_score.html</loc>
+    <loc>https://ingmbioinfo.github.io/combiroc/reference/combiroc_long.html</loc>
   </url>
   <url>
     <loc>https://ingmbioinfo.github.io/combiroc/reference/combs_with.html</loc>
