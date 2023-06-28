@@ -42,7 +42,9 @@ Imports:
     stats,
     utils,
     moments,
-    Seurat
+    Seurat,
+    devtools,
+    ggpubr
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
