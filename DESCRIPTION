@@ -42,16 +42,7 @@ Imports:
     stats,
     utils,
     moments,
-    devtools,
-    RColorBrewer,
-    Seurat, 
-    colorspace,
-    cowplot, 
-    ggpubr, 
-    patchwork, 
-    pheatmap,
-    scattermore,
-    SeuratObject,
+    Seurat
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
