@@ -1,6 +1,6 @@
-# combiroc 0.3.1 - June 19, 2023
+# combiroc 0.3.1 - June 28, 2023
 
-Minor changes for vignette knitting consistency and smaller bugs on dependencies.
+Minor changes for vignette knitting consistency and smaller bugs on dependencies. Namespace and demo datasets related problems were solved. Documentation consistency between package and second version of preprint was checked and further enforced.
 
 # combiroc 0.3.0 - June 12, 2023
 
@@ -10,7 +10,7 @@ This version of combiroc package enforces the full-fledge single cell RNAseq wor
 * se_sp() function was removed. SE and SP are directly calculated during combinatorial analysis
 * New Seurat-style demo data was added
 * Streamlined combi_score() function for model finding
-* Bugs and minor changes troughout the package
+* Bugs and minor changes throughout the package
 
 # combiroc 0.2.3 - Aug. 13, 2021
 
