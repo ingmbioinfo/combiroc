@@ -390,7 +390,7 @@ combs_list
 
 Back to the [top](#top) of this doc
 
-Go to [Signature refining tutorial](https://ingmbioinfo.github.io/combiroc/articles/combiroc_singlecell.html)
+Go to [Signature refining tutorial](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_2.html)
 
 Session Info for this vignette:
 ```{r}
