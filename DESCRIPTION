@@ -1,7 +1,7 @@
 Package: combiroc
 Title: Selection and Ranking of Omics Biomarkers Combinations Made Easy
-Date: 2023-06-19
-Version: 0.3.1
+Date: 2023-06-29
+Version: 0.3.2
 Language: en-US
 Authors@R: 
   c(person(given = "Ivan",
@@ -32,9 +32,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends: 
     R (>= 3.5.0)
-Remotes:
-    github::satijalab/seurat-data,
-    github::mojaveazure/seurat-disk
 Imports:
     tidyr,
     dplyr,
@@ -55,15 +52,12 @@ Imports:
     pheatmap,
     scattermore,
     SeuratObject,
-    SeuratData,
-    SeuratDisk
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
     markdown,
     rmarkdown,
-    httr,
-    sf
+    httr
 VignetteBuilder: knitr
 URL: https://github.com/ingmbioinfo/combiroc, https://ingmbioinfo.github.io/combiroc/
 BugReports: https://github.com/ingmbioinfo/combiroc/issues
