@@ -17,9 +17,9 @@ This is the development version of CombiROC package (combiroc), code in this rep
 
 The CombiROC approach was first released as a Shiny Application with limited features, which is still available at [combiroc.eu](http://combiroc.eu/), but it has limited features as well as low computational power and is __not further maintained__. If you need to cite the method or the web-app please refer to [**Mazzara et al.** Scientific Reports 2017](https://www.nature.com/articles/srep45477) and [**Bombaci & Rossi**, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16).
 
-For full capabilities and customized analyses we suggest to install the combiroc package from  [CRAN](https://cloud.r-project.org/web/packages/combiroc/index.html); for the new and improved features of the single-cell workflow we suggest to install updated development version from this repo. 
+For full capabilities and customized analyses we suggest to install the combiroc package from  [CRAN](https://cloud.r-project.org/web/packages/combiroc/index.html); for the new and improved single-cell workflow features you need to install the latest development version from this repo (see below). 
 
-In any case, if you are using the combiroc **package** in your research, please cite our **bioRxiv preprint**: [**Ferrari et al.** *Combiroc: when 'less is more' in bulk and single cell marker signatures*. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2) 
+In any case, if you are using the combiroc **package** in your research, please cite our **_"Less is more"_ bioRxiv preprint**: [**Ferrari et al.** *Combiroc: when 'less is more' in bulk and single cell marker signatures*. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2) 
 
 ## Combiroc bioRxiv preprint Supplementary material
 
