@@ -36,15 +36,14 @@ Imports:
     tidyr,
     dplyr,
     ggplot2,
+    ggpubr,
     gtools,
     pROC,
     stringr,
     stats,
     utils,
     moments,
-    Seurat,
-    devtools,
-    ggpubr
+    Seurat
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
