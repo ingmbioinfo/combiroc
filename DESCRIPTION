@@ -36,20 +36,19 @@ Imports:
     tidyr,
     dplyr,
     ggplot2,
-    ggpubr,
     gtools,
     pROC,
     stringr,
     stats,
     utils,
-    moments,
-    Seurat
+    moments
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
     markdown,
     rmarkdown,
-    httr
+    httr,
+    Seurat
 VignetteBuilder: knitr
 URL: https://github.com/ingmbioinfo/combiroc, https://ingmbioinfo.github.io/combiroc/
 BugReports: https://github.com/ingmbioinfo/combiroc/issues
