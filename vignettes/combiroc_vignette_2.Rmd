@@ -41,17 +41,10 @@ All of them have been deeply characterized and scrupulously labelled, so they ar
 library(combiroc)
 library(dplyr)
 library(tidyr)
-
-# for plotting purposes:
 library(ggplot2)
-library(ggpubr)
-library(patchwork)
-library(RColorBrewer)
-library(colorspace)
-library(cowplot)
 ```
 
-and also needed for this specific scRNAseq workflow:
+and also needed for this specific scRNAseq workflow (install them first, if you didn't already):
 ```{r eval=FALSE}
 library(devtools) # used to install devel-level packages
 library(Seurat) # used to process scRNAseq data
@@ -148,7 +141,7 @@ train <- readRDS(file = "inst/precomp/train.rds")
 head(train)
 ```
 
-Then, as described in the [main combiroc vignette](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html), we used `combiroc_long` to make the data in long tidy format, fit for further processing:
+Then, as described in the [main combiroc vignette](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html), we used `combiroc_long` to make the data in long tidy format, fit for further processing:
 
 ```{r}
 train_long <- combiroc_long(train)
@@ -200,7 +193,7 @@ ggplot(n_df, aes(n_markers)) +
 The `combi()` function works on the `train` dataset computing the marker combinations and counting their corresponding positive samples in each class (once thresholds are selected).\
 A sample, to be considered positive for a given combination, must have a value higher than a given signal threshold (**signalthr**) for at least a given number of markers composing that combination (**combithr**).
 
-As described in the [combiroc's vignette for the standard workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_standard.html), the argument **signalthr** in the `combi()` function should be set according to the guidelines and characteristics of the methodology used for the analysis or by an accurate inspection of the signal intensity distribution. In the event specific guidelines are missing, one should set the value signalthr as suggested by the `distr$Density_plot` feature.
+As described in the [combiroc's vignette for the standard workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html), the argument **signalthr** in the `combi()` function should be set according to the guidelines and characteristics of the methodology used for the analysis or by an accurate inspection of the signal intensity distribution. In the event specific guidelines are missing, one should set the value signalthr as suggested by the `distr$Density_plot` feature.
 
 Single cell RNA-seq datasets are exactly one of such cases: it is often neither possible nor easy to extrapolate the best signal threshold, due to the highly scattered distribution of the expression values: here we thus take advantage of the package-specific `distr$Density_plot` feature and will let the package find this value without the user intervention.
 
@@ -224,7 +217,7 @@ distr$Density_plot
 ```
 
 The suggested threshold is indicated by the vertical dashed line and its value is shown in overlay.
-The exact value can be retrieved from the `distr` object by `distr$Coord$threshold` (see the [Standard workflow](https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_standard.html#dens) for further details):
+The exact value can be retrieved from the `distr` object by `distr$Coord$threshold` (see the [Standard workflow](https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_vignette_1.html#dens) for further details):
 
 ```{r}
 autoThreshold <- distr$Coord[distr$Coord$Youden==max(distr$Coord$Youden), 'threshold'][1]
