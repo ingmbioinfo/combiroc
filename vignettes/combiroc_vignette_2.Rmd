@@ -217,7 +217,7 @@ distr$Density_plot
 ```
 
 The suggested threshold is indicated by the vertical dashed line and its value is shown in overlay.
-The exact value can be retrieved from the `distr` object by `distr$Coord$threshold` (see the [Standard workflow](https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_vignette_1.html#dens) for further details):
+The exact value can be retrieved from the `distr` object by `distr$Coord$threshold` (see the [Standard workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html#dens) for further details):
 
 ```{r}
 autoThreshold <- distr$Coord[distr$Coord$Youden==max(distr$Coord$Youden), 'threshold'][1]
