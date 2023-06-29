@@ -180,7 +180,7 @@ distr$Density_summary
 
 As mentioned before, `signalthr` should be set depending on the guidelines and characteristics of the methodology used for the analysis or by an accurate inspection of signal intensity distribution. In case of lack of specific guidelines, one should set the value `signalthr` as suggested by the `distr$Density_plot` as described in the previous section. 
 
-In this vignette `signalthr` is set at __450__ while `combithr` is set at __1__. We are setting this at 450 (instead of __328.5__ as suggested by the `distr$Density_plot`) in order to reproduce the results reported in [Mazzara et. al 2017](https://www.nature.com/articles/srep45477) (the original CombiROC paper) or in [Bombaci & Rossi 2019](https://link.springer.com/protocol/10.100/978-1-4939-9164-8_16) as well as in the tutorial of the web app with default thresholds.
+In this vignette `signalthr` is set at __450__ while `combithr` is set at __1__. We are setting this at 450 (instead of __328.5__ as suggested by the `distr$Density_plot`) in order to reproduce the results reported in [Mazzara et. al 2017](https://www.nature.com/articles/srep45477) (the original CombiROC paper) or in [Bombaci & Rossi 2019](https://doi.org/10.1007/978-1-4939-9164-8_16) as well as in the tutorial of the web app with default thresholds.
 
 `combithr`, instead, should be set exclusively depending on the needed stringency: __1__ is the less stringent and most common choice (meaning that _at least one_ marker in a combination needs to reach the threshold). 
 
