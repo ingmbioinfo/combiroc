@@ -388,7 +388,7 @@ use the command arguments</em></p>
 <p>The suggested threshold is indicated by the vertical dashed line and
 its value is shown in overlay. The exact value can be retrieved from the
 <code>distr</code> object by <code>distr$Coord$threshold</code> (see the
-<a href="https://cran.r-project.org/web/packages/combiroc/vignettes/combiroc_vignette_1.html#dens" class="external-link">Standard
+<a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html#dens">Standard
 workflow</a> for further details):</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">autoThreshold</span> <span class="op">&lt;-</span> <span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>, <span class="st">'threshold'</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
