@@ -3,8 +3,7 @@
 <!-- badges: start -->
 [![pages-build-deployment](https://github.com/ingmbioinfo/combiroc/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ingmbioinfo/combiroc/actions/workflows/pages/pages-build-deployment)
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental-1)
-[![](https://img.shields.io/github/last-commit/ingmbioinfo/combiroc.svg)](https://github.com/ingmbioinfo/combiroc/commits/master)
-[![Codecov test coverage](https://codecov.io/gh/ingmbioinfo/combiroc/branch/master/graph/badge.svg)](https://codecov.io/gh/ingmbioinfo/combiroc?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/ingmbioinfo/combiroc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ingmbioinfo/combiroc?branch=master)
 <!-- badges: end -->
 
 # Combiroc
@@ -15,7 +14,7 @@ Latest version introduces new features to work __on single-cell RNAseq datasets_
 
 This is the development version of CombiROC package (combiroc), code in this repo is work in progress and it is uploaded here "as-is" with no warranties implied. Improvements and new features will be added on a regular basis, please check on this github page for new features and releases. 
 
-The CombiROC approach was first released as a Shiny Application with limited features, which is still available at [combiroc.eu](http://combiroc.eu/), but it has limited features as well as low computational power and is __not further maintained__. If you need to cite the method or the web-app please refer to [**Mazzara et al.** Scientific Reports 2017](https://www.nature.com/articles/srep45477) and [**Bombaci & Rossi**, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007%2F978-1-4939-9164-8_16).
+The CombiROC approach was first released as a Shiny Application with limited features, which is still available at [combiroc.eu](http://combiroc.eu/), but it has limited features as well as low computational power and is __not further maintained__. If you need to cite the method or the web-app please refer to [**Mazzara et al.** Scientific Reports 2017](https://www.nature.com/articles/srep45477) and [**Bombaci & Rossi**, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007/978-1-4939-9164-8_16).
 
 For full capabilities and customized analyses we suggest to install the combiroc package from  [CRAN](https://CRAN.R-project.org/package=combiroc); for the new and improved single-cell workflow features you need to install the latest development version from this repo (see below). 
 
