@@ -1,7 +1,7 @@
 Package: combiroc
 Title: Selection and Ranking of Omics Biomarkers Combinations Made Easy
-Date: 2023-06-29
-Version: 0.3.2
+Date: 2023-07-01
+Version: 0.3.3
 Language: en-US
 Authors@R: 
   c(person(given = "Ivan",
