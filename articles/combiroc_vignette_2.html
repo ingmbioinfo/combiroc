@@ -142,25 +142,26 @@ run on a standard computing equipment (i.e. a laptop)</strong>. The
 computationally heavy passages are therefore marked as <span style="color: orange;">[Heavy-Code]</span> and can be skipped by the
 user by reading/loading <strong>pre-computed objects or intermediate
 results either from <code>rds</code> or <code>csv</code> files</strong>.
-In this way the reader/reviewer will be able to complete the whole
-workflow without having a HPC server.</p>
+In this way the reader/reviewer will be able to check the code and
+complete the whole workflow without having a HPC server.</p>
 </div>
 <div class="section level2">
 <h2 id="selection-of-nk-cells-marker-combinations">Selection of NK cells marker combinations<a class="anchor" aria-label="anchor" href="#selection-of-nk-cells-marker-combinations"></a>
 </h2>
-<p>The purpose of this analysis is to find the best combinations of
-known gene markers that best describe the NK-cell populations starting
-from a NK-cell single-cell transcriptomic signature, then using the
-models calculated on such combinations on other scRNAseq datasets.<br>
-The difficulty to distinguish NK (Natural Killer) cells from CD8+ T
+<p>The difficulty to distinguish NK (Natural Killer) cells from CD8+ T
 cells in many scRNAseq datasets is a good challenge to test combiroc
-performance in markers signature optimization. After performing
-differential marker expression on an initial “training” scRNAseq dataset
-we will take into account the top 30 differentially expressed genes
-(DEGs) specific for NK cells cluster; then we will use combiroc to
-select the best gene combinations among these top 30 NK cells markers.
-Regression models from the selected combinations will then be used on
-other independent datasets (“test” datasets) of the same kind.</p>
+performance in markers signature optimization.<br>
+The purpose of this analysis is to find the best combinations of known
+gene markers that best describe the NK-cell populations starting from a
+NK-cell single-cell transcriptomic signature, then using the models
+calculated on such combinations on other scRNAseq datasets.<br>
+After performing differential marker expression on an initial “training”
+scRNAseq dataset we will take into account the top 30 differentially
+expressed genes (DEGs) specific for NK cells cluster; then we will use
+combiroc to select the best gene combinations among these top 30 NK
+cells markers. Regression models from the selected combinations will
+then be used on other independent datasets (“test” datasets) of the same
+kind.</p>
 <p>As combiroc training dataset we are using the <a href="https://satijalab.org/seurat/articles/multimodal_reference_mapping.html" class="external-link">PBMC
 CITE-seq atlas</a> from Hao et al. 2021 <a href="https://www.sciencedirect.com/science/article/pii/S0092867421005833" class="external-link">[2]</a>.
 This dataset can be downloaded as an h5 Seurat data (h5s) from the <a href="https://atlas.fredhutch.org/nygc/multimodal-pbmc/" class="external-link">FredHutch-NYCG
