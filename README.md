@@ -28,7 +28,9 @@ The [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v1) prepr
 * __Supplementary Material 2__ (Additional vignette): [scRNAseq workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_2.html). 
 
 
-## Installation
+## Installation (from CRAN)
+
+Be aware that CRAN version is not necessarily in sync with the development version. Documentation on these pages refers to the latest development version, if you install combiroc from CRAN please refer to documentation from CRAN's release of combiroc.
 
 ```r
 # You can install combiroc pulling it from CRAN:
