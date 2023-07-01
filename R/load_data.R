@@ -56,9 +56,8 @@ load_data <- function(data, sep = ";", na.strings="" , labelled_data=TRUE) {
   if(labelled_data==TRUE){
     CombiROC_data$Class <- class
     CombiROC_data<- CombiROC_data[,c(1, dim(CombiROC_data)[2], 3:dim(CombiROC_data)[2]-1 )] 
-    if (class(CombiROC_data[,2])!= 'character'){stop('Values of 2nd column must be characters')}
+    if (isa(CombiROC_data[,2], what = 'character') == FALSE){stop('Values of 2nd column must be characters')}
     # second column must contain the class of the samples as characters
-    
     else if (length(unique(CombiROC_data[,2]))!=2){stop('2nd column must contain 2 categories (e.g. Disease / Healthy)')}
     # only 2 categories are allowed
   }
