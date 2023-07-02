@@ -57,7 +57,7 @@ library(SeuratDisk) # used to read h5seurat files
 The code described in this vignette was originally run on a jupyter-based R-kernel notebook backed by a high-performance computing (HPC) server infrastructure.
 Due to relevant size of some of the objects loaded and/or created, **it is unlikely that the whole code can be run on a standard computing equipment (i.e. a laptop)**.
 The computationally heavy passages are therefore marked as [[Heavy-Code]]{style="color: orange;"} and can be skipped by the user by reading/loading **pre-computed objects or intermediate results either from `rds` or `csv` files**.
-In this way the reader/reviewer will be able to check the code and complete the whole workflow without having a HPC server.
+In this way the reader/reviewer will be able to check the code, to download (if needed) the pre-computed object when indicated and follow the whole workflow without having a HPC server.
 
 # Selection of NK cells marker combinations
 
@@ -135,18 +135,21 @@ train <- seurat_to_combiroc(SeuratObject = atlas,
                             control_label =  'Other')
 ```
 
-The pre-computed `train` object obtained with the code above can be directly read here:
+The pre-computed `train` object obtained with the code above can be [downloaded from here](https://github.com/ingmbioinfo/combiroc/blob/9d44a673b3ac1001ad7bf65410d6d56da4d000f1/inst/precomp/train.rds), then directly read:
 
-```{r}
+```{r eval=FALSE}
 train <- readRDS(file = "inst/precomp/train.rds")
 head(train)
+```
+```{r echo=FALSE}
+train_sub <- readRDS(file = "inst/precomp/train_sub.rds")
+head(train_sub)
 ```
 
 Then, as described in the [main combiroc vignette](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html), we used `combiroc_long` to make the data in long tidy format, fit for further processing:
 
-```{r}
+```{r eval=FALSE}
 train_long <- combiroc_long(train)
-head(train_long)
 ```
 
 ## Finding the best marker combinations and models
@@ -210,19 +213,25 @@ Genes expression values, as expected, are distributed in different ways in the t
 
 *Please note: the `markers_distribution()` command naturally triggers a few warnings in which the user is reminded how to use the command arguments*
 
-```{r warning=FALSE, message=FALSE, fig.height = 4, fig.width = 8}
+```{r eval=FALSE}
 distr <- markers_distribution(train_long,
                               signalthr_prediction = TRUE, 
                               case_class = "NK")
 distr$Density_plot
 ```
+```{r echo=FALSE, fig.width = 6}
+mywd <- getwd()
+knitr::include_graphics(paste0(mywd, "/vignettes/distr_dens_plot.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
+```
 
 The suggested threshold is indicated by the vertical dashed line and its value is shown in overlay.
 The exact value can be retrieved from the `distr` object by `distr$Coord$threshold` (see the [Standard workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html#dens) for further details):
 
-```{r}
+```{r eval=FALSE}
 autoThreshold <- distr$Coord[distr$Coord$Youden==max(distr$Coord$Youden), 'threshold'][1]
-distr$Coord[distr$Coord$Youden==max(distr$Coord$Youden),] # optimal threshold
+
+# the exact value of optimal threshold in this case is 0.8958797, as can be seen with:
+distr$Coord[distr$Coord$Youden==max(distr$Coord$Youden),]
 ```
 
 Let's apply now the `combi()` function on the training dataset `train` with the suggested threshold.
@@ -233,58 +242,78 @@ In this dataframe are also shown sensitivity (**SE**) and specificity (**SP**) f
 - **SE** as the percentage of positive cells for a 'NK' class
 - **SP** as the percentage of negative cells for 'Other' class
 
-[[Heavy-Code]]{style="color: orange;"} *(use the pre-computed below)*
+[[Heavy-Code]]{style="color: orange;"} *(download and use the pre-computed below)*
 
 ```{r eval=FALSE}
 train_tab <- combi(train, signalthr = autoThreshold, combithr = 2, max_length = 5, case_class = 'NK')
 ```
 
-Read the precomputed object:
+Read the precomputed object (available for [download here](https://github.com/ingmbioinfo/combiroc/blob/9e21643cf9ddc8bef1718d2661c63ddcbd3c8842/inst/precomp/train_tab.rds)):
 
-```{r}
-train_tab <- read.table('inst/precomp/train_tab')
-tail(train_tab)
+```{r eval=FALSE}
+train_tab <- read.table('inst/precomp/train_tab.rds')
+tail(train_tab.rds)
+```
+```{r echo=FALSE}
+train_tab_sub <- readRDS('inst/precomp/train_tab_sub.rds')
+train_tab_sub
 ```
 
 Then we rank the combinations by Youden index (SE+SP-1) and we filter them by their SE and SP values.
 We will select the top 4 (for demonstration purposes only, others may be also good): what we are using to rank is the Youden index and the number of genes in the combination, where combinations with fewer genes are considered better ones.
 
-```{r}
+```{r eval=FALSE}
 rmks <- ranked_combs(combo_table = train_tab, 
                      min_SE = 95, 
                      min_SP = 95)
 head(rmks$table)
 ```
+```{r echo=FALSE}
+rmks_table <- readRDS('inst/precomp/rmks_table_sub.rds')
+rmks_table
+```
 
 And with `roc_reports()` we carry out the computations for the top four combinations (we need to explicitly indicate their number IDs in the `selected_combinations` argument).
 Also, we need to indicate the case class (NK):
 
-```{r}
+```{r eval=FALSE}
 reports <-roc_reports(train, 
                       markers_table = train_tab, 
-                      selected_combinations =  c(169807,172173,163878, 137550),                      
+                      selected_combinations =  c(169807,172173,163878, 137550),       
                       case_class = 'NK',
                       single_markers= nk_genes[1:4])
 ```
 
 Let's explore the results generated:
 
-```{r warning=F}
+```{r eval=FALSE}
 reports$Plot
+```
+```{r echo=FALSE, fig.width = 6, fig.align = "center"}
+mywd <- getwd()
+knitr::include_graphics(paste0(mywd, "/vignettes/roc_curve.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
 ```
 
 Zooming in to show the higher performance of the combinations:
 
-```{r}
+```{r eval=FALSE}
 rocplot <- (reports$Plot) + coord_cartesian(xlim = c(0, 0.2))
 rocplot
 reports$Metrics
+```
+```{r echo=FALSE, fig.width = 6, fig.align = "center"}
+mywd <- getwd()
+knitr::include_graphics(paste0(mywd, "/vignettes/roc_curve_zoom.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
+```
+```{r echo=FALSE, fig.align = "center"}
+reports_metrics <- readRDS('inst/precomp/reports_metrics.rds')
+reports_metrics
 ```
 
 The overall internal classification performances of the top 4 combinations are better than the top 4 single markers ones, and are very similar with each other.
 
 To know which are the genes in any specific combination we can use the `show_markers()` function. For combinations 169807 and 172173, use:
-```{r}
+```{r eval=FALSE}
 show_markers(selected_combinations =c(169807,172713), markers_table = train_tab)
 ```
 
@@ -337,7 +366,7 @@ cbmc
 # visualize UMAP clusters
 DimPlot(cbmc, repel = T, label = T)
 ```
-```{r echo=FALSE, fig.align = "center"}
+```{r echo=FALSE, fig.width = 6, fig.align = "center"}
 mywd <- getwd()
 knitr::include_graphics(paste0(mywd, "/vignettes/cbmc_dimplot.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
 ```
