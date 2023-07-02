@@ -78,7 +78,7 @@ signature at single cell resolution.</div></h3>
                         <h4 data-toc-skip class="author">Riccardo L.
 Rossi, Ivan Ferrari</h4>
             
-            <h4 data-toc-skip class="date">01 July 2023</h4>
+            <h4 data-toc-skip class="date">02 July 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_vignette_2.Rmd" class="external-link"><code>vignettes/combiroc_vignette_2.Rmd</code></a></small>
       <div class="d-none name"><code>combiroc_vignette_2.Rmd</code></div>
@@ -142,8 +142,9 @@ run on a standard computing equipment (i.e. a laptop)</strong>. The
 computationally heavy passages are therefore marked as <span style="color: orange;">[Heavy-Code]</span> and can be skipped by the
 user by reading/loading <strong>pre-computed objects or intermediate
 results either from <code>rds</code> or <code>csv</code> files</strong>.
-In this way the reader/reviewer will be able to check the code and
-complete the whole workflow without having a HPC server.</p>
+In this way the reader/reviewer will be able to check the code, to
+download (if needed) the pre-computed object when indicated and follow
+the whole workflow without having a HPC server.</p>
 </div>
 <div class="section level2">
 <h2 id="selection-of-nk-cells-marker-combinations">Selection of NK cells marker combinations<a class="anchor" aria-label="anchor" href="#selection-of-nk-cells-marker-combinations"></a>
@@ -200,7 +201,7 @@ in other non-NK clusters (e.g. CD8 T), making them too unspecific to
 allow a well defined cluster annotation if considered individually.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">atlas</span>, <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="FeaturePlot1.png" width="36000" style="display: block; margin: auto;"></p>
+<p><img src="FeaturePlot1.png" width="26976" style="display: block; margin: auto;"></p>
 <p>The user not willing (or computationally limited) to run the
 differential expression analysis above can read the pre-computed object
 containing the gene signature of the <strong>top 30 DEGs</strong>
@@ -245,11 +246,12 @@ combinations and models, with combiroc’s functions. Such a
 <span>                            case_label <span class="op">=</span> <span class="st">'NK'</span>, </span>
 <span>                            control_label <span class="op">=</span>  <span class="st">'Other'</span><span class="op">)</span></span></code></pre></div>
 <p>The pre-computed <code>train</code> object obtained with the code
-above can be directly read here:</p>
+above can be <a href="https://github.com/ingmbioinfo/combiroc/blob/9d44a673b3ac1001ad7bf65410d6d56da4d000f1/inst/precomp/train.rds" class="external-link">downloaded
+from here</a>, then directly read:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">train</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"inst/precomp/train.rds"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">train</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                    ID Class   ABHD17A    ADGRG1    ARL4C      CCL5     CD247</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">train</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt;                    ID Class   ABHD17A    ADGRG1    ARL4C      CCL5     CD247</span></span>
 <span><span class="co">#&gt; 1 L1_AAACCCAAGAAACTCA Other 0.6931472 0.0000000 0.000000 0.0000000 0.0000000</span></span>
 <span><span class="co">#&gt; 2 L1_AAACCCAAGACATACA Other 0.0000000 0.0000000 1.609438 0.0000000 0.6931472</span></span>
 <span><span class="co">#&gt; 3 L1_AAACCCACAACTGGTT Other 0.0000000 0.0000000 0.000000 0.0000000 0.0000000</span></span>
@@ -283,22 +285,12 @@ above can be directly read here:</p>
 <span><span class="co">#&gt; 3 0.000000</span></span>
 <span><span class="co">#&gt; 4 1.791759</span></span>
 <span><span class="co">#&gt; 5 0.000000</span></span>
-<span><span class="co">#&gt; 6 0.000000</span></span></code></pre></div>
+<span><span class="co">#&gt; 6 0.000000</span></span></code></pre>
 <p>Then, as described in the <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html">main
 combiroc vignette</a>, we used <code>combiroc_long</code> to make the
 data in long tidy format, fit for further processing:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">train_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combiroc_long.html">combiroc_long</a></span><span class="op">(</span><span class="va">train</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">train_long</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 4</span></span></span>
-<span><span class="co">#&gt;   ID                  Class Markers Values</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> L1_AAACCCAAGAAACTCA Other ABHD17A  0.693</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> L1_AAACCCAAGAAACTCA Other ADGRG1   0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> L1_AAACCCAAGAAACTCA Other ARL4C    0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> L1_AAACCCAAGAAACTCA Other CCL5     0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> L1_AAACCCAAGAAACTCA Other CD247    0    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> L1_AAACCCAAGAAACTCA Other CD7      0</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">train_long</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combiroc_long.html">combiroc_long</a></span><span class="op">(</span><span class="va">train</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="finding-the-best-marker-combinations-and-models">Finding the best marker combinations and models<a class="anchor" aria-label="anchor" href="#finding-the-best-marker-combinations-and-models"></a>
@@ -333,7 +325,7 @@ drops to 174,436, which is computationally more manageable.</p>
 <span><span class="co">#&gt; 3         3    4060      4525</span></span>
 <span><span class="co">#&gt; 4         4   27405     31930</span></span>
 <span><span class="co">#&gt; 5         5  142506    174436</span></span></code></pre>
-<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-14-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-15-1.png" width="384" style="display: block; margin: auto;"></p>
 <p>The <code><a href="../reference/combi.html">combi()</a></code> function works on the <code>train</code>
 dataset computing the marker combinations and counting their
 corresponding positive samples in each class (once thresholds are
@@ -380,22 +372,22 @@ two classes:</p>
 <p><em>Please note: the <code><a href="../reference/markers_distribution.html">markers_distribution()</a></code> command
 naturally triggers a few warnings in which the user is reminded how to
 use the command arguments</em></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/markers_distribution.html">markers_distribution</a></span><span class="op">(</span><span class="va">train_long</span>,</span>
 <span>                              signalthr_prediction <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                              case_class <span class="op">=</span> <span class="st">"NK"</span><span class="op">)</span></span>
 <span><span class="va">distr</span><span class="op">$</span><span class="va">Density_plot</span></span></code></pre></div>
-<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-15-1.png" width="768"></p>
+<p><img src="distr_dens_plot.png" width="36864"></p>
 <p>The suggested threshold is indicated by the vertical dashed line and
 its value is shown in overlay. The exact value can be retrieved from the
 <code>distr</code> object by <code>distr$Coord$threshold</code> (see the
 <a href="https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html#dens">Standard
 workflow</a> for further details):</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">autoThreshold</span> <span class="op">&lt;-</span> <span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>, <span class="st">'threshold'</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>,<span class="op">]</span> <span class="co"># optimal threshold</span></span>
-<span><span class="co">#&gt;   threshold specificity sensitivity    Youden</span></span>
-<span><span class="co">#&gt; 3 0.8958797          86          79 0.6461265</span></span></code></pre></div>
+<span></span>
+<span><span class="co"># the exact value of optimal threshold in this case is 0.8958797, as can be seen with:</span></span>
+<span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">[</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">distr</span><span class="op">$</span><span class="va">Coord</span><span class="op">$</span><span class="va">Youden</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
 <p>Let’s apply now the <code><a href="../reference/combi.html">combi()</a></code> function on the training
 dataset <code>train</code> with the suggested threshold. The results is
 a table (the <code>train_tab</code> dataframe) of all the combinations
@@ -410,15 +402,16 @@ class</li>
 <strong>SP</strong> as the percentage of negative cells for ‘Other’
 class</li>
 </ul>
-<p><span style="color: orange;">[Heavy-Code]</span> <em>(use the
-pre-computed below)</em></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">train_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi.html">combi</a></span><span class="op">(</span><span class="va">train</span>, signalthr <span class="op">=</span> <span class="va">autoThreshold</span>, combithr <span class="op">=</span> <span class="fl">2</span>, max_length <span class="op">=</span> <span class="fl">5</span>, case_class <span class="op">=</span> <span class="st">'NK'</span><span class="op">)</span></span></code></pre></div>
-<p>Read the precomputed object:</p>
+<p><span style="color: orange;">[Heavy-Code]</span> <em>(download and
+use the pre-computed below)</em></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">train_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">'inst/precomp/train_tab'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">train_tab</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                        Markers X.Positives.Other X.Positives.NK</span></span>
+<code class="sourceCode R"><span><span class="va">train_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi.html">combi</a></span><span class="op">(</span><span class="va">train</span>, signalthr <span class="op">=</span> <span class="va">autoThreshold</span>, combithr <span class="op">=</span> <span class="fl">2</span>, max_length <span class="op">=</span> <span class="fl">5</span>, case_class <span class="op">=</span> <span class="st">'NK'</span><span class="op">)</span></span></code></pre></div>
+<p>Read the precomputed object (available for <a href="https://github.com/ingmbioinfo/combiroc/blob/9e21643cf9ddc8bef1718d2661c63ddcbd3c8842/inst/precomp/train_tab.rds" class="external-link">download
+here</a>):</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">train_tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">'inst/precomp/train_tab.rds'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">train_tab.rds</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt;                                        Markers X.Positives.Other X.Positives.NK</span></span>
 <span><span class="co">#&gt; Combination 174401 MYOM2-NKG7-PRF1-SPON2-SYNE2             20313          18220</span></span>
 <span><span class="co">#&gt; Combination 174402  MYOM2-NKG7-PRF1-SPON2-TRDC             12876          18413</span></span>
 <span><span class="co">#&gt; Combination 174403  MYOM2-NKG7-PRF1-SYNE2-TRDC             20844          18482</span></span>
@@ -431,18 +424,18 @@ pre-computed below)</em></p>
 <span><span class="co">#&gt; Combination 174403 99.02486 85.43396         5</span></span>
 <span><span class="co">#&gt; Combination 174404 97.54608 86.25856         5</span></span>
 <span><span class="co">#&gt; Combination 174405 95.19396 91.60098         5</span></span>
-<span><span class="co">#&gt; Combination 174406 99.18560 85.41859         5</span></span></code></pre></div>
+<span><span class="co">#&gt; Combination 174406 99.18560 85.41859         5</span></span></code></pre>
 <p>Then we rank the combinations by Youden index (SE+SP-1) and we filter
 them by their SE and SP values. We will select the top 4 (for
 demonstration purposes only, others may be also good): what we are using
 to rank is the Youden index and the number of genes in the combination,
 where combinations with fewer genes are considered better ones.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rmks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ranked_combs.html">ranked_combs</a></span><span class="op">(</span>combo_table <span class="op">=</span> <span class="va">train_tab</span>, </span>
 <span>                     min_SE <span class="op">=</span> <span class="fl">95</span>, </span>
 <span>                     min_SP <span class="op">=</span> <span class="fl">95</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rmks</span><span class="op">$</span><span class="va">table</span><span class="op">)</span></span>
-<span><span class="co">#&gt;                                           Markers X.Positives.Other</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rmks</span><span class="op">$</span><span class="va">table</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt;                                           Markers X.Positives.Other</span></span>
 <span><span class="co">#&gt; Combination 169807    GNLY-IL2RB-KLRF1-SPON2-TRDC              6914</span></span>
 <span><span class="co">#&gt; Combination 172173    GZMB-IL2RB-KLRF1-SPON2-TRDC              5633</span></span>
 <span><span class="co">#&gt; Combination 163878  FCGR3A-GNLY-IL2RB-KLRF1-MYOM2              6401</span></span>
@@ -455,29 +448,28 @@ where combinations with fewer genes are considered better ones.</p>
 <span><span class="co">#&gt; Combination 163878          18276 97.92113 95.52690         5 0.9344804</span></span>
 <span><span class="co">#&gt; Combination 137550          18325 98.18367 95.26415         5 0.9344782</span></span>
 <span><span class="co">#&gt; Combination 138800          18268 97.87827 95.55486         5 0.9343313</span></span>
-<span><span class="co">#&gt; Combination 164702          18264 97.85684 95.56184         5 0.9341868</span></span></code></pre></div>
+<span><span class="co">#&gt; Combination 164702          18264 97.85684 95.56184         5 0.9341868</span></span></code></pre>
 <p>And with <code><a href="../reference/roc_reports.html">roc_reports()</a></code> we carry out the computations for
 the top four combinations (we need to explicitly indicate their number
 IDs in the <code>selected_combinations</code> argument). Also, we need
 to indicate the case class (NK):</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/roc_reports.html">roc_reports</a></span><span class="op">(</span><span class="va">train</span>, </span>
 <span>                      markers_table <span class="op">=</span> <span class="va">train_tab</span>, </span>
-<span>                      selected_combinations <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">169807</span>,<span class="fl">172173</span>,<span class="fl">163878</span>, <span class="fl">137550</span><span class="op">)</span>,                      </span>
+<span>                      selected_combinations <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">169807</span>,<span class="fl">172173</span>,<span class="fl">163878</span>, <span class="fl">137550</span><span class="op">)</span>,       </span>
 <span>                      case_class <span class="op">=</span> <span class="st">'NK'</span>,</span>
 <span>                      single_markers<span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s explore the results generated:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span></span></code></pre></div>
-<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
+<p><img src="roc_curve.png" width="33600" style="display: block; margin: auto;"></p>
 <p>Zooming in to show the higher performance of the combinations:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rocplot</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">rocplot</span></span></code></pre></div>
-<p><img src="combiroc_vignette_2_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span></span>
-<span><span class="co">#&gt;                      AUC    SE    SP CutOff   ACC     TN    TP   FN    FP   NPV</span></span>
+<span><span class="va">rocplot</span></span>
+<span><span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span></span></code></pre></div>
+<p><img src="roc_curve_zoom.png" width="33600" style="display: block; margin: auto;"></p>
+<pre><code><span><span class="co">#&gt;                      AUC    SE    SP CutOff   ACC     TN    TP   FN    FP   NPV</span></span>
 <span><span class="co">#&gt; GNLY               0.962 0.959 0.914  0.146 0.920 130861 17908  756 12239 0.994</span></span>
 <span><span class="co">#&gt; NKG7               0.970 0.982 0.901  0.131 0.911 128972 18336  328 14128 0.997</span></span>
 <span><span class="co">#&gt; GZMB               0.949 0.928 0.925  0.136 0.925 132375 17316 1348 10725 0.990</span></span>
@@ -494,18 +486,15 @@ to indicate the case class (NK):</p>
 <span><span class="co">#&gt; Combination 169807 0.801</span></span>
 <span><span class="co">#&gt; Combination 172173 0.808</span></span>
 <span><span class="co">#&gt; Combination 163878 0.772</span></span>
-<span><span class="co">#&gt; Combination 137550 0.787</span></span></code></pre></div>
+<span><span class="co">#&gt; Combination 137550 0.787</span></span></code></pre>
 <p>The overall internal classification performances of the top 4
 combinations are better than the top 4 single markers ones, and are very
 similar with each other.</p>
 <p>To know which are the genes in any specific combination we can use
 the <code><a href="../reference/show_markers.html">show_markers()</a></code> function. For combinations 169807 and
 172173, use:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_markers.html">show_markers</a></span><span class="op">(</span>selected_combinations <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">169807</span>,<span class="fl">172713</span><span class="op">)</span>, markers_table <span class="op">=</span> <span class="va">train_tab</span><span class="op">)</span></span>
-<span><span class="co">#&gt;          Combination           Composing_markers</span></span>
-<span><span class="co">#&gt; 1 Combination 169807 GNLY-IL2RB-KLRF1-SPON2-TRDC</span></span>
-<span><span class="co">#&gt; 2 Combination 172713 GZMH-HOPX-KLRB1-KLRF1-MYOM2</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/show_markers.html">show_markers</a></span><span class="op">(</span>selected_combinations <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">169807</span>,<span class="fl">172713</span><span class="op">)</span>, markers_table <span class="op">=</span> <span class="va">train_tab</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -544,7 +533,7 @@ multimodal vignette</a> or by calling the guide with
 <code>?cbmc</code>.</p>
 <p>We are going to invoke the cbmc dataset from the
 <code>SeuratData</code> package and preprocess it as needed:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># retrieve cbmc data from SeuratData package</span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st">"SeuratData"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'satijalab/seurat-data'</span><span class="op">)</span></span>
@@ -566,10 +555,10 @@ multimodal vignette</a> or by calling the guide with
 <span><span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">cbmc</span><span class="op">@</span><span class="va">meta.data</span><span class="op">$</span><span class="va">protein_annotations</span></span>
 <span><span class="va">cbmc</span><span class="op">[[</span><span class="st">'ID'</span><span class="op">]</span><span class="op">]</span><span class="op">&lt;-</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">cbmc</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># visualize UMAP clusters</span></span>
 <span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, repel <span class="op">=</span> <span class="cn">T</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="cbmc_dimplot.png" width="67200" style="display: block; margin: auto;"></p>
+<p><img src="cbmc_dimplot.png" width="33600" style="display: block; margin: auto;"></p>
 <p>Please note that the “NA” gray cells cluster is from mouse cells
 whose presence acts as negative control in the original
 experiment/dataset. Also, cluster annotations are just superimposed and
@@ -579,7 +568,7 @@ the combiroc procedure.</p>
 combiroc test dataset using <code><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc()</a></code> function.
 The <code>test_cbmc</code> object contains cell barcodes as sample IDs
 and the expression values of the 30 NK signature genes).</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc</a></span><span class="op">(</span>SeuratObject <span class="op">=</span> <span class="va">cbmc</span>, </span>
 <span>                                gene_list <span class="op">=</span> <span class="va">nk_genes</span>, </span>
 <span>                                assay <span class="op">=</span> <span class="st">'RNA'</span><span class="op">)</span></span>
@@ -589,9 +578,9 @@ and the expression values of the 30 NK signature genes).</p>
 </h4>
 <p>Let’s have a look at how the top four single NK-markers expression is
 distributed across the cell clusters in the CBMC dataset:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="cbmc_violinplots_genes.png" width="67200" style="display: block; margin: auto;"></p>
+<p><img src="cbmc_violinplots_genes.png" width="33600" style="display: block; margin: auto;"></p>
 <p>In this dataset, expressions of top individual NK markers is higher
 in the NK cluster, but also moderate in others: they are expressed in
 some CD8 T cells, CD34+ and CD16+ Mono cells, even if clusters have been
@@ -611,17 +600,17 @@ with combiroc using the combi-score, which is calculated here for the
 top <em>Combination 172173</em> (made by genes GZMB, IL2RB, KLRF1, SPON2
 and TRDC), which has the highest accuracy. This score expresses the
 probability of being NK cells.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># adding combi score for combination 172173</span></span>
 <span><span class="va">cs_cbmc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combi_score.html">combi_score</a></span><span class="op">(</span><span class="va">test_cbmc</span>, Models <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span>, Metrics <span class="op">=</span> <span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span>, Positive_class <span class="op">=</span> <span class="st">'NK'</span>, Negative_class <span class="op">=</span> <span class="st">'Other'</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span><span class="op">[[</span><span class="st">'c172173_combi_score'</span><span class="op">]</span><span class="op">]</span><span class="op">&lt;-</span> <span class="va">cs_cbmc</span><span class="op">$</span><span class="va">`Combination 172173`</span>  </span></code></pre></div>
 <p>Let’s plot the combi-score for <em>Combination 172173</em> across
 CBMC clusters:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_combi_score"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="st">"c172173_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="cbmc_dimviolin_c172173.png" width="92160" style="display: block; margin: auto;"></p>
+<p><img src="cbmc_dimviolin_c172173.png" width="46080" style="display: block; margin: auto;"></p>
 <p>The combi-score, which is the probability of belonging to NK cells,
 is highly specific for the clusters that are annotated with a “NK”
 label. pDCs cells do not show any signal and a very small number of
@@ -636,7 +625,7 @@ relevance to the combi-score as seen in the violin plots (right).</p>
 be directly invoked from the <code>SeuratData</code> library. The
 dataset is immediately available as an already processed Seurat object
 named <code>pbmc3k.final</code>.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># retrieve pbmc3k dataset from SeuratData package</span></span>
 <span><span class="co"># library(SeuratData)</span></span>
 <span><span class="fu">InstallData</span><span class="op">(</span><span class="st">"pbmc3k.SeuratData"</span><span class="op">)</span></span>
@@ -647,16 +636,16 @@ named <code>pbmc3k.final</code>.</p>
 <span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">'ID'</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mojaveazure.github.io/seurat-object/reference/Idents.html" class="external-link">Idents</a></span><span class="op">(</span><span class="va">pbmc3k.final</span><span class="op">)</span></span>
 <span><span class="va">pbmc3k.final</span></span></code></pre></div>
 <p>The original UMAP embedding of the PBMC3K datasets:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, reduction <span class="op">=</span> <span class="st">"umap"</span>, label <span class="op">=</span> <span class="cn">T</span>, repel <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="pbmc3k_dimplot.png" width="67200" style="display: block; margin: auto;"></p>
+<p><img src="pbmc3k_dimplot.png" width="33600" style="display: block; margin: auto;"></p>
 <p>In the same way as previously done we are using now
 <code><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc()</a></code> to obtain the second combiroc test
 dataset (<code>test_pbmc3k</code>). Please note that this dataset does
 not contain TRDC expression values since this gene (which contributes to
 the top selected combinations) is not present in the original PBMC3K
 dataset.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">test_pbmc3k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/seurat_to_combiroc.html">seurat_to_combiroc</a></span><span class="op">(</span>SeuratObject <span class="op">=</span> <span class="va">pbmc3k.final</span>, gene_list <span class="op">=</span> <span class="va">nk_genes</span>, assay <span class="op">=</span> <span class="st">'RNA'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">test_pbmc3k</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
@@ -664,9 +653,9 @@ dataset.</p>
 </h4>
 <p>Let’s have a look how the top four single NK-markers expression is
 distributed in the PBMC-3K dataset:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="va">nk_genes</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="pbmc3k_violinplots_genes.png" width="67200" style="display: block; margin: auto;"></p>
+<p><img src="pbmc3k_violinplots_genes.png" width="33600" style="display: block; margin: auto;"></p>
 <p>In this PBMC dataset, all top four markers have high expression
 values in NK cells and in CD8 T cells too, showing that individual
 markers mRNA level may be not sufficient to clearly identify the cells
@@ -681,7 +670,7 @@ top <em>Combination 137550</em> (made by genes CLIC3, FCGR3A, IL2RB,
 KLRD1 and KLRF1), the highest accuracy combination without TRDC gene
 (which is not expressed in the this dataset). This score also expresses
 the probability of being NK cells.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="va">reports</span><span class="op">$</span><span class="va">Models</span></span>
 <span><span class="va">sub</span><span class="op">$</span><span class="va">`Combination 169807`</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="va">sub</span><span class="op">$</span><span class="va">`Combination 172173`</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
@@ -690,11 +679,11 @@ the probability of being NK cells.</p>
 <span><span class="va">pbmc3k.final</span><span class="op">[[</span><span class="st">"c137550_combi_score"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">cs_pbmc3k</span><span class="op">$</span><span class="va">`Combination 137550`</span>  <span class="co"># to add combi score of combination 137550</span></span></code></pre></div>
 <p>Let’s plot the combi-score for <em>Combination 137550</em> across
 PBMC-3K clusters:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span><span class="op">)</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">p1</span> <span class="op">|</span> <span class="va">p2</span></span></code></pre></div>
-<p><img src="pbmc3k_dimviolin_c137550.png" width="92160" style="display: block; margin: auto;"></p>
+<p><img src="pbmc3k_dimviolin_c137550.png" width="46080" style="display: block; margin: auto;"></p>
 <p>Here too, as seen for the previous dataset, the cell cluster labeled
 as “NK” is the only one displaying a very high combi-score, i.e. showing
 an actual probability of being NK cells. No other cell in any cluster
@@ -719,13 +708,13 @@ the sum of their level of expression.</p>
 whole signature and computed on the combiroc-selected combinations. To
 do so, we reproduced the gene-signature-score computation in the custom
 R function <code>signature_score.R</code>:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"inst/external_code/signature_score.R"</span><span class="op">)</span></span></code></pre></div>
 <p>First, we compute the “gene-signature-score” for the <strong>whole 30
 DEGs signature</strong> that we assume as reference. Being this a whole
 signature (30 genes) we expect it to be very specific. We are doing this
 on both test datasets previously used.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># computing whole signature gene-signature-score for CBMC</span></span>
 <span><span class="va">NK_sig_cbmc</span><span class="op">&lt;-</span><span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="va">nk_genes</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span><span class="op">$</span><span class="va">NK_signature_score</span> <span class="op">&lt;-</span> <span class="va">NK_sig_cbmc</span><span class="op">$</span><span class="va">scaled_combined_score</span></span>
@@ -739,7 +728,7 @@ combinations of five genes previously used</strong>: - <em>Combination
 dataset. - <em>Combination 137550</em> (made by genes CLIC3, FCGR3A,
 IL2RB, KLRD1 and KLRF1) in PBMC3K dataset These combinations are going
 to be our “optimized-signatures”.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># computing gene-signature-score of combination 172173 for CBMC</span></span>
 <span><span class="va">comb_cbmc</span><span class="op">&lt;-</span><span class="fu">signature_score</span><span class="op">(</span>SeuratObj <span class="op">=</span> <span class="va">cbmc</span>, geneset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'GZMB'</span>,<span class="st">'IL2RB'</span>,<span class="st">'KLRF1'</span>,<span class="st">'SPON2'</span>,<span class="st">'TRDC'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">cbmc</span><span class="op">[[</span><span class="st">'c172173_signature_score'</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">comb_cbmc</span><span class="op">$</span><span class="va">scaled_combined_score</span>  </span>
@@ -750,17 +739,17 @@ to be our “optimized-signatures”.</p>
 <p>We are now plotting side by side the gene-signature-scores from the
 whole-signature (30 genes) and the combinations (5 genes).<br>
 For the CBMC dataset:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'c172173_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
-<p><img src="cbmc_NK_c172173_sigscore.png" width="92160" style="display: block; margin: auto;"></p>
+<p><img src="cbmc_NK_c172173_sigscore.png" width="46080" style="display: block; margin: auto;"></p>
 <p>And for the PBMC-3K dataset:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_signature_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
-<p><img src="pbmc3k_NK_c137550_sigscore.png" width="92160" style="display: block; margin: auto;"></p>
+<p><img src="pbmc3k_NK_c137550_sigscore.png" width="46080" style="display: block; margin: auto;"></p>
 <p>As expected, the gene-signature-score for both datasets correctly
 discriminates NK-cells from others, but while in CBMC cells the NK
 cluster is unequivocally selected, in PBMC-3K cells also cytotoxic CD8-T
@@ -782,17 +771,17 @@ they are extracted from.</p>
 with the combiroc’s NK combi-score to see how they perform in both test
 datasets.</p>
 <p>Comparison in CBMC cells:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features<span class="op">=</span><span class="st">'c172173_combi_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
-<p><img src="cbmc_NK_c172173_combiscore.png" width="92160" style="display: block; margin: auto;"></p>
+<p><img src="cbmc_NK_c172173_combiscore.png" width="46080" style="display: block; margin: auto;"></p>
 <p>Comparison in PBMC-3K cells:</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features<span class="op">=</span><span class="st">'NK_signature_score'</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="st">"c137550_combi_score"</span>, group.by <span class="op">=</span> <span class="st">"ID"</span>, pt.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">v1</span><span class="op">|</span><span class="va">v2</span></span></code></pre></div>
-<p><img src="pbmc3k_NK_c137550_combiscore.png" width="92160" style="display: block; margin: auto;"></p>
+<p><img src="pbmc3k_NK_c137550_combiscore.png" width="46080" style="display: block; margin: auto;"></p>
 <p>Remarkably, despite the 6 fold reduction in the number of considered
 features to build the gene score, for both the datasets, the signature
 score confirmed that the best combination is, at worst, as accurate as
@@ -808,7 +797,7 @@ combination models in suggesting the identity of a cluster with a modest
 amount of genes.</p>
 <p>As a mean of control, we check the effect of a set of random
 combinations on the test datasets</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">combs_length</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="va">random_combs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1492</span><span class="op">)</span></span>
@@ -822,12 +811,12 @@ combinations on the test datasets</p>
 <p>Here random combinations do not have a preferential cluster and show
 a generalized higher background signal noise. For CBMC and PBMC-3K
 datasets:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">cbmc</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'random_30'</span>, <span class="st">'random_5'</span><span class="op">)</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="cbmc_violin_randomcontrol.png" width="73728" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<p><img src="cbmc_violin_randomcontrol.png" width="36864" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/VlnPlot.html" class="external-link">VlnPlot</a></span><span class="op">(</span><span class="va">pbmc3k.final</span>, features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'random_30'</span>, <span class="st">'random_5'</span><span class="op">)</span>, group.by <span class="op">=</span> <span class="st">'ID'</span>, pt.size<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre></div>
-<p><img src="pbmc3k_violin_randomcontrol.png" width="73728" style="display: block; margin: auto;"></p>
+<p><img src="pbmc3k_violin_randomcontrol.png" width="36864" style="display: block; margin: auto;"></p>
 <p>Beyond using scores of random combinations as negative control, they
 also show the magnitude of background noise associated to each random
 combination taken into consideration. In fact, random scores show quite
