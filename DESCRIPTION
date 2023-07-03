@@ -50,6 +50,6 @@ Suggests:
     httr,
     Seurat
 VignetteBuilder: knitr
-URL: https://github.com/ingmbioinfo/combiroc, https://ingmbioinfo.github.io/combiroc/
+URL: https://doi.org/10.1101/2022.01.17.476603, https://github.com/ingmbioinfo/combiroc
 BugReports: https://github.com/ingmbioinfo/combiroc/issues
 Config/testthat/edition: 3
