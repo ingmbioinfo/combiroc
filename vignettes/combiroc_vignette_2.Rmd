@@ -34,6 +34,8 @@ Combiroc is specialized in finding specific combinations, thus its use may allow
 Here we show the complete workflow of combiroc-mediated signature refinement at single-cell resolution in which we used 3 PBMC public datasets showed in [Seurat](https://satijalab.org/seurat/) vignettes.
 All of them have been deeply characterized and scrupulously labelled, so they are accepted and used as reference by the scientific community.
 
+The full story and more comments on this case study can be found in our **_"Less is more"_ bioRxiv preprint**: [**Ferrari et al.** *Combiroc: when 'less is more' in bulk and single cell marker signatures*. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2) 
+
 # Libraries needed 
 
 ```{r warning=FALSE,message=FALSE}
