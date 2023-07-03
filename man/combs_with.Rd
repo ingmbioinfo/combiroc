@@ -18,6 +18,7 @@ a numeric vector containing the numbers corresponding to the combinations contai
 A function to find all the combinations containing all the markers of interest.
 }
 \examples{
+\dontrun{
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
 combs <- combi(data= demo_data, signalthr=450, combithr=1, case_class='A')  # compute combinations
@@ -25,4 +26,5 @@ combs <- combi(data= demo_data, signalthr=450, combithr=1, case_class='A')  # co
 # To show all the combinations with given markers.
 
 combs_with(markers = c('Marker1', 'Marker2') , markers_table = combs)
+}
 }

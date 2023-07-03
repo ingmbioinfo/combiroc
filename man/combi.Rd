@@ -31,12 +31,14 @@ A function that computes the marker combinations and counts their corresponding 
 This function counts how many samples are 'positive' for each combination. A sample, to be considered positive for a given combination, must have a value higher than a given signal threshold (signalthr) for at least a given number of markers composing that combination (combithr).
 }
 \examples{
-demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
+\dontrun{
+  demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
 
 # To compute the marker combinations and count their corresponding positive samples for each class.
 
  combs <- combi(data= demo_data, signalthr=450, combithr=1, case_class='A')
  # count as positive the samples with value >= 450 for at least 1 marker in the combination
+}
 
 }

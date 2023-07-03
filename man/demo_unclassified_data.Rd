@@ -22,6 +22,8 @@ demo_unclassified_data
 Combiroc built-in unclassified demo dataA dataset containing signal intensity values of a 5-marker signatures for Autoimmune Hepatitis (AIH). This dataset has been obtained by randomly picking 20 samples from demo_data without their classification.
 }
 \examples{
+\dontrun{
 demo_unclassified_data # combiroc built-in unclassified demo data
+}
 }
 \keyword{datasets}
