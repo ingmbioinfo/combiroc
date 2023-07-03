@@ -1,12 +1,14 @@
-# combiroc 0.3.3 - July 2, 2023
+# combiroc 0.3.3 - July 3, 2023
 
-This version is aimed at CRAN submission (passing all R-CMD-check --as-cran testing)
+This version is aimed at CRAN submission (passing R-CMD-check --as-cran testing)
 
-* modified disrupting URLs in readme and vignettes
-* modified load_data() function for code consistency in checking classes
+* modified load_data() function for code consistency in checking classes of samples' labels
 * all unnecessary (leftover) dependencies were eliminated
-* reduced tarball size of source package 
-* other minor bugs 
+* modified disrupting URLs in readme and vignettes
+* precomputed objects of vignette 2 were moved out of package and referenced for download
+* tarball size of source package was reduced
+* made some stylistic edits in vignettes
+* solved other minor bugs 
 
 # combiroc 0.3.1 - June 28, 2023
 
