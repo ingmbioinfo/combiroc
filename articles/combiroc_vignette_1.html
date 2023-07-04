@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">combiroc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@ combinations made easy.</div></h3>
                         <h4 data-toc-skip class="author">Ivan Ferrari,
 Riccardo L. Rossi</h4>
             
-            <h4 data-toc-skip class="date">03 July 2023</h4>
+            <h4 data-toc-skip class="date">04 July 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ingmbioinfo/combiroc/blob/HEAD/vignettes/combiroc_vignette_1.Rmd" class="external-link"><code>vignettes/combiroc_vignette_1.Rmd</code></a></small>
       <div class="d-none name"><code>combiroc_vignette_1.Rmd</code></div>
@@ -363,7 +363,7 @@ further discussed in the <strong>Combinatorial analyisis, sensitivity
 and specificity</strong> paragraph.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">ROC</span></span></code></pre></div>
-<p><img src="combiroc_vignette_1_files/figure-html/ROC-1.png" width="700"></p>
+<p><img src="roc_curve_vign1.png" width="67200" style="display: block; margin: auto;"></p>
 <p>The <strong>Coord</strong> is a dataframe that contains the
 coordinates of the above described “ROC” (threshold, SP and SE) that
 have at least a minimun SE (min_SE) and a minimum SP (min_SP): this two
@@ -422,10 +422,10 @@ statistics of the density plot.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">distr</span><span class="op">$</span><span class="va">Density_summary</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
-<span><span class="co">##   Class `# observations`   Min   Max Median  Mean `1st Q` `3rd Q`    SD</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> A                  200     0 <span style="text-decoration: underline;">13</span>178    461  814.    233.     825 <span style="text-decoration: underline;">1</span>427.</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> B                  650     0  <span style="text-decoration: underline;">4</span>114    106  206.     38      266  318.</span></span></code></pre>
+<span><span class="co">##   Class n.observations   Min   Max Median  Mean `1st Q` `3rd Q`    SD</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> A                200     0 <span style="text-decoration: underline;">13</span>178    461  814.    233.     825 <span style="text-decoration: underline;">1</span>427.</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> B                650     0  <span style="text-decoration: underline;">4</span>114    106  206.     38      266  318.</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -597,7 +597,7 @@ not passing the SE and SP cutoffs as set in <code><a href="../reference/ranked_c
 bubbles).</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rmks</span><span class="op">$</span><span class="va">bubble_chart</span></span></code></pre></div>
-<p><img src="combiroc_vignette_1_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="combiroc_vignette_1_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="roc-curves">ROC curves<a class="anchor" aria-label="anchor" href="#roc-curves"></a>
@@ -640,7 +640,7 @@ classify the samples (the equation for each selected combination).</li>
 </ul>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Plot</span></span></code></pre></div>
-<p><img src="combiroc_vignette_1_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p><img src="combiroc_vignette_1_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reports</span><span class="op">$</span><span class="va">Metrics</span></span></code></pre></div>
 <pre><code><span><span class="co">##                  AUC   SE    SP CutOff   ACC  TN TP FN FP   NPV   PPV</span></span>
@@ -975,7 +975,7 @@ refining tutorial</a></p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] combiroc_0.3.3</span></span>
+<span><span class="co">## [1] combiroc_0.3.4</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] sass_0.4.6        utf8_1.2.3        generics_0.1.3    tidyr_1.3.0      </span></span>
@@ -985,14 +985,14 @@ refining tutorial</a></p>
 <span><span class="co">## [17] fansi_1.0.4       scales_1.2.1      textshaping_0.3.6 jquerylib_0.1.4  </span></span>
 <span><span class="co">## [21] cli_3.6.1         rlang_1.1.1       munsell_0.5.0     withr_2.5.0      </span></span>
 <span><span class="co">## [25] cachem_1.0.8      yaml_2.3.7        tools_4.3.1       memoise_2.0.1    </span></span>
-<span><span class="co">## [29] dplyr_1.1.2       colorspace_2.1-0  ggplot2_3.4.2     vctrs_0.6.3      </span></span>
-<span><span class="co">## [33] R6_2.5.1          lifecycle_1.0.3   stringr_1.5.0     fs_1.6.2         </span></span>
-<span><span class="co">## [37] ragg_1.2.5        pkgconfig_2.0.3   desc_1.4.2        pkgdown_2.0.7    </span></span>
-<span><span class="co">## [41] pillar_1.9.0      bslib_0.5.0       gtable_0.3.3      glue_1.6.2       </span></span>
-<span><span class="co">## [45] moments_0.14.1    Rcpp_1.0.10       systemfonts_1.0.4 highr_0.10       </span></span>
-<span><span class="co">## [49] xfun_0.39         tibble_3.2.1      tidyselect_1.2.0  knitr_1.43       </span></span>
-<span><span class="co">## [53] farver_2.1.1      htmltools_0.5.5   labeling_0.4.2    rmarkdown_2.22   </span></span>
-<span><span class="co">## [57] compiler_4.3.1</span></span></code></pre>
+<span><span class="co">## [29] dplyr_1.1.2       colorspace_2.1-0  ggplot2_3.4.2     png_0.1-8        </span></span>
+<span><span class="co">## [33] vctrs_0.6.3       R6_2.5.1          lifecycle_1.0.3   stringr_1.5.0    </span></span>
+<span><span class="co">## [37] fs_1.6.2          ragg_1.2.5        pkgconfig_2.0.3   desc_1.4.2       </span></span>
+<span><span class="co">## [41] pkgdown_2.0.7     pillar_1.9.0      bslib_0.5.0       gtable_0.3.3     </span></span>
+<span><span class="co">## [45] glue_1.6.2        moments_0.14.1    Rcpp_1.0.10       systemfonts_1.0.4</span></span>
+<span><span class="co">## [49] highr_0.10        xfun_0.39         tibble_3.2.1      tidyselect_1.2.0 </span></span>
+<span><span class="co">## [53] knitr_1.43        farver_2.1.1      htmltools_0.5.5   labeling_0.4.2   </span></span>
+<span><span class="co">## [57] rmarkdown_2.23    compiler_4.3.1</span></span></code></pre>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

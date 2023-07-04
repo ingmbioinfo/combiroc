@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">combiroc</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,8 +52,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.3.3" id="combiroc-033---july-3-2023">combiroc 0.3.3 - July 3, 2023<a class="anchor" aria-label="anchor" href="#combiroc-033---july-3-2023"></a></h2>
-<p>This version is aimed at CRAN submission (passing R-CMD-check –as-cran testing)</p>
+<h2 class="pkg-version" data-toc-text="0.3.4" id="combiroc-034---july-4-2023">combiroc 0.3.4 - July 4, 2023<a class="anchor" aria-label="anchor" href="#combiroc-034---july-4-2023"></a></h2>
+<p>This version is aimed at CRAN submission: small edits and variations were made to make it pass the R-CMD-check –as-cran testing, and presubmission CRAN checks have been solved.</p>
+<p>Please note that (differently from previous CRAN release) the <code>min_SE</code> and <code>min_SP</code> arguments of <code><a href="../reference/markers_distribution.html">markers_distribution()</a></code> function have now a default value = 0. This means that no threshold values are imposed to SE or SP to be included in the data.frame that contains the coordinates of the above computed ROC.<br>
+Thus if the user does not set up any threshold, all SE and SP values are taken into account.</p>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.3" id="combiroc-033---july-1-2023">combiroc 0.3.3 - July 1, 2023<a class="anchor" aria-label="anchor" href="#combiroc-033---july-1-2023"></a></h2>
 <ul><li>modified load_data() function for code consistency in checking classes of samples’ labels</li>
 <li>all unnecessary (leftover) dependencies were eliminated</li>
 <li>modified disrupting URLs in readme and vignettes</li>
