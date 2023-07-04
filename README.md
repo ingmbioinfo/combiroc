@@ -30,7 +30,8 @@ The [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2) prepr
 
 ## Installation (from CRAN)
 
-Be aware that CRAN version is not necessarily in sync with the development version. Documentation on these pages refers to the latest development version, if you install combiroc from CRAN please refer to documentation from CRAN's release of combiroc.
+Be aware that CRAN version is not necessarily in sync with the development version: **current version on CRAN is v.0.2.3**.  
+Documentation on these pages refers to the latest development version; if you install combiroc from CRAN please refer to documentation available on CRAN's combiroc page.
 
 ```r
 # You can install combiroc pulling it from CRAN:
