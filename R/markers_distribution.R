@@ -37,12 +37,12 @@ Markers <- data_long$Markers
 
 nclass <- unique(Class) # to retrieve the 2 classes
 
+# building the density_summary data.frame
+
 df <- data.frame(matrix(0, nrow = 2, ncol= 8))
 rownames(df) <- nclass
-colnames(df) <- c('# observations', 'Min', 'Max','Median', 'Mean', '1st Q.',  '3rd Q.', 'SD')
-
-
-df <- data_long %>% group_by(Class) %>% summarise('# observations' = n(),
+colnames(df) <- c('n.observations', 'Min', 'Max','Median', 'Mean', '1st Q.',  '3rd Q.', 'SD')
+df <- data_long %>% group_by(Class) %>% summarise('n.observations' = n(),
                                                   Min=min(Values),
                                                   Max=max(Values),
                                                   Median=median(Values),
@@ -50,6 +50,8 @@ df <- data_long %>% group_by(Class) %>% summarise('# observations' = n(),
                                                   "1st Q"=quantile(Values,0.25),
                                                   "3rd Q"=quantile(Values,0.75),
                                                   SD=sd(Values))
+
+# building the boxplot visualization (shows the boxplot for both classes)
 
 if (is.null(boxplot_lim)){
   boxplot_lim= max(df$Max)*1.15
@@ -59,8 +61,9 @@ if (is.null(boxplot_lim)){
 Boxplot<- ggplot(data_long, aes(Markers, Values)) +
   geom_boxplot(aes(color = Class)) +
   theme_classic()+
-  coord_cartesian(ylim = c(0,boxplot_lim)) # shows the boxplot for both classes
+  coord_cartesian(ylim = c(0,boxplot_lim))
 
+# calculating the roc values
 
   if (min_SE==0 & min_SP==0){
     warning('In $Coord object you will see only the signal threshold values at which SE>=0 and SP>=0 by default. If you want to change this limits, please set min_SE and min_SP')
@@ -109,15 +112,14 @@ Boxplot<- ggplot(data_long, aes(Markers, Values)) +
       theme_classic()+
       coord_cartesian(xlim = c(0, x_lim), ylim = c(0, y_lim))}
 
+# building the density plot with or without suggested threshold  
+  
   if (isFALSE(signalthr_prediction)){
     res <- p+labs(x = "Signnal intensity", y="Frequency")
   }
 
 
-
   if (isTRUE(signalthr_prediction)){
-
-
 
     pr <- coord[coord$Youden==max(coord$Youden),'threshold'][1]
     warning('The suggested signal threshold in $Plot_density is the threshold with the highest Youden index of the signal thresholds at which SE>=min_SE and SP>=min_SP. This is ONLY a suggestion. Please check if signal threshold is suggested by your analysis kit guidelines instead, and remember to check $Plot_density to better judge our suggested threshold by inspecting the 2 distributions.')
