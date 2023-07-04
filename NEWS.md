@@ -1,6 +1,11 @@
-# combiroc 0.3.3 - July 3, 2023
+# combiroc 0.3.4 - July 4, 2023
 
-This version is aimed at CRAN submission (passing R-CMD-check --as-cran testing)
+This version is aimed at CRAN submission: small edits and variations were made to make it pass the R-CMD-check --as-cran testing, and presubmission CRAN checks have been solved.
+
+Please note that (differently from previous CRAN release) the `min_SE` and `min_SP` arguments of `markers_distribution()` function have now a default value = 0. This means that no threshold values are imposed to SE or SP to be included in the data.frame that contains the coordinates of the above computed ROC.  
+Thus if the user does not set up any threshold, all SE and SP values are taken into account.
+
+# combiroc 0.3.3 - July 1, 2023
 
 * modified load_data() function for code consistency in checking classes of samples' labels
 * all unnecessary (leftover) dependencies were eliminated
