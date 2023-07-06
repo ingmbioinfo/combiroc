@@ -16,7 +16,7 @@ This is the development version of CombiROC package (combiroc), code in this rep
 
 The CombiROC approach was first released as a Shiny Application which is still available at [combiroc.eu](http://combiroc.eu/) but it has limited features as well as low computational power and is __not further maintained__. If you need to cite the web-app please refer to [**Mazzara et al.** Scientific Reports 2017](https://www.nature.com/articles/srep45477) and [**Bombaci & Rossi**, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007/978-1-4939-9164-8_16).
 
-For full capabilities and customized analyses **we suggest to use the R package** instead. You can install the combiroc package from  [CRAN](https://CRAN.R-project.org/package=combiroc) or, for all new and improved workflow features, the latest development version from this repo (see below). 
+For full capabilities and customized analyses **we suggest to use the R package** and not the Shiny app version. You can install the combiroc package from  [CRAN](https://CRAN.R-project.org/package=combiroc) or the latest development version from this repo (see below). 
 
 If you are using the combiroc **package** in your research, please cite our **_"Less is more"_ bioRxiv preprint**: [**Ferrari et al.** *Combiroc: when 'less is more' in bulk and single cell marker signatures*. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2) 
 
@@ -30,8 +30,8 @@ The [bioRxiv](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2) prepr
 
 ## Installation (from CRAN)
 
-Be aware that CRAN version is not necessarily in sync with the development version: **current version on CRAN is v.0.2.3**.  
-Documentation on these pages refers to the latest development version; if you install combiroc from CRAN please refer to documentation available on CRAN's combiroc page.
+Be aware that CRAN version is not necessarily in sync with the development version: **current version on CRAN is v.0.3.4**.  
+Documentation on these pages refers to the latest development version and can quickly evolve: if you install combiroc from CRAN please be sure to refer to documentation available on CRAN's combiroc page.
 
 ```r
 # You can install combiroc pulling it from CRAN:
