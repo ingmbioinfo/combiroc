@@ -6,6 +6,7 @@
 [![](https://img.shields.io/badge/devel%20version-0.3.4-orange.svg)](https://github.com/ingmbioinfo/combiroc)
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental-1)
 [![Codecov test coverage](https://codecov.io/gh/ingmbioinfo/combiroc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ingmbioinfo/combiroc?branch=master)
+[![](https://img.shields.io/badge/cite%20our-preprint-blue.svg)](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2)
 
 <!-- badges: end -->
 
