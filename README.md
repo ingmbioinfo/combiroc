@@ -1,9 +1,12 @@
 <img src="man/figures/combiroc.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
-[![pages-build-deployment](https://github.com/ingmbioinfo/combiroc/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/ingmbioinfo/combiroc/actions/workflows/pages/pages-build-deployment)
+[![](https://www.r-pkg.org/badges/version/combiroc?color=green)](https://cran.r-project.org/package=combiroc)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/combiroc)](https://cran.r-project.org/package=combiroc)
+[![](https://img.shields.io/badge/devel%20version-0.3.4-orange.svg)](https://github.com/ingmbioinfo/combiroc)
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental-1)
 [![Codecov test coverage](https://codecov.io/gh/ingmbioinfo/combiroc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ingmbioinfo/combiroc?branch=master)
+
 <!-- badges: end -->
 
 # Combiroc
