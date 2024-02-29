@@ -20,49 +20,46 @@
 #' @example R/examples/load_data_example.R
 #' @export
 
-load_data <- function(data, sep = ";", na.strings="" , labelled_data=TRUE) {
-  CombiROC_data <- read.table(data, header = TRUE, sep = sep ,
-                              na.strings=na.strings)  # to load the data
-  if(labelled_data==TRUE){
-    class <- CombiROC_data[,2]
-    CombiROC_data[,2] <- NULL
+load_data <- function(data, sep = ";", na.strings = "", labelled_data = TRUE) {
+  CombiROC_data <- read.table(data, header = TRUE, sep = sep, na.strings = na.strings)
+  
+  # Check for unique IDs in the first column
+  if (!all(table(CombiROC_data[, 1]) == 1)) {
+    stop("Values of the first column must contain unique IDs!")
   }
   
-  d <- CombiROC_data[, 2:dim(CombiROC_data)[2]]
-  d <- d[, order(colnames(d))]
-  CombiROC_data[,2:dim(CombiROC_data)[2]] <- d
+  # Replace non-allowed characters in column names
+  colnames(CombiROC_data) <- str_replace_all(colnames(CombiROC_data), pattern = '-', '_')
+  if (sum(str_detect(string = colnames(CombiROC_data), pattern = '-')) > 0) {
+    warning("'-' is not allowed in marker names, it has been replaced by '_'")
+  }
   
-  colnames(CombiROC_data)[2:dim(CombiROC_data)[2]] <- colnames(d)
-  
-  cond_list <- rep(NA, dim(CombiROC_data)[2]) # to initialize a list of
-  # conditions to check for columns with expression values
-  
-  # checking the format ...
-  for (i in 1:dim(CombiROC_data)[2]){
-    cond_list[i] <- class(CombiROC_data[,i])=='numeric' | class(CombiROC_data[,i])=='integer'}
-  # True if a column contains numbers
-  
-  if (length(unique(CombiROC_data[,1]))!=dim(CombiROC_data)[1]){stop('Values of 1st column must contain unique IDs!')}
-  # fist column must have patients/samples IDs, they have to be unique.
-  
-  else if (sum(cond_list) != dim(CombiROC_data)[2]-1){stop('Values of markers columns must be numberic')}
-  # number of numeric columns must be total number of columns -1
-  
-  else if (sum(str_detect(string =colnames(CombiROC_data), pattern = '-'))>0 ){
-      colnames(CombiROC_data) <- str_replace_all(colnames(CombiROC_data), pattern = '-', '_')
-      warning("'-' is not allowed in marker names, it will be replaced by '_'")
+  # Check for numeric columns (excluding the first one and potentially the second one)
+  marker_columns <- if (labelled_data) 3:ncol(CombiROC_data) else 2:ncol(CombiROC_data)
+  if (!all(sapply(CombiROC_data[, marker_columns], is.numeric))) {
+    stop("Values of marker columns must be numeric")
+  }
+  markers<- colnames(CombiROC_data)[marker_columns]
+   # Handle labelled data
+  if (labelled_data) {
+    if (!is.character(CombiROC_data[, 2])) {
+      stop("Values of the second column must be characters for labelled data")
     }
-  
-  if(labelled_data==TRUE){
-    CombiROC_data$Class <- class
-    CombiROC_data<- CombiROC_data[,c(1, dim(CombiROC_data)[2], 3:dim(CombiROC_data)[2]-1 )] 
-    if (isa(CombiROC_data[,2], what = 'character') == FALSE){stop('Values of 2nd column must be characters')}
-    # second column must contain the class of the samples as characters
-    else if (length(unique(CombiROC_data[,2]))!=2){stop('2nd column must contain 2 categories (e.g. Disease / Healthy)')}
-    # only 2 categories are allowed
+    if (length(unique(CombiROC_data[, 2])) != 2) {
+      stop("Second column must contain exactly 2 categories (e.g., Disease / Healthy)")
+    }
+    # Ensure "Class" is the second column name
+    names(CombiROC_data)[2] <- "Class"
+    
+    # Reorder columns alphabetically
+    CombiROC_data <- CombiROC_data[, c(1, 2,order(markers)+2)]
+    
   }
-    
-    
-    return(CombiROC_data)}
-
-
+  else{
+    # Reorder columns alphabetically
+    CombiROC_data <- CombiROC_data[, c(1, order(markers)+1)]
+  }
+  
+  
+  return(CombiROC_data)
+}

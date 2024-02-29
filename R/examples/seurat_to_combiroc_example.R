@@ -1,4 +1,3 @@
-\dontrun{
 demo_seurat# A subset of PBMC3K dataset from Satijia et al. 2015
 
 # list of markers of interest
@@ -9,4 +8,3 @@ data <- seurat_to_combiroc(demo_seurat, gene_list = gene_list, labelled_data = T
                            case_class = c('CD14+ Mono','FCGR3A+ Mono'),
                            case_label = 'Monocyte', control_label='Other')
 head(data)
-}

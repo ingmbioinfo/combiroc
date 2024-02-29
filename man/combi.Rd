@@ -4,7 +4,14 @@
 \alias{combi}
 \title{Compute combinations.}
 \usage{
-combi(data, signalthr = 0, combithr = 1, max_length = NULL, case_class)
+combi(
+  data,
+  signalthr = 0,
+  combithr = 1,
+  max_length = NULL,
+  n_cores = NULL,
+  case_class
+)
 }
 \arguments{
 \item{data}{a data.frame returned by load_data().}
@@ -17,7 +24,9 @@ combi(data, signalthr = 0, combithr = 1, max_length = NULL, case_class)
 
 \item{combithr}{a numeric that specifies the necessary number of positively expressed markers (>= signalthr), in a given combination, to cosinder that combination positivelly expressed in a sample.}
 
-\item{max_length}{an integer that specifies the max combination length that is allowed}
+\item{max_length}{an integer that specifies the max combination length that is allowed.}
+
+\item{n_cores}{an integer that specifies the number of cores to allocate.}
 
 \item{case_class}{a character that specifies which of the two classes of the dataset is the case class}
 }
@@ -31,14 +40,12 @@ A function that computes the marker combinations and counts their corresponding 
 This function counts how many samples are 'positive' for each combination. A sample, to be considered positive for a given combination, must have a value higher than a given signal threshold (signalthr) for at least a given number of markers composing that combination (combithr).
 }
 \examples{
-\dontrun{
-  demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
+demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
 
 # To compute the marker combinations and count their corresponding positive samples for each class.
 
  combs <- combi(data= demo_data, signalthr=450, combithr=1, case_class='A')
  # count as positive the samples with value >= 450 for at least 1 marker in the combination
-}
 
 }

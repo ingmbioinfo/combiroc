@@ -1,4 +1,3 @@
-\dontrun{
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
 demo_data_long <- combiroc_long(data = demo_data) # long format data
@@ -18,4 +17,3 @@ distributions$Density_summary # summary statistics of density plot
 distributions$ROC # ROC showing signal threshold range ensuring min SE and/or SP
 distributions$Coord # ROC values
 distributions$Boxplot # Boxplot
-}

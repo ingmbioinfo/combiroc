@@ -10,41 +10,44 @@
 #' - $bubble_chart, a dot plot showing the selected 'gold' combinations
 #' @export
 
-ranked_combs <- function(combo_table, min_SE=0, min_SP=0) {
 
-  SE<- as.numeric(combo_table$SE)
-  SP<- as.numeric(combo_table$SP)
-  markers <- as.numeric(combo_table$n_markers)
 
-  combo_table$Youden<-SE + SP
-  combo_table$Youden<-(combo_table$Youden/100)-1
-  combo_table<-combo_table[order(-combo_table$Youden), ]
-
-  combo_table$Combo <- (combo_table$SP>=min_SP & combo_table$SE>=min_SE)
-  Combo <- combo_table$Combo
-
-  combo_table$Combo[which(combo_table$Combo=='TRUE')] <- 'gold'
-  combo_table$Combo[which(combo_table$Combo=='FALSE')] <- 'below_thr'
-
-  rkc <- combo_table[which(combo_table$Combo=='gold'), ]
-  rkc$Combo <- NULL
-
-  bubble<-
-    ggplot(combo_table, aes(x = SP, y = SE, size = markers, color = Combo)) +
-    geom_point(alpha=0.3) +
-    scale_size(range = c(5, 15), name="# of markers") +
-    scale_x_continuous(limits = c(0,100)) +
-    scale_y_continuous(limits = c(0,100)) +
-    labs(x ="specificity", y = "sensitivity") +
-    guides(color = guide_legend(order=2),
-           size = guide_legend(order=1)) +
-    geom_vline(xintercept = min_SP, linetype="dotted", color = "grey", size=1) +
-    geom_hline(yintercept = min_SE, linetype="dotted", color = "grey", size=1) +
-    scale_color_manual(values=c("blue", "gold")) +
+ranked_combs <- function(combo_table, min_SE = 0, min_SP = 0) {
+  # Calculate Youden Index
+  SE <-combo_table$SE
+  SP <-combo_table$SP
+  n_markers <-combo_table$n_markers
+  # Calculate Youden index
+  combo_table$Youden <- (combo_table$SE + combo_table$SP - 100) / 100
+  
+  # Create Combo column based on conditions
+  combo_table$Combo <- ifelse(combo_table$SP >= min_SP & combo_table$SE >= min_SE, "gold", "below_thr")
+  
+  # Arrange by descending order of Youden index
+  combo_table <- combo_table[order(-combo_table$Youden), ]
+  
+  Youden <-combo_table$Youden
+  Combo <-combo_table$Combo
+  
+  # Filtered table with 'gold' combinations
+  filtered_table <- combo_table[combo_table$Combo == "gold", ]
+  
+  # Bubble chart
+  bubble_chart <- ggplot(combo_table, aes(x = SP, y = SE, size = n_markers, color = Combo)) +
+    geom_point(alpha = 0.3) +
+    scale_size(range = c(5, 15), name = "# of markers") +
+    scale_x_continuous(limits = c(0, 100)) +
+    scale_y_continuous(limits = c(0, 100)) +
+    labs(x = "Specificity", y = "Sensitivity") +
+    guides(color = guide_legend(order = 2),
+           size = guide_legend(order = 1)) +
+    geom_vline(xintercept = min_SP, linetype = "dotted", color = "grey", size = 1) +
+    geom_hline(yintercept = min_SE, linetype = "dotted", color = "grey", size = 1) +
+    scale_color_manual(values = c("blue", "gold")) +
     theme_light()
-
-  res <- list(rkc, bubble)
-  names(res)<- c('table', 'bubble_chart')
-  return(res)
-  }
-
+  # Return results
+  filtered_table$Combo <- NULL
+  list(table = filtered_table, bubble_chart = bubble_chart)
+}
+  
+           

@@ -34,10 +34,10 @@ Depends:
     R (>= 3.5.0)
 Imports:
     tidyr,
-    dplyr,
     ggplot2,
     gtools,
     pROC,
+    data.table,
     stringr,
     stats,
     utils,
@@ -48,7 +48,8 @@ Suggests:
     markdown,
     rmarkdown,
     httr,
-    Seurat
+    Seurat,
+    sf
 VignetteBuilder: knitr
 URL: https://doi.org/10.1101/2022.01.17.476603, https://github.com/ingmbioinfo/combiroc
 BugReports: https://github.com/ingmbioinfo/combiroc/issues

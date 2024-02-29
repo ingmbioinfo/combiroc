@@ -54,7 +54,6 @@ and it adds this threshold on the "Density_plot" object as a dashed black line.
 The use of the median allows to pick a threshold whose SE/SP are not too close to the limits (min_SE and min_SP), but it is recommended to always inspect "Coord" and choose the most appropriate signal threshold by considering SP, SE and Youden index.
 }
 \examples{
-\dontrun{
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
 demo_data_long <- combiroc_long(data = demo_data) # long format data
@@ -74,5 +73,4 @@ distributions$Density_summary # summary statistics of density plot
 distributions$ROC # ROC showing signal threshold range ensuring min SE and/or SP
 distributions$Coord # ROC values
 distributions$Boxplot # Boxplot
-}
 }

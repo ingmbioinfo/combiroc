@@ -13,111 +13,77 @@
 #' @param case_class a character that specifies which of the two classes of the dataset is the case class.
 #' @param deal_NA a character that specifies how to treat missing values. With 'impute' NAs of each marker are substituted with the median of that given marker values in the class that observation belongs to. With 'remove' the whole observations containing a NA are removed'.
 #' @return a named list containing 3 objects: "Plot", "Metrics" and "Models".
-#' @import dplyr ggplot2 pROC stringr
+#' @import ggplot2 pROC stringr
+#' @importFrom stats ave na.omit
 #' @example R/examples/roc_reports_example.R
 #' @export
 
-roc_reports <- function(data, markers_table, selected_combinations=NULL, single_markers=NULL, case_class, deal_NA='impute'){
-  # to binarize $Class
-
-  if(deal_NA!='impute' & deal_NA!='remove'){
-    stop('deal_NA must be "impute" or "remove"' )
+roc_reports <- function(data, markers_table, selected_combinations = NULL, single_markers = NULL, case_class, deal_NA = 'impute') {
+  if (!deal_NA %in% c('impute', 'remove')) {
+    stop('deal_NA must be "impute" or "remove"')
   }
-
-  if (sum(is.na(data))>0){
-    if(deal_NA=='impute'){
-      for (i in 3:dim(data)[2]){
-        data[is.na(data[,i]) & data$Class==case_class,i] <-median(data[!is.na(data[,i]) & data$Class==case_class,i])
-        data[is.na(data[,i]) & data$Class!=case_class,i] <-median(data[!is.na(data[,i]) & data$Class!=case_class,i])
+  
+  # Handling missing values
+  if (sum(is.na(data)) > 0) {
+    if (deal_NA == 'impute') {
+      for (i in 3:ncol(data)) {
+        data[is.na(data[, i]), i] <- ave(data[, i], data$Class, FUN = function(x) median(x, na.rm = TRUE))
       }
       warning('NAs have been substituted with median of markers values')
-    }
-    if(deal_NA=='remove'){
-      for (i in 3:dim(data)[2]){
-        if (sum(is.na(data[,i]))>0){
-        data <- data[-which(is.na(data[,i])),]
-        rownames(data)<- 1:dim(data)[1]
-      }}
-      warning('Observations with NAs were not been considered' )
+    } else if (deal_NA == 'remove') {
+      data <- na.omit(data)
+      warning('Observations with NAs were not considered')
     }
   }
-
-  bin<- rep(NA, dim(data)[1])
-  for (i in 1:dim(data)[1]){
-    if (data$Class[i] == case_class){bin[i] <- 1}
-    else{bin[i] <- 0}}
-  bin <- factor(bin)
-  data$Class <- bin
-
-  tab <- markers_table
-
-  roc_list <- list() # It will contain ROC objects
+  
+  cl<- data$Class
+  
+  # Binarize class
+  data$Class <- factor(data$Class == case_class, levels = c(FALSE, TRUE), labels = c("0", "1"))
+  
+  roc_list <- list()
   model_list <- list()
-
-
-
-  if (is.null(selected_combinations)){
-    for (i in 1:length(single_markers)){
-    single_markers[i] <- which(rownames(markers_table)== single_markers[i])}
-    sc<- as.numeric(single_markers)}
-
-  if (!is.null(selected_combinations)){
-    if (is.null(single_markers)){
-    sc<- selected_combinations + (length(colnames(data))-2)}
-
-    if (!is.null(single_markers)){
-      sc<- selected_combinations + (length(colnames(data))-2)
-      for (i in 1:length(single_markers)){
-        single_markers[i] <- which(rownames(markers_table)== single_markers[i])}
-    sc <- as.numeric(union(single_markers,sc))}}
-
-
-  AUC <- rep(0, length(sc))
-
-  # 0s dataframe to be filled
-  perfwhole <-  data.frame(matrix(0, ncol = 10, nrow = length(sc)))
-
-
-  # for each combination
-  for ( i in sc){
-    m <-str_split(tab$Markers[i],"-") # extract single markers from combination
-    # for each composing marker
-    for (x in m){
-      y <- paste("log(",x,"+1)",sep="")} # partial formula
-
-    str <- paste(y, collapse = '+')
-    fla <- formula(paste("Class ~",str)) # whole formula
-
-    model_list[[which(sc==i)]]<- glm(fla,data=data, family="binomial")
-    names(model_list)[which(sc==i)] <- rownames(tab)[i]
-
-    # storing the ROC object by naming it with the corresponding combination
-    roc_list[[which(sc==i)]]<-roc(data$Class,model_list[[which(sc==i)]]$fitted.values,levels=c("0","1"), quiet= TRUE)
-    names(roc_list)[which(sc==i)] <- rownames(tab)[i]
-
-
-    # retrieving metrics
-    optcoordinates<-coords(roc_list[[which(sc==i)]], "best", ret=c("threshold", "specificity",  "sensitivity", "accuracy","tn",
-                                                                   "tp", "fn", "fp", "npv", "ppv"))
-
-
-
-    # adding a row containing a combination metrics to perfwhole dataframe
-    perfwhole[which(sc==i),] <- optcoordinates[1,]
-
-    rownames(perfwhole)[which(sc==i)] <- rownames(tab)[i]
-
-    AUC[which(sc==i)] <- roc_list[[which(sc==i)]]$auc[1]
+  metrics_list <- list()
+  
+  # Prepare combinations
+  selected_combinations <- if (!is.null(selected_combinations)) {
+    lapply(selected_combinations, function(n){paste("Combination", as.character(n))})
   }
-  colnames(perfwhole)<-c("CutOff","SP","SE","ACC","TN","TP","FN","FP","NPV","PPV")
-  perfwhole <- mutate(perfwhole, AUC = AUC)
-  perfwhole <- perfwhole[,c(11,3,2,1,4,5,6,7,8,9,10)]
+  selected_combinations<- if (!is.null(single_markers)) {
+    c(single_markers, selected_combinations)
+  }
+  
+  
+  for (i in selected_combinations) {
+    combination <- str_split(markers_table[i,"Markers"], "-")[[1]]
+    formula_str <- paste("log(", combination, " + 1)", collapse = " + ")
+    formula_str <- paste("Class ~", formula_str)
+    
+    model <- glm(formula_str, data = data, family = "binomial")
+    model_list[[i]] <- model
+    
+    roc_obj <- roc(data$Class, model$fitted.values, levels = c("0", "1"), quiet = TRUE)
+    roc_list[[i]] <- roc_obj
+    
+    opt_coords <- coords(roc_obj, "best", ret = c("threshold", "specificity",  "sensitivity", 
+                                                  "accuracy","tn","tp", "fn", "fp", "npv", "ppv"))
+    metrics_list[[i]] <- cbind(rownames(markers_table)[i], opt_coords, AUC = roc_obj$auc)
+  }
+  
+  # Metrics DataFrame
+  metrics_df <- do.call(rbind, metrics_list)
+  metrics_df<- metrics_df[,-1]
+  colnames(metrics_df)<-c("CutOff","SP","SE","ACC","TN","TP","FN","FP","NPV","PPV", "AUC")
+  metrics_df <- metrics_df[,c("AUC","SE","SP","CutOff","ACC","TN","TP","FN","FP","NPV","PPV")]                                         
+  
+  
+  # ROC Plot
+  roc_plot <- ggroc(roc_list, legacy.axes = TRUE)
+  
+  data$Class<-cl
+  
+  list(Plot = roc_plot, Metrics = metrics_df, Models = model_list)
+}
 
-  p <- ggroc(roc_list, legacy.axes=T)
-  res<-list(p,round(perfwhole,3), model_list)
-
-  names(res) <- c('Plot', 'Metrics', 'Models')
-
-  return(res)}
 
 

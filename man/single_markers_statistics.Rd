@@ -20,10 +20,9 @@ a list object containing:
 A function that computes the statistics and a scatter-plot for each marker.
 }
 \details{
-This function computes the main statistics of the signal values distribution of each marker in both classes. In addition it also shows the values through scatter plots.
+This function computes the main statistics of the signal values distribution of each marker in both classes. In addition, it also shows the values through scatter plots.
 }
 \examples{
-\dontrun{
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 
 data_long <- combiroc_long(demo_data) # reshape data in long format
@@ -32,5 +31,4 @@ sms <- single_markers_statistics(data_long)
 
 sms$Statistics # to visualize the statistics of each single marker
 sms$Plots[[1]] # to visualize the scatterplot of the first marker
-}
 }

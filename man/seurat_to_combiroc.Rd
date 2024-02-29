@@ -8,7 +8,7 @@ seurat_to_combiroc(
   SeuratObject,
   gene_list,
   assay = "RNA",
-  labelled_data = F,
+  labelled_data = FALSE,
   case_class = NA,
   case_label = "case",
   control_label = "control"
@@ -39,7 +39,6 @@ A function to extract a combiroc data (both labelled and unlabelled) from a Seur
 By specifying a gene list (if the genes are in rownames of SeuratObject assay matrix, it subsets the gene expression matrix (@data) and it retreives their expression values. If a combiroc training dataset (labelled_data=T) is required, one or more categories of Idents(SeuratObject) must be selected as case_class, the others will be merged into control class.
 }
 \examples{
-\dontrun{
 demo_seurat# A subset of PBMC3K dataset from Satijia et al. 2015
 
 # list of markers of interest
@@ -50,5 +49,4 @@ data <- seurat_to_combiroc(demo_seurat, gene_list = gene_list, labelled_data = T
                            case_class = c('CD14+ Mono','FCGR3A+ Mono'),
                            case_label = 'Monocyte', control_label='Other')
 head(data)
-}
 }

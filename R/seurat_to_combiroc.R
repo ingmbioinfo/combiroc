@@ -15,27 +15,44 @@
 #' @example R/examples/seurat_to_combiroc_example.R
 #' @export
 
-seurat_to_combiroc <- function(SeuratObject, gene_list, assay='RNA', labelled_data=F, case_class=NA, 
-                               case_label='case', control_label='control') {
-  
-  gene_list<- gene_list[gene_list %in% rownames(SeuratObject[[assay]])]
-  gene_list <- gene_list[order(gene_list)]
-  CombiROC_data <- data.frame(t(data.frame(SeuratObject[[assay]]@data[gene_list,])))
-  if (sum(str_detect(string =gene_list, pattern = '-'))>0 ){
-    colnames(CombiROC_data) <- str_replace_all(colnames(CombiROC_data), pattern = '[.]', '_')
-    colnames(CombiROC_data) <- str_replace_all(colnames(CombiROC_data), pattern = '-', '_')
-    gene_list<-  colnames(CombiROC_data) 
-    warning("'-' is not allowed in marker names, it will be replaced by '_'")
+seurat_to_combiroc <- function(SeuratObject, gene_list, assay = 'RNA', labelled_data = FALSE, case_class = NA, 
+                               case_label = 'case', control_label = 'control') {
+  # Replace non-allowed characters in gene names
+  replace_non_allowed_characters <- function(genes) {
+    genes <- gsub('-', '_', genes)
+    genes <- gsub('[.]', '_', genes)
+    return(genes)
   }
   
+  # Filter gene list based on SeuratObject
+  valid_genes <- gene_list %in% rownames(SeuratObject[[assay]]@data)
+  gene_list <- gene_list[valid_genes]
+  if (!all(valid_genes)) {
+    warning("Some genes in gene_list are not in SeuratObject. They have been omitted.")
+  }
+  
+  # Extract and process expression data
+  expression_data <- SeuratObject[[assay]]@data[gene_list, ]
+  rownames(expression_data) <- replace_non_allowed_characters(rownames(expression_data))
+  gene_list <- replace_non_allowed_characters(gene_list)
+  gene_list <- sort(gene_list)
+  CombiROC_data <- as.data.frame(t(as.matrix(expression_data)))
   CombiROC_data$ID <- rownames(CombiROC_data)
-  CombiROC_data <- CombiROC_data[,c('ID', gene_list)]
-  rownames(CombiROC_data) <- 1:dim(CombiROC_data)[1]
-  if(labelled_data){
-    CombiROC_data$Class <- lapply(Seurat::Idents(SeuratObject), function(x){x %in% case_class})
-    CombiROC_data$Class[CombiROC_data$Class==T] <- case_label
-    CombiROC_data$Class[CombiROC_data$Class==F] <- control_label
-    CombiROC_data$Class <- as.character(CombiROC_data$Class)
-    CombiROC_data <- CombiROC_data[,c('ID', 'Class',gene_list)]
+  
+  # Handle labeled data
+  if (labelled_data) {
+    if ((any(is.na(case_class)) | length(case_class) == 0)|any(is.null(case_class))) {
+      stop("case_class must be provided for labelled data")
+    }
+    CombiROC_data$Class <- ifelse(Seurat::Idents(SeuratObject) %in% case_class, case_label, control_label)
+    
+    # Finalize and return CombiROC data for labelled data
+    CombiROC_data <- CombiROC_data[, c("ID", "Class", gene_list)]
+  } else {
+    # Finalize and return CombiROC data for unlabelled data
+    CombiROC_data <- CombiROC_data[, c("ID", gene_list)]
   }
-  return(CombiROC_data)}
+  
+  rownames(CombiROC_data) <- 1:nrow(CombiROC_data)
+  return(CombiROC_data)
+}

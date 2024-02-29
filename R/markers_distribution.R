@@ -29,107 +29,70 @@
 #' @example R/examples/markers_distribution_example.R
 #' @export
 
-
-markers_distribution <- function(data_long, min_SE=0, min_SP=0, x_lim=NULL, y_lim=NULL, boxplot_lim=NULL , signalthr_prediction=FALSE, case_class) {
-Class <- data_long$Class
-Values <- data_long$Values
-Markers <- data_long$Markers
-
-nclass <- unique(Class) # to retrieve the 2 classes
-
-# building the density_summary data.frame
-
-df <- data.frame(matrix(0, nrow = 2, ncol= 8))
-rownames(df) <- nclass
-colnames(df) <- c('n.observations', 'Min', 'Max','Median', 'Mean', '1st Q.',  '3rd Q.', 'SD')
-df <- data_long %>% group_by(Class) %>% summarise('n.observations' = n(),
-                                                  Min=min(Values),
-                                                  Max=max(Values),
-                                                  Median=median(Values),
-                                                  Mean=mean(Values),
-                                                  "1st Q"=quantile(Values,0.25),
-                                                  "3rd Q"=quantile(Values,0.75),
-                                                  SD=sd(Values))
-
-# building the boxplot visualization (shows the boxplot for both classes)
-
-if (is.null(boxplot_lim)){
-  boxplot_lim= max(df$Max)*1.15
-  warning('boxplot_lim is not set. Boxplot may be difficult to interpret due to outliers. You should set an appropriate y axis limit.')
-}
-
-Boxplot<- ggplot(data_long, aes(Markers, Values)) +
-  geom_boxplot(aes(color = Class)) +
-  theme_classic()+
-  coord_cartesian(ylim = c(0,boxplot_lim))
-
-# calculating the roc values
-
-  if (min_SE==0 & min_SP==0){
-    warning('In $Coord object you will see only the signal threshold values at which SE>=0 and SP>=0 by default. If you want to change this limits, please set min_SE and min_SP')
-  }
-
-  bin<- rep(NA, length(rownames(data_long)))
-  for (i in 1:length(rownames(data_long))){
-    if (Class[i] == case_class){bin[i] <- 1}
-    else{bin[i] <- 0}}
-  bin <- factor(bin)
+markers_distribution <- function(data_long, min_SE = 0, min_SP = 0, x_lim = NULL, y_lim = NULL, boxplot_lim = NULL, signalthr_prediction = FALSE, case_class) {
+  # Preprocessing
+  data_long <- na.omit(data_long)
+  data_long$Class <- factor(data_long$Class, levels =unique(data_long$Class))
+  Class<- data_long$Class
+  Values<- data_long$Values
+  Markers<- data_long$Markers
+  bin <- as.numeric(data_long$Class == case_class)
 
 
-  rocobj <-roc(Values, response=bin, levels=c("0","1"), quiet= TRUE)
-  coord <- coords(rocobj)
-  coord$Youden <- coord$specificity+coord$sensitivity - 1
-  coord <- coord[coord$specificity>=min_SP/100 & coord$sensitivity>=min_SE/100, ]
-  coord$specificity <- round(coord$specificity*100)
-  coord$sensitivity <- round(coord$sensitivity*100)
+  # Calculate summary statistics for each class
+  density_summary <- do.call(rbind, by(data_long, data_long$Class, function(sub_data) {
+    Observations <- nrow(sub_data)
+    Min <- min(sub_data$Values)
+    Max <- max(sub_data$Values)
+    Median <- median(sub_data$Values)
+    Mean <- mean(sub_data$Values)
+    First_Quartile <- quantile(sub_data$Values, 0.25)
+    Third_Quartile <- quantile(sub_data$Values, 0.75)
+    SD <- sd(sub_data$Values)
+    
+    return(data.frame(Observations, Min, Max, Median, Mean, First_Quartile, Third_Quartile, SD))
+  }))
 
+  # Add row names as Class
+  row.names(density_summary) <- levels(data_long$Class)
 
-  if (length(coord$threshold)==0){
-    stop(' $Coord object is empty! No signal thresholds contained with SE >= min_SE  AND SP >= min_SP.')}
-
-
-  if (is.null(x_lim)&is.null(y_lim)) {
-    warning('You can adjust density plot zoom by setting y_lim and x_lim')
-    p<- ggplot(data_long, aes(x=Values, color=Class)) +
-      geom_density(n=10000) +
-      theme_classic() }
-
-  else if (is.null(x_lim)&!is.null(y_lim)) {
-    p<- ggplot(data_long, aes(x=Values, color=Class)) +
-      geom_density(n=10000) +
-      theme_classic()+
-      coord_cartesian(ylim = c(0, y_lim))}
-
-  else if (!is.null(x_lim)&is.null(y_lim)) {
-    p<- ggplot(data_long, aes(x=Values, color=Class)) +
-      geom_density(n=10000) +
-      theme_classic()+
-      coord_cartesian(xlim = c(0, x_lim))}
-
-  else  {
-    p<- ggplot(data_long, aes(x=Values, color=Class)) +
-      geom_density(n=10000) +
-      theme_classic()+
-      coord_cartesian(xlim = c(0, x_lim), ylim = c(0, y_lim))}
-
-# building the density plot with or without suggested threshold  
   
-  if (isFALSE(signalthr_prediction)){
-    res <- p+labs(x = "Signnal intensity", y="Frequency")
+  # Boxplot
+  boxplot_limit <- if (is.null(boxplot_lim)) max(density_summary$Max) * 1.15 else boxplot_lim
+  boxplot <- ggplot(data_long, aes(x = Markers, y = Values)) +
+    geom_boxplot(aes(color = Class)) +
+    theme_classic() +
+    coord_cartesian(ylim = c(0, boxplot_limit))
+  
+  # ROC Analysis
+  roc_obj <- roc(response = bin, predictor = data_long$Values, levels = c("0", "1"), quiet = TRUE)
+  coord <- coords(roc_obj, x = "all", input = "threshold", ret = c("threshold", "specificity", "sensitivity"))
+  coord$Youden <- coord$sensitivity + coord$specificity - 1
+  coord <- coord[coord$sensitivity >= min_SE / 100 & coord$specificity >= min_SP / 100, ]
+  roc_plot <- ggroc(roc_obj, legacy.axes = TRUE)
+  
+  # Density Plot
+  y_lim <- if (is.null(y_lim)) 1.15 else y_lim
+  x_lim <- if (is.null(boxplot_lim)) max(density_summary$Max) * 1.15 else x_lim
+  
+  density_plot <- ggplot(data_long, aes(x = Values, color = Class)) +
+    geom_density(n = 10000) +
+    theme_classic() +
+    coord_cartesian(xlim = c(0,x_lim), ylim = c(0,y_lim))
+  if (signalthr_prediction) {
+    suggested_threshold <- coord[which.max(coord$Youden), "threshold"]
+    density_plot <- density_plot +
+      geom_vline(xintercept = suggested_threshold, linetype = "dashed") +
+      annotate("text", x = suggested_threshold, y = 0, label = round(suggested_threshold, 2))
   }
-
-
-  if (isTRUE(signalthr_prediction)){
-
-    pr <- coord[coord$Youden==max(coord$Youden),'threshold'][1]
-    warning('The suggested signal threshold in $Plot_density is the threshold with the highest Youden index of the signal thresholds at which SE>=min_SE and SP>=min_SP. This is ONLY a suggestion. Please check if signal threshold is suggested by your analysis kit guidelines instead, and remember to check $Plot_density to better judge our suggested threshold by inspecting the 2 distributions.')
-
-    res <- p+geom_vline(aes(xintercept=pr),
-                        color="black", linetype="dashed", size=0.5)+
-      annotate("text", x = pr*0.50, y = 0, label =  as.character(round(pr,2)))+
-      labs(x = "Signal intensity", y="Frequency")
-    }
-
-  robj <- list(res, coord, ggroc(rocobj, legacy.axes=TRUE), df, Boxplot)
-  names(robj) <- c('Density_plot', 'Coord', 'ROC', 'Density_summary', 'Boxplot')
-  return(robj)}
+  
+  # Return Results
+  list(
+    Density_plot = density_plot,
+    Density_summary = density_summary,
+    ROC = roc_plot,
+    Coord = coord,
+    Boxplot = boxplot
+  )
+}
+                              

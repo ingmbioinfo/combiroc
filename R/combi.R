@@ -8,88 +8,105 @@
 #' - Negatively selects most control samples, which must be below signalthr.
 #'@param combithr a numeric that specifies the necessary number of positively expressed markers (>= signalthr), in a given combination, to cosinder that combination positivelly expressed in a sample.
 #'@param case_class a character that specifies which of the two classes of the dataset is the case class
-#'@param max_length an integer that specifies the max combination length that is allowed
+#'@param n_cores an integer that specifies the number of cores to allocate.
+#'@param max_length an integer that specifies the max combination length that is allowed.
 #'@return a data.frame containing how many samples of each class are "positive" for each combination, sensitivity and specificity.
-#'@import gtools
+#'@import gtools parallel stringr data.table
+#'@importFrom utils combn
 #'@example R/examples/combi_example.R
 #'@export
 
 
-combi <-function(data,signalthr=0, combithr=1, max_length=NULL, case_class){
 
-  nclass <- unique(data$Class) # to retrieve the 2 classes
-  control_class<- nclass[nclass!=case_class]
-
-  #sample df to get names and dims
-  dfe <- data[data$Class== nclass[1], 3:dim(data)[2]]
-  dfe<-t(dfe)
-  n_features<-length(rownames(dfe))
-
-  markers <- as.factor(rownames(dfe))
-
-  # parameters for combinations
-  if (is.null(max_length)){max_length <- n_features}
-
-  k<- 1:max_length
-
-  l <- array(0, dim = c(1, length(markers)))
-  for (i in k){ l[i]<- dim(combinations(length(markers), i, markers))[1]}
-  K <- sum(l)
-  ### list of all possible combinations
-  listCombinationMarkers <- array(0,dim=c(K,1))
-
-  ### relative frequency for each class  (the row numbers depend on the K possible combinations while the column numbers depends on the number classes:2 (class A and class B, pairwise comparison))
-  frequencyCombinationMarkers<-array(0,dim=c(K,2))
-
-  # COMPUTING COMBINATIONS AND FREQUENCIES
-  index<-1
-
-  for (i in 1:length(k)){
-    temp<- combinations(n_features,k[i],rownames(dfe))
-    # storing the row index to calculate the relative frequency
-    row_index_combination<-combinations(n_features,k[i])
-    for (j in 1:dim(temp)[1]){
-      listCombinationMarkers[index,1]<-paste(temp[j,],collapse="-")
-      ## single antigen
-      if(dim(temp)[2]==1){ ## 1 antigen combination
-        for (n in 1:length(nclass)){
-          frequencyCombinationMarkers[index,n]<-length(which(
-            t(data[data$Class== nclass[n], 3:dim(data)[2]])[row_index_combination[j,],]>=signalthr))    #input$signalthr
-        }
-      }else{ ## more than 1 antigen (combination)
-        for (n in 1:length(nclass)){
-          frequencyCombinationMarkers[index,n]<- length(which((colSums(
-            t(data[data$Class== nclass[n], 3:dim(data)[2]])[row_index_combination[j,],]>=signalthr))>=combithr))   #input$signalthr))>=input$combithr
-        }}
-      index<-index+1
-    }}
-
-  # only single markers
-
-  if (max_length==1){
-    cdf <- data.frame(listCombinationMarkers, frequencyCombinationMarkers)
-    colnames(cdf) <- c('Markers', paste0('#Positives ', nclass[1]), paste0('#Positives ', nclass[2]))
-    for (i in 1:n_features){
-      rownames(cdf)[i] <- cdf[i,1]
-    }
+combi <- function(data, signalthr = 0, combithr = 1, max_length = NULL, n_cores=NULL, case_class) {
+  
+  # Extract column names as marker names starting from the 3rd column
+  markers <- colnames(data)[3:ncol(data)]
+  
+  # If max_length is not specified, set it to the total number of markers
+  if (is.null(max_length)) {
+    max_length <- length(markers)
   }
 
+  # Generate all combinations of markers up to max_length
+  combination_list <- unlist(lapply(combithr:max_length, function(k) {
+    combn(markers, k, simplify = FALSE)
+  }), recursive = FALSE)
+    
 
-  # makers + combinations
-  if (max_length>1){
+  # Convert each combination of markers to a string separated by hyphens
+  combination_list <- lapply(combination_list, function(x){paste(x, collapse = "-")})
+    
+  # Convert input data to data.table for efficient processing
+  dt <- as.data.table(data)
+  # Create binary 'Case' and 'Control' columns based on 'Class' column and case_class
+  dt$Case <- dt$Class == case_class
+  dt$Control <- dt$Class != case_class
+  
+  n_cores <- if (is.null(n_cores)){ceiling(detectCores(logical = FALSE) /4)} else{n_cores}
+ 
+  cat('Computing all the combinations up to',max_length, 'markes with', n_cores, ' physical CPUs')
 
-  # creation of the dataframe with combinations and corresponding frequencies
-  cdf <- data.frame(listCombinationMarkers, frequencyCombinationMarkers)
-  colnames(cdf) <- c('Markers', paste0('#Positives ', nclass[1]), paste0('#Positives ', nclass[2]))
-  for (i in 1:n_features){
-    rownames(cdf)[i] <- cdf[i,1]
-  }
-  for (j in (n_features+1):K){
-    rownames(cdf)[j] <- paste('Combination', as.character(j-n_features) )
-  }
-  }
-  cdf$SE <- 100*(cdf[, paste0('#Positives ', case_class)] / sum(data$Class==case_class))
-  cdf$SP <- 100-(100*(cdf[,paste0('#Positives ', control_class)] / sum(data$Class==control_class)))
-  cdf$n_markers <- as.double(lapply(cdf$Markers, function(x) str_count(x, pattern = "-")+1))
+  # Set up parallel processing using the specified number of cores
+  cl <- makeCluster(n_cores)
+  clusterExport(cl, varlist = c("dt", "combination_list","signalthr", "combithr"), envir=environment())
+  clusterEvalQ(cl, library(data.table))
+  clusterEvalQ(cl, library(stringr))
 
-  return(cdf)}
+  # Process each marker combination in parallel
+  results <- parLapply(cl, combination_list, function(combination) {
+    # Split the combination string into individual markers
+    s_combination <- str_split(combination, '-')[[1]]
+    # Find column indices of the markers in data
+    marker_indices <- match(s_combination, markers) + 2
+    
+    # Subset data for Case and Control groups
+    case_data <- dt[dt$Case, marker_indices, with=FALSE]
+    control_data <- dt[dt$Control, marker_indices, with=FALSE]
+
+    # Calculate sum of markers >= signalthr for each row
+    TPM <- rowSums(as.data.table(case_data) >= signalthr, na.rm = TRUE)
+    FPM <- rowSums(as.data.table(control_data) >= signalthr, na.rm = TRUE)
+    # Count positives based on combithr threshold
+    case_positives <- sum(TPM >= combithr)
+    control_positives <- sum(FPM >= combithr)
+      
+    # Create a summary data.table
+    res <- data.table(Markers=combination, 
+                      TP=case_positives, FP=control_positives, 
+                      SE=100 * (case_positives / sum(dt$Case)),
+                      SP=100 - (100 * (control_positives / sum(dt$Control))), 
+                      n_markers=length(s_combination))
+    
+    # Return the result
+    return(res)
+  })
+    
+    
+
+  
+  # Stop the parallel cluster
+  stopCluster(cl)
+    
+  # Combine all results into one data frame
+  cdf <- rbindlist(results)
+  cdf <- as.data.frame(cdf)
+  
+  # Creating the data.frame for discarded combinations (length(combination) < combithr)
+  if (combithr>1){
+      cat("Combinations with length < 'combithr' (",combithr,") have a sensitivity of 0, as they cannot be expressed by definition. See the 'combithr' parameter in the documentation for more information")
+      
+     discarded <- unlist(lapply(1:(combithr-1), function(k) { combn(markers, k, simplify = FALSE)}), recursive = FALSE)
+     discarded_list <- lapply(discarded, function(x){paste(x, collapse = "-")})
+     disc <- as.data.frame(matrix(0, nrow = length(discarded), ncol = 6))
+     colnames(disc)<- colnames(cdf)
+     disc$Markers<- discarded_list
+     disc$SP <- 100
+     disc$n_markers <- lapply(discarded, length)
+     cdf <- rbind(disc, cdf)
+  }
+  # Assign row names
+  rownames(cdf) <- lapply(1:dim(cdf)[1], function(n) { paste('Combination', as.character(n-length(markers)))})
+  rownames(cdf)[1:(length(markers))] <- markers
+  return(cdf)
+}

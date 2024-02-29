@@ -1,4 +1,3 @@
-\dontrun{
 demo_data # combiroc built-in demo data (proteomics data from Zingaretti et al. 2012 - PMC3518104)
 demo_unclassified_data # combiroc built-in unclassified demo data
 
@@ -22,4 +21,3 @@ classified_data <- combi_score(data= demo_unclassified_data,
                                Positive_class=1, Negative_class=0, classify=TRUE)
 
 classified_data  # show samples classified using Logistic regression models
-}

@@ -11,3 +11,10 @@ sh_mk <- show_markers(selected_combinations =c(11,15), markers_table = tab)
 combs_list <- combs_with(markers=c('Marker1', 'Marker3'), markers_table = tab)
 unc_data <- demo_unclassified_data
 cl_data <- combi_score(unc_data, Models =  reports$Models, Metrics = reports$Metrics, Positive_class = "affected", Negative_class = "healthy",classify = TRUE)
+# Create a synthetic dataset for testing
+syn <- data.frame(
+  Class = factor(rep(c("case", "control"), each = 50)),
+  Marker1 = rnorm(100),
+  Marker2 = rnorm(100, mean = 2),
+  Marker3 = rnorm(100, mean = 3)
+)

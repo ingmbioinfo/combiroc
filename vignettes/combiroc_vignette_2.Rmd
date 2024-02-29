@@ -41,7 +41,6 @@ The full story and more comments on this case study can be found in our **_"Less
 ```{r warning=FALSE,message=FALSE}
 # main libraries:
 library(combiroc)
-library(dplyr)
 library(tidyr)
 library(ggplot2)
 ```
