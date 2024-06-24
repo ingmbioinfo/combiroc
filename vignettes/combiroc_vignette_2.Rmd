@@ -47,9 +47,9 @@ library(ggplot2)
 ```
 
 and also needed for this specific scRNAseq workflow (install them first, if you didn't already):
-```{r eval=FALSE}
-library(devtools) # used to install devel-level packages
-library(Seurat) # used to process scRNAseq data
+```{r}
+library(remotes) # used to install devel-level packages. "devtools" pacakge can be used too.
+library(Seurat) # used to process scRNAseq data. Use version 4 to reproduce this vignette.
 library(SeuratData) # used to install and load scRNAseq datasets
 library(SeuratDisk) # used to read h5seurat files
 ```
@@ -59,14 +59,16 @@ library(SeuratDisk) # used to read h5seurat files
 The code described in this vignette was originally run on a jupyter-based R-kernel notebook backed by a high-performance computing (HPC) server infrastructure.
 Due to relevant size of some of the objects loaded and/or created, **it is unlikely that the whole code can be run on a standard computing equipment (i.e. a laptop)**.
 The computationally heavy passages are therefore marked as [[Heavy-Code]]{style="color: orange;"} and can be skipped by the user by reading/loading **pre-computed objects or intermediate results either from `rds` or `csv` files**.
-In this way the reader/reviewer will be able to check the code, to download (if needed) the pre-computed object when indicated and follow the whole workflow without having a HPC server.
+In this way the reader/reviewer will be able to check the code, to download (if needed) the pre-computed object when indicated and follow the whole workflow without having a HPC server.  
+Please note that if you want to fully reproduce this vignette, performing differential expression analysis used to generate the initial markers genelist, you need to [install and use Seurat version 4](https://satijalab.org/seurat/articles/install_v5#install-seurat-v4), and **not** the latest version 5, since [Seurat version 5 introduced changes](https://satijalab.org/seurat/articles/announcements) affecting reproducibility.  
 
 # Selection of NK cells marker combinations
 
 The difficulty to distinguish NK (Natural Killer) cells from CD8+ T cells in many scRNAseq datasets is a good challenge to test combiroc performance in markers signature optimization.\
-The purpose of this analysis is to find the best combinations of known gene markers that best describe the NK-cell populations starting from a NK-cell single-cell transcriptomic signature, then using the models calculated on such combinations on other scRNAseq datasets.\
-After performing differential marker expression on an initial "training" scRNAseq dataset we will take into account the top 30 differentially expressed genes (DEGs) specific for NK cells cluster; then we will use combiroc to select the best gene combinations among these top 30 NK cells markers.
-Regression models from the selected combinations will then be used on other independent datasets ("test" datasets) of the same kind.
+The purpose of this analysis is to find the best combinations of known gene markers that best describe the NK-cell populations starting from a NK-cell single-cell transcriptomic signature, then using the models calculated on such combinations on other scRNAseq datasets.We performed differential marker expression on an initial "training" scRNAseq dataset using the Seurat v.4 standard protocol and we took into account the top 30 differentially expressed genes (DEGs) specific for NK cells cluster.\ 
+\
+\
+**In this vignette we show how to use combiroc to select the best gene combinations starting from this 30 NK-markers signature.** The same process can be done on every other gene signature obtained by a differential expression procedure. Regression models from the selected combinations will then be used on other independent datasets ("test" datasets) of the same kind.\
 
 As combiroc training dataset we are using the [PBMC CITE-seq atlas](https://satijalab.org/seurat/articles/multimodal_reference_mapping.html) from Hao et al. 2021 [[2]](https://www.sciencedirect.com/science/article/pii/S0092867421005833).
 This dataset can be downloaded as an h5 Seurat data (h5s) from the [FredHutch-NYCG atlas page](https://atlas.fredhutch.org/nygc/multimodal-pbmc/) (exact download link: [here](https://atlas.fredhutch.org/data/nygc/multimodal/pbmc_multimodal.h5seurat)) [[Heavy-Code]]{style="color: orange;"}
@@ -89,10 +91,10 @@ To guarantee the best possible performance of the training dataset (the one we e
 
 ## Extracting the NK markers
 
-The gene markers for NK cells were obtained with a standard Seurat analysis (see [here](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html)); the `Seurat::FindMarkers()` function was used, then markers were ordered by fold change: [[Heavy-Code]]{style="color: orange;"}
+The gene markers for NK cells were obtained with a standard Seurat (version 4) analysis (see [here](https://satijalab.org/seurat/articles/pbmc3k_tutorial.html)); the `Seurat::FindMarkers()` function was used, then markers were ordered by fold change: [[Heavy-Code]]{style="color: orange;"}
 
 ```{r eval=FALSE}
-# Performing differential expression analysis
+# Performing differential expression analysis # Use Seurat v4 to fully reproduce results!!
 nk.de.markers <- FindMarkers(atlas, ident.1 = "NK", ident.2 = NULL)
 nk.de.markers <- nk.de.markers[order(-nk.de.markers$avg_log2FC), ]
 nk_genes <- rownames(nk.de.markers)[1:30]
@@ -107,7 +109,6 @@ FeaturePlot(atlas, nk_genes[1:4])
 mywd <- getwd()
 knitr::include_graphics(paste0(mywd, "/vignettes/FeaturePlot1.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
 ```
-
 
 The user not willing (or computationally limited) to run the differential expression analysis above can read the pre-computed object containing the gene signature of the **top 30 DEGs** (overexpressed in NK cells vs all others):
 
@@ -666,4 +667,9 @@ Go to [Combiroc standard workflow tutorial](https://ingmbioinfo.github.io/combir
 4. Satija et al. 2015. *Nature Biotechnology*. Spatial reconstruction of single-cell gene expression data.
 5. Della Chiara et al. 2021. *Nature Communications*. Epigenomic landscape of human colorectal cancer unveils an aberrant core of pan-cancer enhancers orchestrated by YAP/TAZ.
 
+# Session Info
+
+```{r}
+sessionInfo()
+```
 
