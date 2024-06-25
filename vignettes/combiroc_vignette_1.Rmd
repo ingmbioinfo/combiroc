@@ -391,6 +391,20 @@ combs_list <- combs_with(markers=c('Marker1', 'Marker3'), markers_table = tab)
 combs_list
 ```
 
+## Evaluating the model
+
+In order to evaluate a specific model is possible to calculate its AIC with the following code (you need to install the "broom" package to run this code).
+```{r, eval=FALSE}
+# Get coefficients and statistics
+df_mod1 <- bind_rows(lapply(reports_all$Models, broom::tidy), .id = "model")
+# Get model-level statistics
+df_mod2 <- bind_rows(lapply(reports_all$Models, broom::glance), .id = "model")
+#merge the two statistics
+df_mod <- merge(df_mod1, df_mod2, by='model')
+#remove models that contain NA
+df_mod <- na.omit(df_mod)
+```
+
 Back to the [top](#top) of this doc
 
 Go to [Signature refining tutorial](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_2.html)
