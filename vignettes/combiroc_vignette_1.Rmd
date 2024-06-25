@@ -145,7 +145,7 @@ distr$Boxplot
 
 ### The ROC curve for all markers and its coordinates
 
-The __ROC__ curve shows how many real positive samples would be found positive (sensitivity, or SE) and how many real negative samples would be found negative (specificity, or SP) in function of signal threshold. Please note that the _False Positive Rate_ (i.e. _1 - specificity_) is plotted on the x-axis. These SE and SP are refereed to the signal intensity threshold considering _all_ the markers together; they are _not_ the SE and SP of a single marker/combination computed by the 'combi()` function further discussed in the **Combinatorial analyisis, sensitivity and specificity** paragraph.
+The __ROC__ curve shows how many real positive samples would be found positive (sensitivity, or SE) and how many real negative samples would be found negative (specificity, or SP) in function of signal threshold. Please note that the _False Positive Rate_ (i.e. _1 - specificity_) is plotted on the x-axis. These SE and SP are refereed to the signal intensity threshold considering _all_ the markers together; they are _not_ the SE and SP of a single marker/combination computed by the `combi()` function further discussed in the **Combinatorial analyisis, sensitivity and specificity** paragraph.
 ```{r eval=FALSE}
 distr$ROC
 ```
@@ -154,14 +154,14 @@ mywd <- getwd()
 knitr::include_graphics(paste0(mywd, "/roc_curve_vign1.png"), dpi = 2, rel_path = getOption("knitr.graphics.rel_path", FALSE))
 ```
 
-The __Coord__ is a dataframe that contains the coordinates of the above described "ROC" (threshold, SP and SE) that have at least a minimun SE (min_SE) and a minimum SP (min_SP): this two threshold are set by default at `min_SE = 0` and `min_SP = 0`, but they can be set manually by specifying different values as shown in the example. The Youden index is also computed: this is the Youden's J statistic capturing the performance of a dichotomous diagnostic test, with higher values for better performance ( $J = SE + SP -1$).
+The __Coord__ is a dataframe that contains the coordinates of the above described "ROC" (threshold, SP and SE) that have at least a minimun SE (min_SE) and a minimum SP (min_SP): these two thresholds are set by default at `min_SE = 0` and `min_SP = 0`, but they can be set manually by specifying different values as shown in the example. The Youden index is also computed: this is the Youden's J statistic capturing the performance of a dichotomous diagnostic test, with higher values for better performance ( $J = SE + SP -1$).
 ```{r, coord1}
 head(distr$Coord, n=10)
 ```
 
 ### The density plot and suggested signal threshold {#dens}
 
-The __Density_plot__ shows the distribution of the signal intensity values for both the classes. In addition, the function allows the user to set both the y_lim and x_lim values to provide a better visualization.
+The __Density_plot__ shows the distribution of the signal intensity values for both classes. In addition, the function allows the user to set both the y_lim and x_lim values to provide a better visualization.
 One important feature of the density plot is that it calculates a possible __signal intensity threshold:__ in case of lack of *a priori* knowedge of the threshold the user can set the argument `signalthr_prediction = TRUE` in the `markers_distribution()` function. In this way the function calculates a "suggested signal threshold" that corresponds to the signal threshold value associated to the highest Youden index (in __Coord__), at which SE and SP are greater or equal to their set minimal values (min_SE and min_SP). This threshold is added to the "Density_plot" object as a dashed black line and a number. The use of the Youden index allows to pick a threshold with the best SE/SP setting, but it is recommended to always inspect "Coord" and choose the most appropriate signal threshold by considering SP, SE and Youden index.
 
 This suggested signal threshold can be used as __signalthr__ argument of the `combi()` function further in the workflow.
