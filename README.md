@@ -10,15 +10,15 @@
 
 <!-- badges: end -->
 
-# Combiroc
+# Combiroc - the package
 
-The combiroc package is a totally new music in multi-markers analysis: an R package for efficient and easy combinatorial selection of biomarkers and sensitivity/specificity-driven prioritization of features. 
+Combiroc is a totally new music in multi-markers analysis: an R package for efficient and easy combinatorial selection of biomarkers and sensitivity/specificity-driven prioritization of features. 
 
 Latest version introduces new features to work __on single-cell RNAseq datasets__ too, selecting smaller markers sub-signatures that can be used to efficiently identify and annotate cell clusters. 
 
 This is the development version of CombiROC package (combiroc), code in this repo is always work in progress and it is uploaded here "as-is" with no warranties implied. Improvements and new features will be added on a regular basis, please check on this github page for new features and releases. 
 
-## The legacy CombiROC Schiny web-app
+## The legacy CombiROC Shiny web-app
 
 The CombiROC approach was first released as a Shiny Application which is still available at [combiroc.eu](http://combiroc.eu/) but it has limited features as well as low computational power and is __not further maintained__. If you need to cite the web-app please refer to [**Mazzara et al.** Scientific Reports 2017](https://www.nature.com/articles/srep45477) and [**Bombaci & Rossi**, Methods Mol Biol 2019](https://link.springer.com/protocol/10.1007/978-1-4939-9164-8_16).
 
@@ -33,11 +33,11 @@ If you are using the combiroc **package** in your research, please cite our late
 
 The Supplementary Material 1 and 2 (documented protocols/vignettes) can be accessed here:  
 * __Supplementary Material 1__ (Standard vignette): [Standard worlkflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_1.html). 
-* __Supplementary Material 2__ (Additional vignette): [scRNAseq workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_2.html).  
+* __Supplementary Material 2__ (single cell RNAseq protocol): [scRNAseq workflow](https://ingmbioinfo.github.io/combiroc/articles/combiroc_vignette_2.html).  
 
 ### "Less is more" version of the paper (preprint)
 
-The 2016 Scientific Reports paper was anticipated in our previous **_"Less is more"_ bioRxiv preprint**: [**Ferrari et al.** *Combiroc: when 'less is more' in bulk and single cell marker signatures*. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2) 
+The 2026 Scientific Reports paper was anticipated by our previous **_"Less is more"_ bioRxiv preprint**: [**Ferrari et al.** *Combiroc: when 'less is more' in bulk and single cell marker signatures*. bioRxiv 2022.01.17.476603; doi: https://doi.org/10.1101/2022.01.17.476603](https://www.biorxiv.org/content/10.1101/2022.01.17.476603v2) 
 
 ## Installation (from CRAN)
 
